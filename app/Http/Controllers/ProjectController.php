@@ -255,7 +255,7 @@ class ProjectController extends Controller
                 $project->end_date_pre    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateStringEnd_date_pre)->format('Y-m-d H:i:s');
                 // $project->description = $request->description;
                 // $project->level         = $request->level;
-                $project->parent_level  = $request->parent_level;
+                // $project->parent_level  = $request->parent_level;
                 $project->user_id     = Auth::user()->id;
                 $project->save();
 
