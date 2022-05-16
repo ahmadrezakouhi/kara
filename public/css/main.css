@@ -1,0 +1,136 @@
+@font-face {
+	font-family:'Vazir-Bold';
+	src:url('fonts/Vazir-Bold-FD-WOL.eot');
+	src:url('fonts/Vazir-Bold-FD-WOL.woff') format('woff'),
+	url('fonts/Vazir-Bold-FD-WOL.ttf') format('truetype'),
+	url('fonts/Vazir-Bold-FD-WOL.woff2') format('woff2'),
+	url('fonts/Vazir-Bold-FD-WOL.eot?#iefix') format('embedded-opentype');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family:'Vazir';
+	src:url('fonts/Vazir-FD-WOL.eot');
+	src:url('fonts/Vazir-FD-WOL.woff') format('woff'),
+	url('fonts/Vazir-FD-WOL.ttf') format('truetype'),
+	url('fonts/Vazir-FD-WOL.woff2') format('woff2'),
+	url('fonts/Vazir-FD-WOL.eot?#iefix') format('embedded-opentype');
+}
+
+@font-face {
+	font-family:'Vazir-Light';
+	src:url('fonts/Vazir-Light-FD-WOL.eot');
+	src:url('fonts/Vazir-Light-FD-WOL.woff') format('woff'),
+	url('fonts/Vazir-Light-FD-WOL.ttf') format('truetype'),
+	url('fonts/Vazir-Light-FD-WOL.woff2') format('woff2'),
+	url('fonts/Vazir-Light-FD-WOL.eot?#iefix') format('embedded-opentype');
+}
+
+@font-face {
+	font-family:'Vazir-Medium';
+	src:url('fonts/Vazir-Medium-FD-WOL.eot');
+	src:url('fonts/Vazir-Medium-FD-WOL.woff') format('woff'),
+	url('fonts/Vazir-Medium-FD-WOL.ttf') format('truetype'),
+	url('fonts/Vazir-Medium-FD-WOL.woff2') format('woff2'),
+	url('fonts/Vazir-Medium-FD-WOL.eot?#iefix') format('embedded-opentype');
+}
+
+@font-face {
+	font-family:'Vazir-Thin';
+	src:url('fonts/Vazir-Thin-FD-WOL.eot');
+	src:url('fonts/Vazir-Thin-FD-WOL.woff') format('woff'),
+	url('fonts/Vazir-Thin-FD-WOL.ttf') format('truetype'),
+	url('fonts/Vazir-Thin-FD-WOL.woff2') format('woff2'),
+	url('fonts/Vazir-Thin-FD-WOL.eot?#iefix') format('embedded-opentype');
+}
+
+html {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    direction: rtl;
+}
+*, body{
+	font-size: 14px;
+    font-family: 'Vazir-Light';
+}
+body {
+    margin: 0;
+    overflow-x: hidden;
+    color: #020202;
+    height: 100% !important;
+    width: 100%;
+    /* background-color: rgba(0, 0, 0, 0.24); */
+	/*background-image: url("../image/bg2.jpg") !important;*/
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+    
+	direction: rtl;
+    text-align: right;
+	
+}
+/* input[type="tel"] , input[type="number"], input[type="email"]{
+    text-align: left;
+} */
+
+input{
+	text-align: center;
+}
+
+.align-left{
+    text-align: left;
+}
+.align-right{
+    text-align: right;
+}
+.align-center{
+    text-align: center;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+	float: right !important;
+	padding-left: .5rem;
+	padding-right: .5rem;
+}
+a{
+	text-decoration: none;
+}
+
+.dataTable th, .dataTable td,
+.dataTable  tr td button{
+	margin: auto 2px;
+}
+
+.dataTable th, .dataTable td{
+	text-align: center;
+}
+
+.table > :not(caption) > * > * {
+	padding: 4px !important;
+}
+.btn-blue{
+	color: #fff;
+	background-color: #2185d0;
+}
+.btn-teal{
+	color: #fff;
+	background-color: #00b5ad;
+}
+.btn-violet{
+	color: #fff;
+	background-color: #6435c9;
+}
+.btn-orang{
+	color: #fff;
+	background-color: #f2711c;
+}
+.btn-olive{
+	color: #fff;
+	background-color: #b5cc18;
+}
+.btn-brown{
+	color: #fff;
+	background-color: #a5673f;
+}

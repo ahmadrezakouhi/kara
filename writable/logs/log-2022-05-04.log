@@ -1,0 +1,213 @@
+CRITICAL - 2022-05-04 01:30:36 --> Undefined property: stdClass::$CompanyCode
+#0 C:\xampp\htdocs\bargou\app\Controllers\Login.php(34): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined prope...', 'C:\\xampp\\htdocs...', 34)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Login->auth()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-04 01:30:50 --> Undefined property: App\Controllers\Login::$session
+#0 C:\xampp\htdocs\bargou\app\Controllers\Login.php(40): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined prope...', 'C:\\xampp\\htdocs...', 40)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Login->auth()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-04 01:45:41 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 20)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Tariff.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Tariff->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tariff))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-05-04 01:47:58 --> Undefined constant "App\Controllers\this"
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->index()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-05-04 01:48:21 --> Undefined constant "App\Controllers\this"
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->index()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-05-04 01:49:23 --> Unsupported operand types: CodeIgniter\Session\Session - string
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->index()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-05-04 01:49:34 --> Call to undefined method App\Controllers\Setting::session()
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->index()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-05-04 01:58:16 --> Call to undefined method App\Controllers\Setting::session()
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->update()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-05-04 01:58:41 --> There is no data to update.
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(1574): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(832): CodeIgniter\BaseModel->transformDataToArray(NULL, 'update')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(651): CodeIgniter\BaseModel->update(Array, NULL)
+#3 C:\xampp\htdocs\bargou\app\Controllers\Setting.php(47): CodeIgniter\Model->update(Array)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->update()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-05-04 01:59:02 --> There is no data to update.
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(1574): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(832): CodeIgniter\BaseModel->transformDataToArray(NULL, 'update')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(651): CodeIgniter\BaseModel->update(Array, NULL)
+#3 C:\xampp\htdocs\bargou\app\Controllers\Setting.php(47): CodeIgniter\Model->update(Array)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->update()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-05-04 02:04:18 --> There is no data to insert.
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(718): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('insert')
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(625): CodeIgniter\BaseModel->insert(Array, true)
+#2 C:\xampp\htdocs\bargou\app\Controllers\Setting.php(17): CodeIgniter\Model->insert(Array)
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->index()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-05-04 02:05:22 --> There is no data to insert.
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(718): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('insert')
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(625): CodeIgniter\BaseModel->insert(Array, true)
+#2 C:\xampp\htdocs\bargou\app\Controllers\Setting.php(18): CodeIgniter\Model->insert(Array)
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->index()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-05-04 02:12:48 --> There is no data to insert.
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(718): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('insert')
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(625): CodeIgniter\BaseModel->insert(Array, true)
+#2 C:\xampp\htdocs\bargou\app\Controllers\Setting.php(19): CodeIgniter\Model->insert(Array)
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->index()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-05-04 03:07:39 --> There is no data to insert.
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(718): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('insert')
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(625): CodeIgniter\BaseModel->insert(Array, true)
+#2 C:\xampp\htdocs\bargou\app\Controllers\Setting.php(19): CodeIgniter\Model->insert(Array)
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->index()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-05-04 03:10:22 --> There is no data to insert.
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(718): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('insert')
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(625): CodeIgniter\BaseModel->insert(Array, true)
+#2 C:\xampp\htdocs\bargou\app\Controllers\Setting.php(19): CodeIgniter\Model->insert(Array)
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Setting->index()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-05-04 03:28:35 --> Call to a member function get() on null
+#0 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(78): App\Models\DriverModel->getCountWithFilters(Array)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Driver->getAll()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-04 03:29:03 --> Call to a member function get() on null
+#0 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(78): App\Models\DriverModel->getCountWithFilters(Array)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Driver->getAll()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-04 03:31:02 --> Call to a member function get() on null
+#0 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(78): App\Models\DriverModel->getCountWithFilters(Array)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Driver->getAll()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-04 03:32:50 --> Call to a member function get() on null
+#0 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(78): App\Models\DriverModel->getCountWithFilters(Array)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Driver->getAll()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-04 03:33:40 --> Attempt to read property "UserID" on null
+#0 C:\xampp\htdocs\bargou\app\Models\DriverModel.php(36): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read...', 'C:\\xampp\\htdocs...', 36)
+#1 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(78): App\Models\DriverModel->getCountWithFilters(Array)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Driver->getAll()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+CRITICAL - 2022-05-04 03:35:08 --> syntax error, unexpected token ";", expecting ")"
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(241): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs...')
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(219): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Driv...')
+#2 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(64): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Driv...')
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Driver->getAll()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+CRITICAL - 2022-05-04 03:35:30 --> Undefined array key "session->UserID"
+#0 C:\xampp\htdocs\bargou\app\Models\DriverModel.php(36): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 36)
+#1 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(78): App\Models\DriverModel->getCountWithFilters(Array)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Driver->getAll()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+CRITICAL - 2022-05-04 12:49:26 --> Undefined array key "UserID"
+#0 C:\xampp\htdocs\bargou\app\Models\DriverModel.php(36): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 36)
+#1 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(78): App\Models\DriverModel->getCountWithFilters(Array)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Driver->getAll()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+CRITICAL - 2022-05-04 12:49:35 --> Undefined array key "UserID"
+#0 C:\xampp\htdocs\bargou\app\Models\DriverModel.php(36): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 36)
+#1 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(78): App\Models\DriverModel->getCountWithFilters(Array)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Driver->getAll()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}

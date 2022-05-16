@@ -1,0 +1,34 @@
+ERROR - 2022-05-07 09:05:06 --> Unknown column 'FName1' in 'where clause'
+CRITICAL - 2022-05-07 09:05:06 --> Unknown column 'FName1' in 'where clause'
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(5, 0)
+#6 C:\xampp\htdocs\bargou\app\Models\DriverModel.php(57): CodeIgniter\BaseModel->findAll(5, 0)
+#7 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(119): App\Models\DriverModel->getWithFilters(Array, Array)
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Driver->getAll()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+CRITICAL - 2022-05-07 09:33:38 --> Undefined array key "sf"
+#0 C:\xampp\htdocs\bargou\app\Models\TruckModel.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 21)
+#1 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(87): App\Models\TruckModel->getCountWithFilters(Array)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Truck->getAll()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+CRITICAL - 2022-05-07 09:33:47 --> Undefined array key "sf"
+#0 C:\xampp\htdocs\bargou\app\Models\TruckModel.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 21)
+#1 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(87): App\Models\TruckModel->getCountWithFilters(Array)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Truck->getAll()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#7 {main}

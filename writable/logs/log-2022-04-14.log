@@ -1,0 +1,7 @@
+CRITICAL - 2022-04-14 12:06:28 --> Call to undefined function App\Controllers\coun()
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getTruckWithSmartNumber('1992378')
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}

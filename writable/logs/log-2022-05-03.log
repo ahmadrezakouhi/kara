@@ -1,0 +1,117 @@
+CRITICAL - 2022-05-03 01:15:01 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 20)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Tariff.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Tariff->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tariff))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-05-03 01:41:56 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 20)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Tariff.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Tariff->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tariff))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-05-03 02:01:56 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 20)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Tariff.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Tariff->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tariff))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-05-03 04:28:23 --> Cannot declare class App\Controllers\Panel, because the name is already in use
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2022-05-03 13:20:54 --> App\Models\PanelModel::auth(): Argument #2 ($password) must be of type string, null given, called in C:\xampp\htdocs\bargou\app\Controllers\Login.php on line 29
+#0 C:\xampp\htdocs\bargou\app\Controllers\Login.php(29): App\Models\PanelModel->auth('', NULL)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Login->auth()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-03 13:22:28 --> App\Models\PanelModel::auth(): Argument #2 ($password) must be of type string, null given, called in C:\xampp\htdocs\bargou\app\Controllers\Login.php on line 29
+#0 C:\xampp\htdocs\bargou\app\Controllers\Login.php(29): App\Models\PanelModel->auth('', NULL)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Login->auth()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-03 13:23:30 --> Call to undefined function reCaptcha3()
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('login', Array, true)
+#3 C:\xampp\htdocs\bargou\app\Controllers\Login.php(15): view('login')
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Login->index()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-05-03 14:06:21 --> Call to undefined function reCaptcha3()
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('login', Array, true)
+#3 C:\xampp\htdocs\bargou\app\Controllers\Login.php(15): view('login')
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Login->index()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-05-03 14:07:31 --> App\Models\PanelModel::auth(): Argument #2 ($password) must be of type string, null given, called in C:\xampp\htdocs\bargou\app\Controllers\Login.php on line 29
+#0 C:\xampp\htdocs\bargou\app\Controllers\Login.php(29): App\Models\PanelModel->auth('', NULL)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Login->auth()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-03 14:07:39 --> App\Models\PanelModel::auth(): Argument #2 ($password) must be of type string, null given, called in C:\xampp\htdocs\bargou\app\Controllers\Login.php on line 29
+#0 C:\xampp\htdocs\bargou\app\Controllers\Login.php(29): App\Models\PanelModel->auth('', NULL)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Login->auth()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-03 14:10:04 --> App\Models\PanelModel::auth(): Argument #2 ($password) must be of type string, null given, called in C:\xampp\htdocs\bargou\app\Controllers\Login.php on line 29
+#0 C:\xampp\htdocs\bargou\app\Controllers\Login.php(29): App\Models\PanelModel->auth('', NULL)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Login->auth()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-03 14:21:49 --> App\Models\PanelModel::auth(): Argument #2 ($password) must be of type string, null given, called in C:\xampp\htdocs\bargou\app\Controllers\Login.php on line 29
+#0 C:\xampp\htdocs\bargou\app\Controllers\Login.php(29): App\Models\PanelModel->auth('', NULL)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Login->auth()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-05-03 23:47:24 --> App\Models\PanelModel::auth(): Argument #2 ($password) must be of type string, null given, called in C:\xampp\htdocs\bargou\app\Controllers\Login.php on line 29
+#0 C:\xampp\htdocs\bargou\app\Controllers\Login.php(29): App\Models\PanelModel->auth('', NULL)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Login->auth()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}

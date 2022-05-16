@@ -1,0 +1,29 @@
+ERROR - 2022-03-15 10:20:57 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-03-15 10:20:57 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1539): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(509): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#3 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(75): CodeIgniter\Model->countAllResults()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Driver->getAll()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+ERROR - 2022-03-15 11:54:07 --> Column 'Status' cannot be null
+CRITICAL - 2022-03-15 11:54:07 --> Column 'Status' cannot be null
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('INSERT INTO `Dr...', 0)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `Dr...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `Dr...')
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1771): CodeIgniter\Database\BaseConnection->query('INSERT INTO `Dr...', Array, false)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(239): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(738): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(625): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(36): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Driver->Add()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#13 {main}

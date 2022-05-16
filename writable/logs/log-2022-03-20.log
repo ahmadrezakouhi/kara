@@ -1,0 +1,491 @@
+CRITICAL - 2022-03-20 05:59:37 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(16): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 16)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-20 06:00:00 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(16): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 16)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-20 06:00:07 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(16): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 16)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-20 06:12:11 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 06:40:19 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 06:40:49 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 06:46:34 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 06:54:19 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 07:00:03 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 07:01:11 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 07:21:14 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 07:22:06 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 07:22:57 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 07:25:25 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 07:29:17 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 07:29:49 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 07:31:59 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:01:55 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:04:33 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:05:34 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:06:33 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:06:56 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:07:25 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:07:50 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:09:04 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:20:51 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+ERROR - 2022-03-20 09:31:03 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-03-20 09:31:03 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1539): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(509): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#3 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(74): CodeIgniter\Model->countAllResults()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Driver->getAll()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+ERROR - 2022-03-20 09:31:15 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-03-20 09:31:15 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1539): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(509): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#3 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(74): CodeIgniter\Model->countAllResults()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Driver->getAll()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-03-20 09:31:34 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:32:25 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:32:32 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:36:19 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:37:21 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:41:37 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:41:57 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:43:01 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:46:50 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:51:46 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:53:28 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:54:50 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:55:53 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 09:58:06 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 11:46:42 --> Class "App\Controllers\VehicleLoaderModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Vehicle->getVehicle()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Vehicle))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:00:14 --> Class "App\Controllers\VehicleLoaderModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Vehicle->getVehicle()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Vehicle))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:00:15 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:01:01 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:01:01 --> Class "App\Controllers\VehicleLoaderModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Vehicle->getVehicle()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Vehicle))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:01:13 --> Class "App\Controllers\VehicleLoaderModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Vehicle->getVehicle()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Vehicle))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:01:13 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:02:07 --> Too few arguments to function App\Models\VehicleCapacityModel::getAll(), 0 passed in C:\xampp\htdocs\bargou\app\Controllers\Vehicle.php on line 12 and exactly 1 expected
+#0 C:\xampp\htdocs\bargou\app\Controllers\Vehicle.php(12): App\Models\VehicleCapacityModel->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Vehicle->getVehicle()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Vehicle))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-03-20 12:02:07 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:03:56 --> App\Models\VehicleCapacityModel::getAll(): Return value must be of type int, array returned
+#0 C:\xampp\htdocs\bargou\app\Controllers\Vehicle.php(12): App\Models\VehicleCapacityModel->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Vehicle->getVehicle()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Vehicle))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-03-20 12:03:56 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:04:36 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:05:53 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:06:28 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:09:54 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:12:57 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:15:45 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:16:37 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:18:44 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:19:41 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:20:08 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:26:09 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:29:27 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+CRITICAL - 2022-03-20 12:39:02 --> Class "App\Controllers\TruckModel" not found
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}

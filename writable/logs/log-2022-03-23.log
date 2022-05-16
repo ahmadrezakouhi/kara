@@ -1,0 +1,144 @@
+ERROR - 2022-03-23 00:11:12 --> Unknown column 'Created_at' in 'order clause'
+CRITICAL - 2022-03-23 00:11:12 --> Unknown column 'Created_at' in 'order clause'
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(5, 0)
+#6 C:\xampp\htdocs\bargou\app\Models\TruckModel.php(55): CodeIgniter\BaseModel->findAll(5, 0)
+#7 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(81): App\Models\TruckModel->getWithFilters(Array, Array)
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+ERROR - 2022-03-23 00:12:17 --> Unknown column 'Created_at' in 'order clause'
+CRITICAL - 2022-03-23 00:12:17 --> Unknown column 'Created_at' in 'order clause'
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(5, 0)
+#6 C:\xampp\htdocs\bargou\app\Models\TruckModel.php(55): CodeIgniter\BaseModel->findAll(5, 0)
+#7 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(81): App\Models\TruckModel->getWithFilters(Array, Array)
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+ERROR - 2022-03-23 00:28:34 --> Unknown column 'Created_at' in 'order clause'
+CRITICAL - 2022-03-23 00:28:34 --> Unknown column 'Created_at' in 'order clause'
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(5, 0)
+#6 C:\xampp\htdocs\bargou\app\Models\TruckModel.php(55): CodeIgniter\BaseModel->findAll(5, 0)
+#7 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(81): App\Models\TruckModel->getWithFilters(Array, Array)
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+ERROR - 2022-03-23 00:30:07 --> Unknown column 'Created_at' in 'order clause'
+CRITICAL - 2022-03-23 00:30:07 --> Unknown column 'Created_at' in 'order clause'
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(5, 0)
+#6 C:\xampp\htdocs\bargou\app\Models\TruckModel.php(55): CodeIgniter\BaseModel->findAll(5, 0)
+#7 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(82): App\Models\TruckModel->getWithFilters(Array, Array)
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+CRITICAL - 2022-03-23 00:31:21 --> Unclosed '{' on line 26 does not match ')'
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Router\Router.php(175): CodeIgniter\Router\Router->autoRoute('truck/getAll')
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(719): CodeIgniter\Router\Router->handle('truck/getAll')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-03-23 00:31:31 --> Unclosed '{' on line 26 does not match ')'
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Router\Router.php(175): CodeIgniter\Router\Router->autoRoute('truck/add')
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(719): CodeIgniter\Router\Router->handle('truck/add')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+ERROR - 2022-03-23 00:31:56 --> Unknown column 'Created_at' in 'order clause'
+CRITICAL - 2022-03-23 00:31:56 --> Unknown column 'Created_at' in 'order clause'
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(5, 0)
+#6 C:\xampp\htdocs\bargou\app\Models\TruckModel.php(55): CodeIgniter\BaseModel->findAll(5, 0)
+#7 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(82): App\Models\TruckModel->getWithFilters(Array, Array)
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+ERROR - 2022-03-23 00:42:39 --> Unknown column 'Created_at' in 'order clause'
+CRITICAL - 2022-03-23 00:42:39 --> Unknown column 'Created_at' in 'order clause'
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(5, 0)
+#6 C:\xampp\htdocs\bargou\app\Models\TruckModel.php(55): CodeIgniter\BaseModel->findAll(5, 0)
+#7 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(83): App\Models\TruckModel->getWithFilters(Array, Array)
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+ERROR - 2022-03-23 00:43:15 --> Unknown column 'Created_at' in 'order clause'
+CRITICAL - 2022-03-23 00:43:15 --> Unknown column 'Created_at' in 'order clause'
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(5, 0)
+#6 C:\xampp\htdocs\bargou\app\Models\TruckModel.php(55): CodeIgniter\BaseModel->findAll(5, 0)
+#7 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(83): App\Models\TruckModel->getWithFilters(Array, Array)
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+ERROR - 2022-03-23 00:43:47 --> Unknown column 'Created_at' in 'order clause'
+CRITICAL - 2022-03-23 00:43:47 --> Unknown column 'Created_at' in 'order clause'
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(5, 0)
+#6 C:\xampp\htdocs\bargou\app\Models\TruckModel.php(55): CodeIgniter\BaseModel->findAll(5, 0)
+#7 C:\xampp\htdocs\bargou\app\Controllers\Truck.php(83): App\Models\TruckModel->getWithFilters(Array, Array)
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Truck->getAll()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Truck))
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#13 {main}

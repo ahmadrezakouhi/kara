@@ -1,0 +1,154 @@
+CRITICAL - 2022-03-25 00:59:48 --> Undefined variable $title
+#0 C:\xampp\htdocs\bargou\app\Views\template\header.php(18): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 18)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/header', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Request.php(11): view('template/header')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Request->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Request))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-25 01:00:01 --> Undefined variable $title
+#0 C:\xampp\htdocs\bargou\app\Views\template\header.php(18): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 18)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/header', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Request.php(11): view('template/header')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Request->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Request))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-25 01:01:22 --> Undefined variable $dataAll
+#0 C:\xampp\htdocs\bargou\app\Controllers\Request.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 13)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Request->index()
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Request))
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+ERROR - 2022-03-25 01:01:38 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-03-25 01:01:38 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1539): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(509): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#3 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(75): CodeIgniter\Model->countAllResults()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Driver->getAll()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+ERROR - 2022-03-25 01:01:53 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-03-25 01:01:53 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1539): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(509): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#3 C:\xampp\htdocs\bargou\app\Controllers\Driver.php(75): CodeIgniter\Model->countAllResults()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Driver->getAll()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Driver))
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+CRITICAL - 2022-03-25 01:02:18 --> Undefined variable $title
+#0 C:\xampp\htdocs\bargou\app\Views\template\header.php(18): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 18)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/header', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Tariff.php(11): view('template/header')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Tariff->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tariff))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-25 01:02:53 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(17): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 17)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Tariff.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Tariff->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tariff))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-25 01:02:56 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(17): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 17)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Tariff.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Tariff->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tariff))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-25 01:03:21 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(17): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 17)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Tariff.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Tariff->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tariff))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-25 01:03:32 --> Undefined variable $title
+#0 C:\xampp\htdocs\bargou\app\Views\template\header.php(18): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 18)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/header', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Setting.php(11): view('template/header')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Setting->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-25 01:04:05 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(17): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 17)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Setting.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Setting->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Setting))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-25 01:04:09 --> Undefined variable $title
+#0 C:\xampp\htdocs\bargou\app\Views\template\header.php(18): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 18)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/header', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Panel.php(11): view('template/header')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Panel->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Panel))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-03-25 01:04:57 --> Undefined variable $pageJS
+#0 C:\xampp\htdocs\bargou\app\Views\template\footer.php(17): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 17)
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('template/footer', Array, true)
+#4 C:\xampp\htdocs\bargou\app\Controllers\Panel.php(14): view('template/footer')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Panel->index()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Panel))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}

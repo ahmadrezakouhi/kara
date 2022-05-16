@@ -1,0 +1,98 @@
+ERROR - 2022-04-24 11:32:45 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-04-24 11:32:45 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(142): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(523): CodeIgniter\Model->doFind(true, '2')
+#4 C:\xampp\htdocs\bargou\app\Controllers\Request.php(37): CodeIgniter\BaseModel->find('2')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Request->edit('2')
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Request))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+ERROR - 2022-04-24 11:32:48 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-04-24 11:32:48 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(142): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(523): CodeIgniter\Model->doFind(true, '2')
+#4 C:\xampp\htdocs\bargou\app\Controllers\Request.php(37): CodeIgniter\BaseModel->find('2')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Request->edit('2')
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Request))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+ERROR - 2022-04-24 11:32:55 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-04-24 11:32:55 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(142): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(523): CodeIgniter\Model->doFind(true, '2')
+#4 C:\xampp\htdocs\bargou\app\Controllers\Request.php(37): CodeIgniter\BaseModel->find('2')
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Request->edit('2')
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Request))
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+ERROR - 2022-04-24 11:32:58 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-04-24 11:32:58 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT `StateXI...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(0, 0)
+#4 C:\xampp\htdocs\bargou\app\Models\StateModel.php(12): CodeIgniter\BaseModel->findAll()
+#5 C:\xampp\htdocs\bargou\app\Controllers\State.php(19): App\Models\StateModel->getAllStates()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\State->getStates()
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\State))
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#11 {main}
+ERROR - 2022-04-24 11:33:00 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-04-24 11:33:00 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1539): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(509): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#3 C:\xampp\htdocs\bargou\app\Controllers\Request.php(169): CodeIgniter\Model->countAllResults()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Request->getAll()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Request))
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+ERROR - 2022-04-24 11:33:04 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-04-24 11:33:04 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT `StateXI...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(0, 0)
+#4 C:\xampp\htdocs\bargou\app\Models\StateModel.php(12): CodeIgniter\BaseModel->findAll()
+#5 C:\xampp\htdocs\bargou\app\Controllers\State.php(19): App\Models\StateModel->getAllStates()
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\State->getStates()
+#7 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\State))
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#11 {main}
+ERROR - 2022-04-24 11:33:07 --> Error connecting to the database: No connection could be made because the target machine actively refused it
+CRITICAL - 2022-04-24 11:33:07 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+#0 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1539): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#2 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Model.php(509): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#3 C:\xampp\htdocs\bargou\app\Controllers\Request.php(169): CodeIgniter\Model->countAllResults()
+#4 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(825): App\Controllers\Request->getAll()
+#5 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Request))
+#6 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bargou\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\bargou\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#9 {main}
