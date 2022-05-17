@@ -23,7 +23,7 @@ return new class extends Migration
             $table->bigInteger('parent_level_id')->default(0);
             $table->text('parent_level_name')->nullable();
             $table->bigInteger('user_id');
-            $table->tinyInteger('progress');
+            $table->tinyInteger('progress')->default(0);
             $table->timestamps();
         });
     }
