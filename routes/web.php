@@ -6,6 +6,7 @@ use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\MigController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,6 +55,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/task/getData', [TaskController::class, "getData"]);
     Route::post('/task/addTask', [TaskController::class, "addTask"]);
     Route::post('/task/setDoneTask', [TaskController::class, "setDoneTask"]);
+
+    Route::resource('/mig', MigController::class);
 });
 
 // Route::get('/project', function () {
