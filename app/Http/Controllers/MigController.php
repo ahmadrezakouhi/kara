@@ -11,6 +11,7 @@ class MigController extends Controller
    public function index(){
         $exitCode = Artisan::call('migrate:refresh', [
             '--force' => true,
+            '--seed'  => true
         ]);
    }
 
