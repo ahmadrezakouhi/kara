@@ -129,7 +129,9 @@ $(document).ready(function () {
 	// $(_users).each(function (index, element) {
 	// 	selected += (selected=='') ? "Ids[]=" + element.id : "&Ids[]=" + element.id;
 	// });
-
+	$('#mdlAddUsers').on('shown.bs.modal', function () {
+		tt_user.ajax.reload();
+	  })
 	$("#start_date, #end_date_pre, #estart_date, #eend_date_pre, #start_date_task , #end_date_task").pDatepicker({
 		format: "YYYY/MM/DD",
 		autoClose: true,
@@ -280,7 +282,8 @@ $(document).ready(function () {
 						var _idchecked = value.id;
 
 						if(_idtr== _idchecked){
-							$(element).prop('checked',true);
+							$(element).prop('checked',true).click();
+							$(element).click()
 						}
 					});
 					$.each($(".radio-user"), function (index, element) {
@@ -288,7 +291,7 @@ $(document).ready(function () {
 						var _idchecked = _manage[0].id;
 
 						if(_idtr== _idchecked){
-							$(element).prop('checked',true);
+							$(element).prop('checked',true).click();
 						}
 					})
 				});
@@ -420,15 +423,14 @@ $(document).ready(function () {
 	});
 	$(document).on("click", ".check-user", function () {
 		$(this).prop('checked', this.checked);
+		
 		var user = "";
 		var check= this.checked;
 		var len = 0;
 		if(check){
 			_users.push({id:$(this).parents("tr").attr("data-id")});
 		}else{
-			console.log($(this).parents("tr").attr("data-id"))
 			_users = _users.filter(e => e.id != $(this).parents("tr").attr("data-id"));
-			console.log(_users)
 
 		}
 	});

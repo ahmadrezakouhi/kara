@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Personnel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+
 class PersonnelController extends Controller
 {
     /**
@@ -22,7 +24,7 @@ class PersonnelController extends Controller
         //  $personnel = personnel::all();
 
          // load the view and pass the personnel
-         return \View::make('personnel.index')
+         return View::make('personnel.index')
              ->with('personnel' );
     }
 
@@ -67,7 +69,7 @@ class PersonnelController extends Controller
     public function create()
     {
         //
-        return \View::make('personnel.create');
+        return View::make('personnel.create');
     }
 
     
@@ -131,7 +133,7 @@ class PersonnelController extends Controller
          $personnel = Personnel::find($id);
 
          // show the view and pass the personnel to it
-         return \View::make('personnel.show')
+         return View::make('personnel.show')
              ->with('personnel', $personnel);
     }
 
@@ -149,7 +151,7 @@ class PersonnelController extends Controller
         $personnel = Personnel::find($id);
 
         // show the edit form and pass the personnel
-        return \View::make('personnel.edit')
+        return View::make('personnel.edit')
             ->with('personnel', $personnel);
     }
 

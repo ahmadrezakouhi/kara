@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\View;
+
 class UserController extends Controller
 {
     /**
@@ -22,7 +24,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        return \View::make('user.index')
+        return View::make('user.index')
         ->with('user');
     }
     public function getAll(Request $request){
@@ -116,7 +118,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        return \View::make('user.create');
+        return View::make('user.create');
     }
 
     /**
@@ -203,7 +205,7 @@ class UserController extends Controller
     {
         //
         $user = User::find($id);
-        return \View::make('user.show')
+        return View::make('user.show')
         ->with('user', $user);
     }
 
@@ -217,7 +219,7 @@ class UserController extends Controller
     {
         //
         $user = User::find($id);
-        return \View::make('user.edit')
+        return View::make('user.edit')
         ->with('user', $user);
     }
 

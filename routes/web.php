@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('{id}', [ProjectUserController::class, "destroy"]);
         Route::post('getData', [ProjectUserController::class, "getData"]);
         Route::post('add', [ProjectUserController::class, "add"]);
-        Route::get('getAllWithID/{projecttuser}', [ProjectUserController::class, "getAllWithID"],);
+        Route::get('getAllWithID/{id}', [ProjectUserController::class, "getAllWithID"],);
         Route::post('getUserByParentProject', [ProjectUserController::class, "getUserByParentProject"]);
         Route::post('getUserProjects', [ProjectUserController::class, "getUserProjects"]);
     });

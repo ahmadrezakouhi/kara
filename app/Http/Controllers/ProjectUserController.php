@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class ProjectUserController extends Controller
 {
@@ -26,19 +27,19 @@ class ProjectUserController extends Controller
     public function index()
     {
         //
-        return \View::make('project-user.index')
+        return View::make('project-user.index')
         ->with('project-user' );
     }
 
-    public function getAllWithID(ProjectUser $projecttuser){
+    public function getAllWithID($id){
        
-        // $queryFiltered = DB::table('project_users');
-        // if (isset($id)){
-            // $queryFiltered =  $queryFiltered->where('project_id', $id);            
-            // $data = $queryFiltered->get();
+        $queryFiltered = DB::table('project_users');
+        if (isset($id)){
+            $queryFiltered =  $queryFiltered->where('project_id', $id);            
+            $data = $queryFiltered->get();
             return response()->json($data);
-        // }else
-            // return false;
+        }else
+            return false;
         // echo json_encode($json_data);
     }
 
@@ -50,7 +51,7 @@ class ProjectUserController extends Controller
     public function create()
     {
         //
-        return \View::make('project-user.create');
+        return View::make('project-user.create');
     }
 
     /**
@@ -138,7 +139,7 @@ class ProjectUserController extends Controller
         $personnel_users = ProjectUser::find($projectUser->id);
 
         // show the view and pass the project to it
-        return \View::make('personnel-user.show')
+        return View::make('personnel-user.show')
             ->with('personnel-user', $personnel_users);
     }
 
@@ -181,7 +182,7 @@ class ProjectUserController extends Controller
         $personnel_users = ProjectUser::find($projectUser->id);
 
         // show the view and pass the project to it
-        return \View::make('personnel-user.show')
+        return View::make('personnel-user.show')
             ->with('personnel-user', $personnel_users);
     }
 
@@ -197,7 +198,7 @@ class ProjectUserController extends Controller
         $projectUser = ProjectUser::find($request->id);
 
         // show the edit form and pass the project
-        return \View::make('personnel-user.edit')
+        return View::make('personnel-user.edit')
             ->with('personnel-user', $projectUser);
     }
 

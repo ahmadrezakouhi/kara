@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Gate;
 
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\View;
 
 class ProjectController extends Controller
 {
@@ -25,7 +25,7 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        return \View::make('project.index')
+        return View::make('project.index')
         ->with('project' );
     }
 
@@ -38,9 +38,17 @@ class ProjectController extends Controller
             4 => 'level',
             5 => 'parentlevel',
         );
-
-        $recordsTotal = DB::table('projects')->count();
         $queryFiltered = DB::table('projects');
+
+        if( Auth::user()->role != "manager"){
+            $projectUserFiltered = DB::table('project_users');
+            $projectUserFiltered = $projectUserFiltered->select("project_id")->where('userid', Auth::user()->id)->where('title',0)->get();       
+            $projectsid=[];
+            for ($i=0; $i < count($projectUserFiltered); $i++) $projectsid[]= $projectUserFiltered[$i]->project_id;
+            $queryFiltered = $queryFiltered->whereIn("id",$projectsid);
+        }
+        $recordsTotal = $queryFiltered->count();
+       
         if (isset($request['sf'])){
             if($request['sf']['search-title'] != '')
                 $queryFiltered =  $queryFiltered->where('title', $request['sf']['search-title']);            
