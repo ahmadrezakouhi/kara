@@ -141,6 +141,12 @@ $(document).ready(function () {
 	$("#estart_date").val(_start);
 	$("#eend_date_pre").val(_end);
 	var btnManage = 
+	'<button type="button" class="btn btn-primary"  onclick="funcSetProgressProject(this)" data-bs-toggle="tooltip"  title="افزودن پروژه والد">'+
+		'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-battery-half" viewBox="0 0 16 16">'+
+		'<path d="M2 6h5v4H2V6z"/>'+
+		'<path d="M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z"/>'+
+	  '</svg>'+
+	'</button>'  +
 	'<button type="button" class="btn btn-primary"  onclick="funcSetParentProject(this)" data-bs-toggle="tooltip"  title="افزودن پروژه والد">'+
 		'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">'+
 			'<path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"/>'+
