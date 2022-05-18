@@ -216,7 +216,7 @@ class PersonnelController extends Controller
         if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('delete',$personnel)) {
         //
             // delete
-            $personnel = personnel::find($personnel->id);
+            // $personnel = personnel::find($personnel->id);
             $personnel->delete();
 
             // redirect

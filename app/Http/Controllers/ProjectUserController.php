@@ -30,15 +30,15 @@ class ProjectUserController extends Controller
         ->with('project-user' );
     }
 
-    public function getAllWithID($id){
+    public function getAllWithID(ProjectUser $projecttuser){
        
-        $queryFiltered = DB::table('project_users');
-        if (isset($id)){
-            $queryFiltered =  $queryFiltered->where('project_id', $id);            
-            $data = $queryFiltered->get();
+        // $queryFiltered = DB::table('project_users');
+        // if (isset($id)){
+            // $queryFiltered =  $queryFiltered->where('project_id', $id);            
+            // $data = $queryFiltered->get();
             return response()->json($data);
-        }else
-            return false;
+        // }else
+            // return false;
         // echo json_encode($json_data);
     }
 

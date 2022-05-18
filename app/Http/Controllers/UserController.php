@@ -26,8 +26,14 @@ class UserController extends Controller
         ->with('user');
     }
     public function getAll(Request $request){
-        $user = User::get();
+        if ( Gate::allows('isManager') ){
+            $user = User::get();
+        }else if ( Gate::allows('isAdmin') || Gate::allows('isUser')){
+            $queryFiltered = DB::table('users');
+            $user =  $queryFiltered->where('id', Auth::user()->id)->get();
+        }
         return response()->json($user);
+
     }
     public function getData(Request $request){
         $columns = array(
@@ -38,9 +44,13 @@ class UserController extends Controller
             4 => 'email',
             5 => 'status',
         );
-
-        $recordsTotal = DB::table('users')->count();
         $queryFiltered = DB::table('users');
+        // var_dump(Auth::user()->id);exit();
+        if ( Gate::allows('isAdmin') || Gate::allows('isUser') ){
+            $queryFiltered =  $queryFiltered->where('id', Auth::user()->id);
+        }
+
+        $recordsTotal = $queryFiltered->count();
         if (isset($request['sf'])){
             if($request['sf']['search-mobile'] != '')
                 $queryFiltered =  $queryFiltered->where('mobile', $request['sf']['search-mobile']);
@@ -71,9 +81,12 @@ class UserController extends Controller
             // 4 => 'email',
             // 5 => 'status',
         );
-
-        $recordsTotal = DB::table('users')->count();
         $queryFiltered = DB::table('users');
+
+        // if ( Gate::allows('isAdmin') || Gate::allows('isUser') ){
+        //     $queryFiltered =  $queryFiltered->where('id', Auth::user()->id);
+        // }
+        $recordsTotal = $queryFiltered->count();
         // if (isset($request['sf'])){
         //     if($request['sf']['search-mobile'] != '')
         //         $queryFiltered =  $queryFiltered->where('mobile', $request['sf']['search-mobile']);
@@ -241,7 +254,7 @@ class UserController extends Controller
                 $user->mobile      = $request->mobile;
                 $user->phone       = $request->phone;
                 $user->role        = $request->role;
-                // $user->password         =  Hash::make($request->password);
+                $user->password         =  Hash::make($request->password);
                 $user->save();
 
                 // redirect

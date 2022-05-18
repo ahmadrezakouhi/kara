@@ -192,7 +192,9 @@
 
 @section('scripts')
     <script>
+        var _role = "<?php echo Auth::user()->role ?>";
         var myModalUser = new bootstrap.Modal(document.getElementById('mdlAddUser'), {});
+
     </script>
    <script src="{{ asset('/js/pages/user.js') }}"></script>
 @endsection

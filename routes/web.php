@@ -25,7 +25,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     
     Route::resource('/personnel', PersonnelController::class);
-    Route::delete('/personnel/{id}', [PersonnelController::class, "destroy"]);
+    // Route::delete('/personnel/{personnel}', [PersonnelController::class, "destroy"]);
     Route::post('/personnel/getData', [PersonnelController::class, "getData"]);
 
     Route::resource('/user', UserController::class);
@@ -43,12 +43,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/project/addProject', [ProjectController::class, "addProject"]);
     
     Route::resource('/projectUser', ProjectUserController::class);
-    Route::delete('/projectUser/{id}', [ProjectUserController::class, "destroy"]);
-    Route::post('/projectUser/getData', [ProjectUserController::class, "getData"]);
-    Route::post('/projectUser/add', [ProjectUserController::class, "add"]);
-    Route::get('/projectUser/getAllWithID/{id}', [ProjectUserController::class, "getAllWithID"]);
-    Route::post('/projectUser/getUserByParentProject', [ProjectUserController::class, "getUserByParentProject"]);
-    Route::post('/projectUser/getUserProjects', [ProjectUserController::class, "getUserProjects"]);
+    Route::prefix("projectUser")->group(function() {
+        Route::delete('{id}', [ProjectUserController::class, "destroy"]);
+        Route::post('getData', [ProjectUserController::class, "getData"]);
+        Route::post('add', [ProjectUserController::class, "add"]);
+        Route::get('getAllWithID/{projecttuser}', [ProjectUserController::class, "getAllWithID"],);
+        Route::post('getUserByParentProject', [ProjectUserController::class, "getUserByParentProject"]);
+        Route::post('getUserProjects', [ProjectUserController::class, "getUserProjects"]);
+    });
+
 
     Route::resource('/task', TaskController::class);
     Route::delete('/task/{id}', [TaskController::class, "destroy"]);

@@ -11,7 +11,7 @@
     <!-- if there are creation errors, they will show here -->
     <div class="border border-1 rounded-1 p-3">
         {{ Form::model($user, array('route' => array('user.update', $user->id), 'method' => 'PUT')) }}
-
+            @if( Auth::user()->role == "manager")
             <div class="row p-2">
                 <div class="col-md-3">
                     <div class="row">
@@ -70,7 +70,9 @@
                 </div>
             
             </div>
+            @endif
             <div class="row p-2">
+                @if( Auth::user()->role == "manager")
                 <div class="col-md-5">
                     <div class="row">
                         <x-label class="col-sm-3 col-form-label"  for="email" :value="__('پست الکترونیک')" />
@@ -79,7 +81,28 @@
                         </div>
                     </div>
                 </div>
-            
+                @endif
+                <div class="col-md-3">
+                    <div class="row">
+                        <x-label class="col-sm-3 col-form-label"  for="password" :value="__('رمز ورود')" />
+                        <div class="col-md-9">
+                            <x-input id="password" class="form-control"
+                                        type="password"
+                                        name="password"
+                                        required autocomplete="new-password" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <x-label class="col-sm-3 col-form-label"  for="password_confirmation" :value="__('تکرار رمز ')" />
+                        <div class="col-md-9">
+                            <x-input id="password_confirmation" class="form-control"
+                                        type="password"
+                                        name="password_confirmation"/>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row p-2">
                 <div class="col-md-12">
