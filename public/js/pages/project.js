@@ -133,6 +133,9 @@ $(document).ready(function () {
 	// 	selected += (selected=='') ? "Ids[]=" + element.id : "&Ids[]=" + element.id;
 	// });
 	$('#mdlAddUsers').on('shown.bs.modal', function () {
+		if (  $.fn.DataTable.isDataTable( '#tbl-user' ) ) {
+			tt_user.destroy();
+		}
 			tt_user = $('#tbl-user').on('preXhr.dt', function (e, settings, json, xhr) {}).DataTable(
 		{
 			"drawCallback": function (settings) {
