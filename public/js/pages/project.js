@@ -2,7 +2,7 @@ let tt_project;
 var _users=[];
 var _manage=[];
 var _parent=0;
-
+var _alluser =[];
 function funcDelete(e) {
     let data_id = $(e).parent().parent().attr("data-id");
     let data_name = $(e).parent().parent().attr("data-name");
@@ -64,9 +64,11 @@ function funcSetUser(e){
 	$(".title-project").html($(e).parent().parent().attr("data-title"));
 	_parent= data_parent;
 
-	tt_user.ajax.url( _parent == 0 ? "/user/getDataForProject" :"/projectUser/getUserByParentProject"  ).load();
+	// tt_user.ajax.url( _parent == 0 ? "/user/getDataForProject" :"/projectUser/getUserByParentProject"  ).load();
+
 	$.get("/projectUser/getAllWithID/" + data_id, function (res) {
 		var _result =(res);
+		console.log(_result)
 		_users=[];
 		$(_result).each(function (index, element) {
 			_users.push({id:element.userid})
@@ -74,11 +76,12 @@ function funcSetUser(e){
 				_manage.push({id:element.userid})
 			}
 		});
+		// console.log(_users)
 		// tt_user.draw();
 	});
 	$("#btnAddUser").attr("data-id", data_id);
 	$("#btnAddUser").attr("data-parent", data_parent);
-	tt_user.draw();
+	// tt_user.draw();
 	myModalUser.show()
 	// $("#mdlAddUsers").fadeIn("show")
 }
@@ -130,7 +133,129 @@ $(document).ready(function () {
 	// 	selected += (selected=='') ? "Ids[]=" + element.id : "&Ids[]=" + element.id;
 	// });
 	$('#mdlAddUsers').on('shown.bs.modal', function () {
-		tt_user.ajax.reload();
+			tt_user = $('#tbl-user').on('preXhr.dt', function (e, settings, json, xhr) {}).DataTable(
+		{
+			"drawCallback": function (settings) {
+				$(_users).each(function (index, value) {
+					$.each($(".check-user"), function (index, element) {
+						var _idtr=$(element).parents("tr").attr("data-id");
+						var _idchecked = value.id;
+
+						if(_idtr== _idchecked){
+							$(element).prop('checked',true).click();
+							$(element).click()
+						}
+					});
+					$.each($(".radio-user"), function (index, element) {
+						var _idtr=$(element).parents("tr").attr("data-id");
+						var _idchecked = _manage[0].id;
+
+						if(_idtr== _idchecked){
+							$(element).prop('checked',true).click();
+						}
+					})
+				});
+			},
+			"processing": true,
+			"searching": false,
+			"serverSide": true,
+			"responsive": true,
+			"ajax": {
+				"url":  _parent == 0 ? "/user/getDataForProject" :"/projectUser/getUserByParentProject",
+				"type": "POST",
+				"data": function (d) {
+					d.sf = $('#sf').serializeObject();
+					d._token = $("input[name=_token]").val();
+					d._parent = _parent
+				}
+			},
+			"fnInitComplete": function (oSettings, json) {},
+			"initComplete": function(settings, json) {
+				_alluser = json.data;
+				document.querySelectorAll('.form-outline').forEach((formOutline) => {
+					new mdb.Input(formOutline).init();
+					});
+			},
+			order: [[0, "desc"]],
+			"pageLength": 10,
+			"searchDelay": 1000,
+			"columns": [	
+				{
+					responsivePriority: 0,
+					// "className": 'details-control',
+					"orderable": false,
+					title: 
+						'مدیر'
+						,						
+					"defaultContent": 
+						'<div class="form-check">'+
+							'<input class="form-check-input radio-user" type="radio" name="check-manage" value="" >'+
+							'<label class="form-check-label" for="flexCheckDefault">'+								
+							'</label>'+
+						'</div>'
+						,
+				},	
+				{
+					responsivePriority: 1,
+					// "className": 'details-control',
+					"orderable": false,
+					title: 
+						'<div class="form-check">'+
+							'<input class="form-check-input" id="checkedAll" type="checkbox" value="" >'+
+							'<label class="form-check-label" for="flexCheckDefault">اعضا</label>'+
+						'</div>'
+						,						
+					"defaultContent": 
+						'<div class="form-check">'+
+							'<input class="form-check-input check-user" type="checkbox" value="" >'+
+							'<label class="form-check-label" for="flexCheckDefault">'+								
+							'</label>'+
+						'</div>'
+						,
+				},	
+				{
+					data: null, title: 'نام', render: function (data, type, row) {
+						return data.fname + ' ' + data.lname;
+					}
+					, "visible": true
+				},
+				// {
+				// 	data: null, title: 'سمت', render: function (data, type, row) {
+				// 		return ('<div class="form-outline"><input type="text" class="form-control job-position" /><label class="form-label" ">سمت</label></div>');
+				// 	}
+				// 	, "visible": true
+				// },
+				
+			],
+			createdRow: function (row, data, dataIndex) {
+				$(row).attr("data-id", _parent == 0 ? data['id'] : data['userid']);
+				$(row).attr("data-name", data['fname'] + ' ' +  data['lname']);
+				// $(row).attr("data-mobile", data['mobile']);
+			
+				
+			},
+			"language": {
+				"decimal": "-",
+				"decimal": "",
+				"emptyTable": "هیچ اطلاعاتی برای نمایش وجود ندارد!",
+				"info": "نمایش _START_ تا _END_ از تمام _TOTAL_ ",
+				"infoEmpty": "چیزی پیدا نشد",
+				"infoFiltered": "(جستجو شده از  _MAX_ پرسنل )",
+				"infoPostFix": "",
+				"thousands": ",",
+				"lengthMenu": "نمایش _MENU_ ",
+				"loadingRecords": "لطفا صبر کنید...",
+				"processing": "در حال پردازش...",
+				"search": "جستجوی عمومی:",
+				"zeroRecords": " پیدا نشد",
+				"paginate": {
+					"first": ">>",
+					"last": "<<",
+					"next": "بعدی",
+					"previous": "قبلی"
+				}
+			}
+		});
 	  })
 	$("#start_date, #end_date_pre, #estart_date, #eend_date_pre, #start_date_task , #end_date_task").pDatepicker({
 		format: "YYYY/MM/DD",
@@ -273,128 +398,7 @@ $(document).ready(function () {
 		});
 
 
-	tt_user = $('#tbl-user').on('preXhr.dt', function (e, settings, json, xhr) {}).DataTable(
-		{
-			"drawCallback": function (settings) {
-				$(_users).each(function (index, value) {
-					$.each($(".check-user"), function (index, element) {
-						var _idtr=$(element).parents("tr").attr("data-id");
-						var _idchecked = value.id;
 
-						if(_idtr== _idchecked){
-							$(element).prop('checked',true).click();
-							$(element).click()
-						}
-					});
-					$.each($(".radio-user"), function (index, element) {
-						var _idtr=$(element).parents("tr").attr("data-id");
-						var _idchecked = _manage[0].id;
-
-						if(_idtr== _idchecked){
-							$(element).prop('checked',true).click();
-						}
-					})
-				});
-			},
-			"processing": true,
-			"searching": false,
-			"serverSide": true,
-			"responsive": true,
-			"ajax": {
-				"url":  "/user/getDataForProject",
-				"type": "POST",
-				"data": function (d) {
-					d.sf = $('#sf').serializeObject();
-					d._token = $("input[name=_token]").val();
-					d._parent = _parent
-				}
-			},
-			"fnInitComplete": function (oSettings, json) {},
-			"initComplete": function(settings, json) {
-				document.querySelectorAll('.form-outline').forEach((formOutline) => {
-					new mdb.Input(formOutline).init();
-					});
-			},
-			order: [[0, "desc"]],
-			"pageLength": 10,
-			"searchDelay": 1000,
-			"columns": [	
-				{
-					responsivePriority: 0,
-					// "className": 'details-control',
-					"orderable": false,
-					title: 
-						'مدیر'
-						,						
-					"defaultContent": 
-						'<div class="form-check">'+
-							'<input class="form-check-input radio-user" type="radio" name="check-manage" value="" >'+
-							'<label class="form-check-label" for="flexCheckDefault">'+								
-							'</label>'+
-						'</div>'
-						,
-				},	
-				{
-					responsivePriority: 1,
-					// "className": 'details-control',
-					"orderable": false,
-					title: 
-						'<div class="form-check">'+
-							'<input class="form-check-input" id="checkedAll" type="checkbox" value="" >'+
-							'<label class="form-check-label" for="flexCheckDefault">اعضا</label>'+
-						'</div>'
-						,						
-					"defaultContent": 
-						'<div class="form-check">'+
-							'<input class="form-check-input check-user" type="checkbox" value="" >'+
-							'<label class="form-check-label" for="flexCheckDefault">'+								
-							'</label>'+
-						'</div>'
-						,
-				},	
-				{
-					data: null, title: 'نام', render: function (data, type, row) {
-						return data.fname + ' ' + data.lname;
-					}
-					, "visible": true
-				},
-				// {
-				// 	data: null, title: 'سمت', render: function (data, type, row) {
-				// 		return ('<div class="form-outline"><input type="text" class="form-control job-position" /><label class="form-label" ">سمت</label></div>');
-				// 	}
-				// 	, "visible": true
-				// },
-				
-			],
-			createdRow: function (row, data, dataIndex) {
-				$(row).attr("data-id", _parent == 0 ? data['id'] : data['userid']);
-				$(row).attr("data-name", data['fname'] + ' ' +  data['lname']);
-				// $(row).attr("data-mobile", data['mobile']);
-			
-				
-			},
-			"language": {
-				"decimal": "-",
-				"decimal": "",
-				"emptyTable": "هیچ اطلاعاتی برای نمایش وجود ندارد!",
-				"info": "نمایش _START_ تا _END_ از تمام _TOTAL_ ",
-				"infoEmpty": "چیزی پیدا نشد",
-				"infoFiltered": "(جستجو شده از  _MAX_ پرسنل )",
-				"infoPostFix": "",
-				"thousands": ",",
-				"lengthMenu": "نمایش _MENU_ ",
-				"loadingRecords": "لطفا صبر کنید...",
-				"processing": "در حال پردازش...",
-				"search": "جستجوی عمومی:",
-				"zeroRecords": " پیدا نشد",
-				"paginate": {
-					"first": ">>",
-					"last": "<<",
-					"next": "بعدی",
-					"previous": "قبلی"
-				}
-			}
-		});
 
 		
 	$(document).on("click", "#checkedAll", function () {
@@ -402,13 +406,14 @@ $(document).ready(function () {
 		var check= this.checked;
 		_users=[];
 		if(check){
-			$.post("/user/getAll", {_token:$("input[name=_token]").val()}, function (res) {
-				var _result =(res);
-				$(_result).each(function (index, element) {
-					_users.push({id:element.id})
+			
+			// $.post("/user/getAll", {_token:$("input[name=_token]").val()}, function (res) {
+				// var _result =(res);
+				$(_alluser).each(function (index, element) {
+					_users.push({id:element.userid})
 				});
 				// console.log(_users)
-			});
+			// });
 
 				// console.log("ddd");
 				// $("#btnSendMdl").removeClass("disabled");
@@ -453,6 +458,8 @@ $(document).ready(function () {
 				else
 					_ids = _ids + ',' + element.id;
 			});
+			// console.log(_ids)
+			// return false;
 			$.post("/projectUser/add", 
 				{
 					_token:$("input[name=_token]").val(),

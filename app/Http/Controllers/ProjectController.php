@@ -183,6 +183,13 @@ class ProjectController extends Controller
 
     public function getProjects(){
         $queryFiltered = DB::table('projects');
+        // if( Auth::user()->role != "manager"){
+        //     $projectUserFiltered = DB::table('project_users');
+        //     $projectUserFiltered = $projectUserFiltered->select("project_id")->where('userid', Auth::user()->id)->where('title',0)->get();       
+        //     $projectsid=[];
+        //     for ($i=0; $i < count($projectUserFiltered); $i++) $projectsid[]= $projectUserFiltered[$i]->project_id;
+        //     $queryFiltered = $queryFiltered->whereIn("id",$projectsid);
+        // }
         $json_data =  $queryFiltered->orderBy('title', 'asc')->get();
         return response()->json($json_data);
     }
