@@ -63,7 +63,7 @@ class TaskController extends Controller
             $queryFiltered = $queryFiltered->orWhere(function($query) use ($projectsiduser){
                 $query->
                 // whereIn("project_id",$projectsiduser)
-                      whereIn('userid', $projectsiduser);
+                      whereIn('userid1', $projectsiduser);
             });
         }
 
