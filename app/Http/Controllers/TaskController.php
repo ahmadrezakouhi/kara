@@ -57,9 +57,10 @@ class TaskController extends Controller
                     $projectsiduser[]= $projectUserFiltered[$i]->project_id;
             }
 
+            
             $queryFiltered = $queryFiltered->whereIn("project_id",$projectsid);
             $queryFiltered = $queryFiltered->orWhere(function($query) use ($projectsiduser){
-                $query->whereIn("project_id",$projectsiduser)
+                $query->whereIn("project_id1",$projectsiduser)
                       ->where('userid', Auth::user()->id);
             });
         }
