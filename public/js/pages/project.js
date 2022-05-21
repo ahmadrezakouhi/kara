@@ -89,7 +89,7 @@ function funcSetUser(e){
 function funcSetParentProject(e){
 	let data_id = $(e).parent().parent().attr("data-id");
 	let data_parent = $(e).parent().parent().attr("data-parent");
-	$.post("/project/getProjects",{_token: $("input[name=_token]").val()}, function (res) {
+	$.post("/project/getProjects",{_token: $("input[name=_token]").val(), project_id: data_id}, function (res) {
 		var _result =res;
 		$("#parent-level").find('option')
 			.remove()

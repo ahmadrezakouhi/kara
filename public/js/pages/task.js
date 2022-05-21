@@ -57,7 +57,7 @@ function funcEdit(e){
 
 function funcSetProject(e){
 	
-	$.post("/project/getProjects",{_token: $("input[name=_token]").val()}, function (res) {
+	$.post("/project/getProjects",{_token: $("input[name=_token]").val(), project_id: 0}, function (res) {
 		var _result =res;
 		$("#project_id").find('option')
 			.remove()
