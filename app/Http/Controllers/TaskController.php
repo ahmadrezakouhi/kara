@@ -36,9 +36,35 @@ class TaskController extends Controller
             3 => 'EndDatePre',
             4 => 'project_title',
         );
-
-        $recordsTotal = DB::table('tasks')->count();
         $queryFiltered = DB::table('tasks');
+        $projectUserFiltered = DB::table('project_users');
+
+        if( Auth::user()->role == "admin"){
+
+            $projectUserFiltered = $projectUserFiltered->select("userid", "project_id", "title")->
+            where(function($query) {
+                $query->where('userid', Auth::user()->id)
+                      ->where('title',0);
+            })->orWhere('userid', Auth::user()->id)->get();  
+            // echo '<pre>';
+            // var_dump($projectUserFiltered);exit();
+            $projectsid=[];
+            $projectsiduser=[];
+            for ($i=0; $i < count($projectUserFiltered); $i++) {
+                if($projectUserFiltered[$i]->title == 0)
+                    $projectsid[]= $projectUserFiltered[$i]->project_id;
+                else
+                    $projectsiduser[]= $projectUserFiltered[$i]->project_id;
+            }
+
+            $queryFiltered = $queryFiltered->whereIn("project_id",$projectsid);
+            $queryFiltered = $queryFiltered->orWhere(function($query) use ($projectsiduser){
+                $query->whereIn("project_id",$projectsiduser)
+                      ->where('userid', Auth::user()->id);
+            });
+        }
+
+        $recordsTotal = $queryFiltered->count();
         if (isset($request['sf'])){
             if($request['sf']['search-title'] != '')
                 $queryFiltered =  $queryFiltered->where('title', $request['sf']['search-title']);            

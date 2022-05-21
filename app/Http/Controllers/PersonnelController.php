@@ -39,6 +39,7 @@ class PersonnelController extends Controller
             6 => 'status',
         );
 
+        
         $recordsTotal = DB::table('personnels')->count();
         $queryFiltered = DB::table('personnels');
         if (isset($request['sf'])){
