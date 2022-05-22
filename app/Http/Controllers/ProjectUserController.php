@@ -101,7 +101,19 @@ class ProjectUserController extends Controller
 
             $users= explode(",",$request->users );
             $user = new User;
-            DB::table('project_users')->where('project_id', $request->project_id)->delete();
+            $queryFilteredTask = DB::table('tasks');
+
+            $projectuser_query= DB::table('project_users')->where('project_id', $request->project_id);
+            $projectuser_data= $projectuser_query->get();
+            // echo "<pre>";
+            // var_dump($projectuser_data);exit();
+            $oldUser = [];
+            for ($i=0; $i< count($projectuser_data); $i++) $oldUser[] = $projectuser_data[$i]->id;
+            // $oldUser[] = (int)$request->manage;
+            
+            $projectuser_query->delete();
+            // echo "<pre>";
+            // var_dump($oldUser);exit();
             for($i=0; $i< count($users); $i++){
                 if($users[$i]!= $request->manage){
                     $data = DB::table('users')->find($users[$i]);
@@ -114,6 +126,8 @@ class ProjectUserController extends Controller
                     $personnel_users->status      = 1;
                     $personnel_users->user_id     = Auth::user()->id;
                     $personnel_users->save();
+                    
+                    DB::table('tasks')->where('project_id', $request->project_id)->whereIn('userid', $oldUser)->where("username", "'".$data->fname . ' ' . $data->lname. "'")->update(['userid' => $personnel_users->id]);
                 }
             }
             $personnel_users = new ProjectUser;
@@ -126,7 +140,7 @@ class ProjectUserController extends Controller
             $personnel_users->status      = 1;
             $personnel_users->user_id     = Auth::user()->id;
             $personnel_users->save();
-           
+            DB::table('tasks')->where('project_id', $request->project_id)->whereIn('userid', $oldUser)->where("username", $data->fname . ' ' . $data->lname)->update(['userid' => $personnel_users->id]);
 
             // redirect
             $request->session()->flash('message', 'کاربران پروژه با موفقیت ثبت شدند!');

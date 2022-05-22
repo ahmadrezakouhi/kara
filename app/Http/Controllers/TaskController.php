@@ -41,27 +41,30 @@ class TaskController extends Controller
 
         if( Auth::user()->role == "admin"){
 
-            $projectUserFiltered = $projectUserFiltered->select("userid", "project_id", "title")->
+            $projectUserFiltered = $projectUserFiltered->select("id", "project_id", "title")->
             where(function($query) {
                 $query->where('userid', Auth::user()->id)
                       ->where('title',0);
             })->orWhere('userid', Auth::user()->id)->get();  
             // echo '<pre>';
-            // var_dump($projectUserFiltered);exit();
+             //var_dump($projectUserFiltered);exit();
             $projectsid=[];
             $projectsiduser=[];
             for ($i=0; $i < count($projectUserFiltered); $i++) {
                 if($projectUserFiltered[$i]->title == 0)
                     $projectsid[]= $projectUserFiltered[$i]->project_id;
                 else
-                    $projectsiduser[]= $projectUserFiltered[$i]->project_id;
+                    $projectsiduser[]= $projectUserFiltered[$i]->id;
             }
-
+//echo '<pre>';  var_dump($projectsid); var_dump($projectsiduser);  exit();
             
             $queryFiltered = $queryFiltered->whereIn("project_id",$projectsid);
+
+            
             $queryFiltered = $queryFiltered->orWhere(function($query) use ($projectsiduser){
-                $query->whereIn("project_id",$projectsiduser)
-                      ->where('userid', Auth::user()->id);
+          //      $query->whereIn("project_id",$projectsiduser)
+          //$query   ->where('userid', Auth::user()->id);
+          $query->whereIn("userid",$projectsiduser);
             });
         }
 
