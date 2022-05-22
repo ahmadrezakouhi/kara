@@ -23,7 +23,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">خانه</a>
         </li>
-        @if(Gate::check('isAdmin') || Gate::check('isManager'))
+        @if(Gate::check('isAdmin') || Gate::check('isManager')  || Gate::check('isUser'))
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           کاربران
@@ -34,6 +34,7 @@
             <li><a class="dropdown-item"  href="{{ URL::to('user/create') }}">ایجاد</a></li>
           </ul>
         </li>
+        @if(Gate::check('isAdmin') || Gate::check('isManager') )
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           پروژه ها
@@ -44,6 +45,7 @@
             <li><a class="dropdown-item"  href="{{ URL::to('project/create') }}">ایجاد</a></li>
           </ul>
         </li>
+        @endif
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           فعالیت ها

@@ -39,7 +39,7 @@ class TaskController extends Controller
         $queryFiltered = DB::table('tasks');
         $projectUserFiltered = DB::table('project_users');
 
-        if( Auth::user()->role == "admin"){
+        if( Auth::user()->role == "admin" || Auth::user()->role == "user"){
 
             $projectUserFiltered = $projectUserFiltered->select("id", "project_id", "title")->
             where(function($query) {
