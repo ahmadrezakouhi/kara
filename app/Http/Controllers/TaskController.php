@@ -140,16 +140,17 @@ class TaskController extends Controller
             $task->username       = $user->fname . " " . $user->lname;
             $task->save();
 
+
             // redirect
             $request->session()->flash('message', 'task ' . $request->title .' با موفقیت ثبت شد!');
             return redirect('task');
         }
     }
 
-    public function addTask(Request $request)
+    public function addTask(Request $request, Task $task)
     {
             //
-            if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('update',$project)) {
+            if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('update',$task)) {
                     // store
                     $project = DB::table('projects')->find($request->project_id);
                     $task = new Task;

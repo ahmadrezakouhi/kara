@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 use App\Models\Project;
+use App\Models\ProjectUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
@@ -115,6 +116,16 @@ class ProjectController extends Controller
             $project->user_id     = Auth::user()->id;
             $project->save();
 
+            $personnel_users = new ProjectUser();
+            $data_user = DB::table('users')->find(Auth::user()->id);
+            $personnel_users->userid       = Auth::user()->id; 
+            $personnel_users->fname       = $data_user->fname; 
+            $personnel_users->lname       = $data_user->lname;
+            $personnel_users->project_id  = $request->title;
+            $personnel_users->title       = 0;  //admin
+            $personnel_users->status      = 1;
+            $personnel_users->user_id     = Auth::user()->id;
+            $personnel_users->save();
             // redirect
             $request->session()->flash('message', 'پروژه با موفقیت ثبت شد!');
             return redirect('project');
@@ -153,6 +164,19 @@ class ProjectController extends Controller
             $project->user_id     = Auth::user()->id;
             $project->save();
 
+            $personnel_users = new ProjectUser();
+            $data_user = DB::table('users')->find(Auth::user()->id);
+            $personnel_users->userid       = Auth::user()->id; 
+            $personnel_users->fname       = $data_user->fname; 
+            $personnel_users->lname       = $data_user->lname;
+            $personnel_users->project_id  = $project->id;
+            $personnel_users->title       = 0;  //admin
+            $personnel_users->status      = 1;
+            $personnel_users->user_id     = Auth::user()->id;
+            // echo '<pre>';
+            // var_dump($personnel_users);exit();
+            $personnel_users->save();
+            
             // redirect
             $request->session()->flash('message', 'پروژه با موفقیت ثبت شد!');
             return response()->json($project);
@@ -185,6 +209,13 @@ class ProjectController extends Controller
         $queryFiltered = DB::table('projects');
         if($request->project_id  != 0)
             $queryFiltered->where('id', '!=', $request->project_id);
+        if (Gate::allows('isAdmin')  )
+        {
+            $projectuser_query= DB::table('project_users')->where('userid', Auth::user()->id)->where("title",0)->get();
+            $project = [];
+            for ($i=0; $i< count($projectuser_query); $i++) $project[] = $projectuser_query[$i]->project_id;
+            $queryFiltered->whereIn('id',$project);
+        }
         $json_data =  $queryFiltered->orderBy('title', 'asc')->get();
         return response()->json($json_data);
     }
@@ -285,7 +316,7 @@ class ProjectController extends Controller
      * @param  \App\Models\project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Personnel $project)
+    public function destroy(Request $request, Project $project)
     {
         //
         if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('delete',$project)) {
