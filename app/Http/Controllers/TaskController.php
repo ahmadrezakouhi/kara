@@ -259,8 +259,8 @@ class TaskController extends Controller
             } else {
                 // store
                 $task = Task::find($task->id);
-                $task->title         = $task->title; 
-                $task->description   = $task->description;
+                $task->title         = $request->title; 
+                $task->description   = $request->description;
                 $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true); 
                 $task->start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
             
