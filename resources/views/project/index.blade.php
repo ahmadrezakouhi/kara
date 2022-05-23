@@ -40,15 +40,15 @@
     </div>
     <table id="tbl-project" class="table table-striped table-bordered">
         <thead>
-            <tr>
-                <th>شناسه</th>
-                <th>عنوان</th>
+            <!-- <tr> -->
+                <!-- <th>شناسه</th> -->
+                <!-- <th>عنوان</th>
                 <th>زمان شروع</th>
-                <th>پیش بینی زمان پایان</th>
+                <th>پیش بینی زمان پایان</th> -->
                 <!-- <th>سطح</th> -->
-                <th>سرگروه</th>
-                <th>توضیحات</th>
-            </tr>
+                <!-- <th>سرگروه</th>
+                <th>توضیحات</th> -->
+            <!-- </tr> -->
         </thead>
         <tbody>
        

@@ -48,7 +48,7 @@
     <table id="tbl-user" class="table table-striped table-bordered">
         <thead>
             <tr>
-                <!-- <th>شناسه</th> -->
+                <th>ردیف</th>
                 <th>نام و نام خانوادگی</th>
                 <th>تلفن همراه</th>
                 <th>تلفن ثابت</th>

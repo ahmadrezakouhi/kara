@@ -7,6 +7,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MigController;
+use App\Http\Controllers\TaskTitleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,7 +60,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/task/getData', [TaskController::class, "getData"]);
     Route::post('/task/addTask', [TaskController::class, "addTask"]);
     Route::post('/task/setDoneTask', [TaskController::class, "setDoneTask"]);
-
+ 
+    Route::resource('/taskTitle', TaskTitleController::class);
+    Route::delete('/taskTitle/{id}', [TaskTitleController::class, "destroy"]);
+    Route::post('/taskTitle/getData', [TaskTitleController::class, "getData"]);
+    Route::post('/taskTitle/addTaskTitle', [TaskTitleController::class, "addTaskTitle"]);
+    
     Route::resource('/mig', MigController::class);
 });
 

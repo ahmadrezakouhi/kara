@@ -103,12 +103,16 @@ $(document).ready(function () {
 			"pageLength": 5,
 			"searchDelay": 1000,
 			"columns": [			
-                {
+              
+				{ title: 'ردیف', "defaultContent": "-", },
+				///
+				{
 					data: null, title: 'نام و نام خانوادگی', render: function (data, type, row) {
 						return data.fname + ' ' + data.lname;
 					}
 					, "visible": true
 				},
+				
 				{title: 'تلفن همراه', "name": 'mobile', "data": 'mobile'},
                 {title: 'تلفن ثابت', "name": 'phone', "data": 'phone'},				
 				{title: 'ایمیل', "name": 'email', "data": 'email'},
@@ -162,6 +166,23 @@ $(document).ready(function () {
 				}
 			}
 		});
+		
+
+
+		// ///////
+		tt_user.on('draw', function() {
+			
+			tt_user.column(0, {
+			  search: 'applied',
+			  order: 'applied'
+			}).nodes().each(function(cell, i) {
+			 
+			  cell.innerHTML = tt_user.page.len() * tt_user.page()+i+1;
+			});
+		  }).draw();
+
+// ////
+
 
 	$("#btnAddUser").click(function(){
 		var required = ["#fname", "#lname", "#mobile", "#password", "#password_confirmation", "#email"];

@@ -336,10 +336,10 @@ $(document).ready(function () {
 			"fnInitComplete": function (oSettings, json) {},
 			"initComplete": function(settings, json) {},
 			order: [[0, "desc"]],
-			"pageLength": 5,
+			"pageLength": 10,
 			"searchDelay": 1000,
 			"columns": [			
-                {title: 'شناسه', "name": 'id', "data": 'id'},
+				{ title: 'ردیف', "defaultContent": "-", },
 				{title: 'عنوان', "name": 'title', "data": 'title', responsivePriority: 1,},
 				{
 					data: null, title: 'زمان شروع', render: function (data, type, row) {
@@ -401,7 +401,19 @@ $(document).ready(function () {
 		});
 
 
+	// ///////
+	tt_project.on('draw', function() {
+			
+		tt_project.column(0, {
+		  search: 'applied',
+		  order: 'applied'
+		}).nodes().each(function(cell, i) {
+		 
+		  cell.innerHTML = tt_project.page.len() * tt_project.page()+i+1;
+		});
+	  }).draw();
 
+// ////
 
 		
 	$(document).on("click", "#checkedAll", function () {

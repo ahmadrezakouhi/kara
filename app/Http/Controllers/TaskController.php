@@ -30,9 +30,9 @@ class TaskController extends Controller
 
     public function getData(Request $request){
         $columns = array(
-            0 => 'id',
-            1 => 'title',
-            2 => 'StartDate',
+            // 0 => 'id',
+            0 => 'title',
+            1 => 'StartDate',
             3 => 'EndDatePre',
             4 => 'project_title',
         );
@@ -74,7 +74,7 @@ class TaskController extends Controller
                 $queryFiltered =  $queryFiltered->where('title', $request['sf']['search-title']);            
         }
         $recordsFiltered = $queryFiltered->count();
-        $data = $queryFiltered->get();
+        $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
 
         $json_data = array(
             "draw" => intval($_REQUEST['draw']),

@@ -39,12 +39,12 @@ class UserController extends Controller
     }
     public function getData(Request $request){
         $columns = array(
-            0 => 'id',
-            1 => 'fname',
-            2 => 'mobile',
-            3 => 'phone',
-            4 => 'email',
-            5 => 'status',
+            // 0 => 'id',
+            0 => 'fname',
+            1 => 'mobile',
+            2 => 'phone',
+            3 => 'email',
+            4 => 'status',
         );
         $queryFiltered = DB::table('users');
         // var_dump(Auth::user()->id);exit();
@@ -62,7 +62,7 @@ class UserController extends Controller
             }
         }
         $recordsFiltered = $queryFiltered->count();
-        $data = $queryFiltered->get();
+        $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
 
         $json_data = array(
             "draw" => intval($_REQUEST['draw']),
