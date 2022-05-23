@@ -18,13 +18,31 @@
             <div class="row p-2">
                 <div class="col-md-3">
                     <div class="row">
-                        <x-label class="col-sm-3 col-form-label" for="title" :value="__('عنوان')" />
-                        <div class="col-md-9">
+                        <x-label class="col-sm-5 col-form-label" for="title" :value="__('دسته بندی')" />
+                        <div class="col-md-7">
+                            <select class="selectpicker" data-live-search="true"  name="category_id"> 
+                                @for($i=0; $i < count($taskTitles) ; $i++)
+                                    @if( $taskTitles[$i]->id == $task->category_id)
+                                    <option value='{{ $taskTitles[$i]->id }}' selected > {{ $taskTitles[$i]->title }} </option>
+                                    @else
+                                    <option value='{{ $taskTitles[$i]->id }}'> {{ $taskTitles[$i]->title }} </option>
+                                    @endif
+                                @endfor;
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <x-label class="col-sm-2 col-form-label" for="title" :value="__('عنوان')" />
+                        <div class="col-md-10">
                             {{ Form::text('title', null, array('class' => 'form-control')) }}
 
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row p-2">
                 <div class="col-md-3">
                     <div class="row">
                         <x-label class="col-sm-5 col-form-label"  for="start_date" :value="__('زمان شروع')" />
@@ -69,8 +87,8 @@
                 </div> 
                 <div class="col-md-3">
                     <div class="row">
-                        <x-label class="col-sm-5 col-form-label" for="project_id" :value="__('کاربر')" />
-                        <div class="col-md-7">
+                        <x-label class="col-sm-3 col-form-label" for="project_id" :value="__('کاربر')" />
+                        <div class="col-md-9">
                             <select class="selectpicker" data-live-search="true"  name="userid"> 
                                 @for($i=0; $i < count($users) ; $i++)
                                     @if( $users[$i]->id == $task->project_id)

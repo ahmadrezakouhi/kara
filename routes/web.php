@@ -65,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/taskTitle/{id}', [TaskTitleController::class, "destroy"]);
     Route::post('/taskTitle/getData', [TaskTitleController::class, "getData"]);
     Route::post('/taskTitle/addTaskTitle', [TaskTitleController::class, "addTaskTitle"]);
+    Route::post('/taskTitle/getTaskTitles', [TaskTitleController::class, "getTaskTitles"]); 
     
     Route::resource('/mig', MigController::class);
 });

@@ -27,6 +27,8 @@ return new class extends Migration
             $table->text('username')->nullable();
             $table->tinyInteger('status')->default(0)->comment('0:undone 1:done');
             $table->dateTime('time_do')->nullable();
+            $table->bigInteger('category_id')->default(0); 
+            $table->text('category_title')->nullable();
             $table->timestamps();
 
         });

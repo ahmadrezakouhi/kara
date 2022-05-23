@@ -28,6 +28,15 @@
             <div class="row p-2">
                 <div class="col-md-3">
                     <div class="row">
+                        <x-label class="col-sm-3 col-form-label" for="title" :value="__('دسته بندی')" />
+                        <div class="col-md-9">
+                            <select class="selectpicker" data-live-search="true" id="category_id" name="category_id"> 
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
                         <x-label class="col-sm-3 col-form-label" for="title" :value="__('عنوان')" />
                         <div class="col-md-9">
                             <x-input id="title" class="form-control" type="text" name="title"  />

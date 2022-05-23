@@ -33,6 +33,11 @@ class TaskTitleController extends Controller
         ->with('tasktitle');
 
     }
+    public function getTaskTitles(Request $request){
+        $queryFiltered = DB::table('task_titles');
+        $json_data =  $queryFiltered->orderBy('title', 'asc')->get();
+        return response()->json($json_data);
+    }
 
     public function getData(Request $request){
         $columns = array(
@@ -88,6 +93,7 @@ class TaskTitleController extends Controller
                         ->withInput();
         } else {
             // store
+
             $taskTitle = new TaskTitle();
             $taskTitle->title         = $request->title; 
             $taskTitle->user_id       = Auth::user()->id;

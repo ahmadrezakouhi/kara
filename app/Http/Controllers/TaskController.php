@@ -35,6 +35,9 @@ class TaskController extends Controller
             1 => 'StartDate',
             3 => 'EndDatePre',
             4 => 'project_title',
+            5 => 'category_title',
+            6 =>  'username', 
+            7 =>  'time_do', 
         );
         $queryFiltered = DB::table('tasks');
         $projectUserFiltered = DB::table('project_users');
@@ -134,6 +137,11 @@ class TaskController extends Controller
             $project = DB::table('projects')->find($request->project_id);
             $task->project_id    = $request->project_id;
             $task->project_title = $project->title;
+
+            $category = DB::table('task_titles')->find($request->category_id);
+            $task->category_id    = $request->category_id;
+            $task->category_title = $category->title;
+
             $task->user_id       = Auth::user()->id;
             $task->userid       = $request->userid;
             $user = DB::table('project_users')->find($request->userid);
@@ -155,7 +163,10 @@ class TaskController extends Controller
                     $project = DB::table('projects')->find($request->project_id);
                     $task = new Task;
                     $task->project_id = $request->project_id;
-                    $task->project_title = $project->title;
+                    $task->project_title = $project->title; 
+                    $task->category_id = $request->category_id;
+                    $category = DB::table('task_titles')->find($request->category_id);
+                    $task->category_title = $category->title;
                     $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true); 
                     $task->start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
             
@@ -212,11 +223,14 @@ class TaskController extends Controller
         $task = Task::find($task->id);
 
         $usersFiltered = DB::table('project_users');
-        $users =  $usersFiltered->where("project_id", $task->project_id)->get();
+        $users =  $usersFiltered->where("project_id", $task->project_id)->get(); 
+        
+        $taskTitlesFiltered = DB::table('task_titles');
+        $taskTitles =  $taskTitlesFiltered->get();
 
         // show the edit form and pass the task
         return \View::make('task.edit')
-            ->with('task', $task)->with('projects', $projects)->with('users', $users);
+            ->with('task', $task)->with('projects', $projects)->with('users', $users)->with('taskTitles', $taskTitles);
     }
 
     /**
@@ -257,6 +271,9 @@ class TaskController extends Controller
                 $project = DB::table('projects')->find($request->project_id);
                 $task->project_id    = $request->project_id;
                 $task->project_title = $project->title;
+                $task->category_id = $request->category_id;
+                $category = DB::table('task_titles')->find($request->category_id);
+                $task->category_title = $category->title;
                 $task->userid       = $request->userid; 
                 $user = DB::table('project_users')->find($request->userid);
                 $task->username       = $user->fname . " " . $user->lname;

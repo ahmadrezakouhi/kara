@@ -76,6 +76,17 @@
             <form method="POST" id="frmTask">
                 @csrf
                 <div class="row p-2">
+                 <div class="col-md-12">
+                    <div class="row">
+                        <x-label class="col-sm-3 col-form-label" for="title" :value="__('دسته بندی')" />
+                        <div class="col-md-9">
+                            <select class="selectpicker" data-live-search="true" id="category_id" name="category_id"> 
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="row p-2">
                     <div class="col-md-12">
                         <div class="row">
                             <x-label class="col-sm-2 col-form-label" for="title" :value="__('عنوان')" />

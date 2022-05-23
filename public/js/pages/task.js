@@ -70,6 +70,21 @@ function funcSetProject(e){
 	});	
 }
 
+function funcSetCategory(e){
+	
+	$.post("/taskTitle/getTaskTitles",{_token: $("input[name=_token]").val()}, function (res) {
+		var _result =res;
+		$("#category_id").find('option')
+			.remove()
+			.end();
+			$("#category_id").append('<option value="0" >اصلی</option>');
+		$(_result).each(function (index, element) { 		
+			$("#category_id").append('<option value="' + element.id + '" >' + element.title + '</option>');
+		});	
+		$('.selectpicker').selectpicker('refresh');
+	});	
+}
+
 function funcSetUser(_projectid){
 	
 	$.post("/projectUser/getUserProjects",{_token: $("input[name=_token]").val(), project_id: _projectid }, function (res) {
@@ -107,7 +122,7 @@ $(document).ready(function () {
 	// $(_users).each(function (index, element) {
 	// 	selected += (selected=='') ? "Ids[]=" + element.id : "&Ids[]=" + element.id;
 	// });
-
+	funcSetCategory();
     funcSetProject();
 	$("#project_id").change(function(){
 		funcSetUser($(this).val())
@@ -212,6 +227,13 @@ $(document).ready(function () {
 					, "visible": true
 				},		
 				{
+					data: null, title: 'دسته بندی', render: function (data, type, row) {
+						
+						return data["category_title"];
+					}
+					, "visible": true
+				},	
+				{
 					data: null, title: 'انجام دهنده', render: function (data, type, row) {
 						
 						return data["username"];
@@ -279,7 +301,7 @@ $(document).ready(function () {
 		// ////
 
 		$("#btnAddTask").click(function(){
-			var required = ["#title", "#start_date", "#end_date_pre", "#project_id", "#userid"];
+			var required = ["#category_id","#title", "#start_date", "#end_date_pre", "#project_id", "#userid"];
 			required = checkRequired(required);
 			if (required) {	
 					$.ajax({
@@ -293,6 +315,7 @@ $(document).ready(function () {
 							project_id : $("#project_id").val(),
 							userid : $("#userid").val(),
 							description : $("#description").val(),
+							category_id : $("#category_id").val(),
 						}, success: function(result) {
 							if(result == -1){
 								funcAlert("", "خطا در ثبت اطلاعات");
