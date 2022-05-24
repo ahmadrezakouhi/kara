@@ -15,6 +15,7 @@ use App\Models\Project;
 use App\Models\ProjectUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class ProjectController extends Controller
 {
@@ -49,14 +50,58 @@ class ProjectController extends Controller
             $queryFiltered = $queryFiltered->whereIn("id",$projectsid);
         }
         $recordsTotal = $queryFiltered->count();
-       
+    //    var_dump( isset( $request['sf']['search-parent-id'])? true: false);
+    //    exit();
         if (isset($request['sf'])){
-            if($request['sf']['search-title'] != '')
-                $queryFiltered =  $queryFiltered->where('title', $request['sf']['search-title']);            
-        }
-        $recordsFiltered = $queryFiltered->count();
-        $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+            if ( 
+                 ($request['sf']['search-title'] != '' || $request['sf']['search-start-date'] != ''  || $request['sf']['search-end-date'] != '') ||
+                 !isset( $request['sf']['search-parent-id']) 
+                 || ( isset( $request['sf']['search-parent-id']) && ($request['sf']['search-parent-id'] == "0" || $request['sf']['search-parent-id'] == "-1" ))
+                 ){
+                    //  echo "Ddd";exit();
+                if($request['sf']['search-title'] != '')
+                    $queryFiltered =  $queryFiltered->where('title', $request['sf']['search-title']);   
+                if($request['sf']['search-start-date'] != ''){
+                        $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date'], true); 
+                        $start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
+                        $queryFiltered =  $queryFiltered->where('start_date>=', $start_date); 
+                }
+                if($request['sf']['search-end-date'] != ''){
+                    $enddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date'], true); 
+                    $end_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateString)->format('Y-m-d H:i:s');
+                    $queryFiltered =  $queryFiltered->where('end_date_pre<=', $end_date); 
+                }
+                $recordsFiltered = $queryFiltered->count();
+                $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+        
+            }else{
+                $where=" 1 ";
+                if( $request['sf']['search-title'] != '' )
+                    $where .=  " AND s.title like '%" . $request['sf']['search-title'] . "%'";
+                if($request['sf']['search-start-date'] != ''){
+                    $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date'], true); 
+                    $start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
+                    $where .=  " AND s.start_date >='" . $start_date . "'";
+                }
+                if($request['sf']['search-end-date'] != ''){
+                    $enddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date'], true); 
+                    $end_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateString)->format('Y-m-d H:i:s');
+                    $where .=  " AND s.end_date <='" . $end_date . "'";
+                }
+                   
+                $manual_query = "SELECT * FROM (SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, '0' as depth, @tree_ids := id AS foo FROM projects, (SELECT @tree_ids := '', @depth := -1) vars WHERE id = '" . $request['sf']['search-parent-id'] . "' UNION SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, @depth := IF(parent_level_id = '" . $request['sf']['search-parent-id'] . "', 1, @depth + 1) AS depth, @tree_ids := CONCAT(id, ',', @tree_ids) AS foo FROM projects WHERE FIND_IN_SET(parent_level_id, @tree_ids) OR parent_level_id ='" . $request['sf']['search-parent-id'] . "') s where ". $where ." ";
+                $data= DB::select($manual_query);
+                $recordsFiltered = count($data);
+            }
+        }   else{
+            $recordsFiltered = $queryFiltered->count();
+            $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+    
+        } 
+            
 
+        
+      
         $json_data = array(
             "draw" => intval($_REQUEST['draw']),
             "recordsTotal" => intval($recordsTotal),

@@ -111,15 +111,15 @@ function funcSetParentProject(e){
 function funcGetParentProject(){
 	$.post("/project/getProjects",{_token: $("input[name=_token]").val(), project_id: 0}, function (res) {
 		var _result =res;
-		$("#project_id").find('option')
+		$("#project_id, #search-parent-id").find('option')
 			.remove()
 			.end();
 			if (_role =='manager' )
-			$("#project_id").append('<option value="0" >اصلی</option>');
+			$("#project_id, #search-parent-id").append('<option value="0" >اصلی</option>');
 			else
-			$("#project_id").append('<option value="-1" selected >اصلی</option>');
+			$("#project_id, #search-parent-id").append('<option value="-1" selected >اصلی</option>');
 		$(_result).each(function (index, element) { 		
-			$("#project_id").append('<option value="' + element.id + '" >' + element.title + '</option>');
+			$("#project_id, #search-parent-id").append('<option value="' + element.id + '" >' + element.title + '</option>');
 		});	
 		$('.selectpicker').selectpicker('refresh');
 	});
@@ -281,13 +281,13 @@ $(document).ready(function () {
 			}
 		});
 	  })
-	$("#start_date, #end_date_pre, #estart_date, #eend_date_pre, #start_date_task , #end_date_task").pDatepicker({
+	$("#start_date, #end_date_pre, #estart_date, #eend_date_pre, #start_date_task , #end_date_task, #search-start-date, #search-end-date").pDatepicker({
 		format: "YYYY/MM/DD",
 		autoClose: true,
 		onSelect: function () {}
 
 	});
-	$("#start_date, #end_date_pre, #start_date_task , #end_date_task").val("");
+	$("#start_date, #end_date_pre, #start_date_task , #end_date_task, #search-start-date, #search-end-date").val("");
 
 	$("#estart_date").val(_start);
 	$("#eend_date_pre").val(_end);
