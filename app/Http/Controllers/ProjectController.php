@@ -62,23 +62,23 @@ class ProjectController extends Controller
                 if($request['sf']['search-start-date'] != ''){
                         $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date'], true); 
                         $start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
-                        $queryFiltered =  $queryFiltered->where('start_date>=', $start_date); 
+                        $queryFiltered =  $queryFiltered->where('start_date', '>=', $start_date); 
                 }
                 if($request['sf']['search-start-date-to'] != ''){
                     $todateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date-to'], true); 
                     $start_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $todateString)->format('Y-m-d H:i:s');
-                    $queryFiltered =  $queryFiltered->where('start_date<=', $start_date_to); 
+                    $queryFiltered =  $queryFiltered->where('start_date', '<=', $start_date_to); 
                 }
                 if($request['sf']['search-end-date'] != ''){
                     $enddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date'], true); 
                     $end_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateString)->format('Y-m-d H:i:s');
-                    $queryFiltered =  $queryFiltered->where('end_date_pre>=', $end_date); 
+                    $queryFiltered =  $queryFiltered->where('end_date_pre', '>=', $end_date); 
                 }
                 
                 if($request['sf']['search-end-date-to'] != ''){
                     $toenddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date-to'], true); 
                     $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $toenddateString)->format('Y-m-d H:i:s');
-                    $queryFiltered =  $queryFiltered->where('end_date_pre<=', $end_date_to); 
+                    $queryFiltered =  $queryFiltered->where('end_date_pre', '<=', $end_date_to); 
                 }
                 $recordsFiltered = $queryFiltered->count();
                 $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
