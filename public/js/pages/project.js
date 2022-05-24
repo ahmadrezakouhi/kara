@@ -281,13 +281,13 @@ $(document).ready(function () {
 			}
 		});
 	  })
-	$("#start_date, #end_date_pre, #estart_date, #eend_date_pre, #start_date_task , #end_date_task, #search-start-date, #search-end-date").pDatepicker({
+	$("#start_date, #end_date_pre, #estart_date, #eend_date_pre, #start_date_task , #end_date_task, #search-start-date, #search-end-date, #search-start-date-to, #search-end-date-to").pDatepicker({
 		format: "YYYY/MM/DD",
 		autoClose: true,
 		onSelect: function () {}
 
 	});
-	$("#start_date, #end_date_pre, #start_date_task , #end_date_task, #search-start-date, #search-end-date").val("");
+	$("#start_date, #end_date_pre, #start_date_task , #end_date_task, #search-start-date, #search-end-date, #search-start-date-to, #search-end-date-to").val("");
 
 	$("#estart_date").val(_start);
 	$("#eend_date_pre").val(_end);

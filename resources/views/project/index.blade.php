@@ -15,18 +15,26 @@
                 <div class="row pt-3">
                     <div class="col-md-3">
                         <div class="mb-3 row">
-                            <label for="title" class="col-sm-5 col-form-label">زمان شروع:</label>
-                            <div class="col-sm-7">
+                            <label for="title" class="col-sm-5 col-form-label">زمان شروع از:</label>
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" id="search-start-date" name="search-start-date">
+                            </div>
+                            <label  class="col-sm-1 col-form-label">تا</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="search-start-date-to" name="search-start-date-to">
                             </div>
                         </div>
         
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3 row">
-                            <label for="title" class="col-sm-5 col-form-label">تخمین زمان پایان:</label>
-                            <div class="col-sm-7">
+                            <label for="title" class="col-sm-5 col-form-label">تخمین زمان پایان از:</label>
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" id="search-end-date" name="search-end-date">
+                            </div>
+                            <label  class="col-sm-1 col-form-label">تا</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="search-end-date-to" name="search-end-date-to">
                             </div>
                         </div>
         

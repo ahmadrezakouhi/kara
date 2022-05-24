@@ -64,10 +64,21 @@ class ProjectController extends Controller
                         $start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
                         $queryFiltered =  $queryFiltered->where('start_date>=', $start_date); 
                 }
+                if($request['sf']['search-start-date-to'] != ''){
+                    $todateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date-to'], true); 
+                    $start_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $todateString)->format('Y-m-d H:i:s');
+                    $queryFiltered =  $queryFiltered->where('start_date<=', $start_date_to); 
+                }
                 if($request['sf']['search-end-date'] != ''){
                     $enddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date'], true); 
                     $end_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateString)->format('Y-m-d H:i:s');
-                    $queryFiltered =  $queryFiltered->where('end_date_pre<=', $end_date); 
+                    $queryFiltered =  $queryFiltered->where('end_date_pre>=', $end_date); 
+                }
+                
+                if($request['sf']['search-end-date-to'] != ''){
+                    $toenddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date-to'], true); 
+                    $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $toenddateString)->format('Y-m-d H:i:s');
+                    $queryFiltered =  $queryFiltered->where('end_date_pre<=', $end_date_to); 
                 }
                 $recordsFiltered = $queryFiltered->count();
                 $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
@@ -81,12 +92,23 @@ class ProjectController extends Controller
                     $start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
                     $where .=  " AND s.start_date >='" . $start_date . "'";
                 }
+                if($request['sf']['search-start-date-to'] != ''){
+                    $dateStringto = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date-to'], true); 
+                    $start_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateStringto)->format('Y-m-d H:i:s');
+                    $where .=  " AND s.start_date <='" . $start_date_to . "'";
+                }
+
                 if($request['sf']['search-end-date'] != ''){
                     $enddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date'], true); 
-                    $end_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateString)->format('Y-m-d H:i:s');
-                    $where .=  " AND s.end_date_pre <='" . $end_date . "'";
+                    $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateString)->format('Y-m-d H:i:s');
+                    $where .=  " AND s.end_date_pre >='" . $end_date_to . "'";
                 }
-                   
+              
+                if($request['sf']['search-end-date-to'] != ''){
+                    $enddateStringto = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date-to'], true); 
+                    $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateStringto)->format('Y-m-d H:i:s');
+                    $where .=  " AND s.end_date_pre <='" . $end_date_to . "'";
+                }   
                 $manual_query = "SELECT * FROM (SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, '0' as depth, @tree_ids := id AS foo FROM projects, (SELECT @tree_ids := '', @depth := -1) vars WHERE id = '" . $request['sf']['search-parent-id'] . "' UNION SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, @depth := IF(parent_level_id = '" . $request['sf']['search-parent-id'] . "', 1, @depth + 1) AS depth, @tree_ids := CONCAT(id, ',', @tree_ids) AS foo FROM projects WHERE FIND_IN_SET(parent_level_id, @tree_ids) OR parent_level_id ='" . $request['sf']['search-parent-id'] . "') s where ". $where ." ";
                 $data= DB::select($manual_query);
                 $recordsFiltered = count($data);
