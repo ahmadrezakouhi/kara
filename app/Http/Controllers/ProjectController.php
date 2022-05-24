@@ -84,7 +84,7 @@ class ProjectController extends Controller
                 if($request['sf']['search-end-date'] != ''){
                     $enddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date'], true); 
                     $end_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateString)->format('Y-m-d H:i:s');
-                    $where .=  " AND s.end_date <='" . $end_date . "'";
+                    $where .=  " AND s.end_date_pre <='" . $end_date . "'";
                 }
                    
                 $manual_query = "SELECT * FROM (SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, '0' as depth, @tree_ids := id AS foo FROM projects, (SELECT @tree_ids := '', @depth := -1) vars WHERE id = '" . $request['sf']['search-parent-id'] . "' UNION SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, @depth := IF(parent_level_id = '" . $request['sf']['search-parent-id'] . "', 1, @depth + 1) AS depth, @tree_ids := CONCAT(id, ',', @tree_ids) AS foo FROM projects WHERE FIND_IN_SET(parent_level_id, @tree_ids) OR parent_level_id ='" . $request['sf']['search-parent-id'] . "') s where ". $where ." ";
