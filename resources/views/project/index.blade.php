@@ -13,9 +13,9 @@
             <form id='sf' action="getData" method = "POST">
                 @csrf  
                 <div class="row pt-3">
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <div class="mb-3 row">
-                            <label for="title" class="col-sm-5 col-form-label">زمان شروع از:</label>
+                            <label for="title" class="col-sm-4 col-form-label">زمان شروع از:</label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" id="search-start-date" name="search-start-date">
                             </div>
@@ -26,7 +26,7 @@
                         </div>
         
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="mb-3 row">
                             <label for="title" class="col-sm-5 col-form-label">تخمین زمان پایان از:</label>
                             <div class="col-sm-3">
