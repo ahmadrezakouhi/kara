@@ -54,13 +54,11 @@ class ProjectController extends Controller
     //    exit();
         if (isset($request['sf'])){
             if ( 
-                 ($request['sf']['search-title'] != '' || $request['sf']['search-start-date'] != ''  || $request['sf']['search-end-date'] != '') ||
-                 !isset( $request['sf']['search-parent-id']) 
-                 || ( isset( $request['sf']['search-parent-id']) && ($request['sf']['search-parent-id'] == "0" || $request['sf']['search-parent-id'] == "-1" ))
+                 (!isset( $request['sf']['search-parent-id']) || ( isset( $request['sf']['search-parent-id']) && ($request['sf']['search-parent-id'] == "0" || $request['sf']['search-parent-id'] == "-1" )))
                  ){
                     //  echo "Ddd";exit();
                 if($request['sf']['search-title'] != '')
-                    $queryFiltered =  $queryFiltered->where('title', $request['sf']['search-title']);   
+                    $queryFiltered =  $queryFiltered->where('title', 'like','%' .$request['sf']['search-title']. '%' );   
                 if($request['sf']['search-start-date'] != ''){
                         $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date'], true); 
                         $start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
