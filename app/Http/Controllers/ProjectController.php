@@ -116,6 +116,18 @@ class ProjectController extends Controller
             $project->user_id     = Auth::user()->id;
             $project->save();
 
+            if ( Gate::allows('isAdmin')) { 
+                $parent_project = project::find($request->project_id);
+                $project->parent_level_id  = $request->project_id;
+                $project->parent_level_name  = $parent_project->title;
+            }
+            if ( Gate::allows('isManager')) { 
+                $project->parent_level_id  = $request->project_id;
+                if($request->project_id !=0){
+                    $parent_project = project::find($request->project_id);
+                    $project->parent_level_name  = $parent_project->title;
+                }
+            }
             $personnel_users = new ProjectUser();
             $data_user = DB::table('users')->find(Auth::user()->id);
             $personnel_users->userid       = Auth::user()->id; 
@@ -161,6 +173,18 @@ class ProjectController extends Controller
             // $project->description = $request->description;
             // $project->level         = $request->level;
             // $project->parent_level  = $request->parent_level;
+            if ( Gate::allows('isAdmin')) { 
+                $parent_project = project::find($request->project_id);
+                $project->parent_level_id  = $request->project_id;
+                $project->parent_level_name  = $parent_project->title;
+            }
+            if ( Gate::allows('isManager')) { 
+                $project->parent_level_id  = $request->project_id;
+                if($request->project_id !=0){
+                    $parent_project = project::find($request->project_id);
+                    $project->parent_level_name  = $parent_project->title;
+                }
+            }
             $project->user_id     = Auth::user()->id;
             $project->save();
 

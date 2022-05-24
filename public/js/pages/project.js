@@ -5,8 +5,8 @@ var _parent=0;
 var _alluser =[];
 function funcDelete(e) {
     let data_id = $(e).parent().parent().attr("data-id");
-    let data_name = $(e).parent().parent().attr("data-name");
-    Confirm('توجه', '40%', 'BackToHome|5000', data_name + ' از لیست کارمندان حذف شود؟ ', {
+    let data_name = $(e).parent().parent().attr("data-title");
+    Confirm('توجه', '40%', 'BackToHome|5000', data_name + ' از لیست پروژه ها حذف شود؟ ', {
         BackToHome: {
             text: 'بازگشت به صفحه اصلی',
             btnClass: 'btn-' + 'green',
@@ -94,7 +94,10 @@ function funcSetParentProject(e){
 		$("#parent-level").find('option')
 			.remove()
 			.end();
-			$("#parent-level").append('<option value="0" >اصلی</option>');
+			if (_role =='manager' )
+			$("#project_id").append('<option value="0" >اصلی</option>');
+			// else
+			// $("#project_id").append('<option value="-1" selected >اصلی</option>');
 		$(_result).each(function (index, element) { 		
 			$("#parent-level").append('<option value="' + element.id + '" >' + element.title + '</option>');
 		});	
@@ -103,6 +106,23 @@ function funcSetParentProject(e){
 	});
 	$("#btnAddParentProject").attr("data-id", data_id);
 	myModalParentProject.show()
+}
+
+function funcGetParentProject(){
+	$.post("/project/getProjects",{_token: $("input[name=_token]").val(), project_id: 0}, function (res) {
+		var _result =res;
+		$("#project_id").find('option')
+			.remove()
+			.end();
+			if (_role =='manager' )
+			$("#project_id").append('<option value="0" >اصلی</option>');
+			else
+			$("#project_id").append('<option value="-1" selected >اصلی</option>');
+		$(_result).each(function (index, element) { 		
+			$("#project_id").append('<option value="' + element.id + '" >' + element.title + '</option>');
+		});	
+		$('.selectpicker').selectpicker('refresh');
+	});
 }
 
 function funcSetUserTask(_projectid){
@@ -132,6 +152,7 @@ $(document).ready(function () {
 	// $(_users).each(function (index, element) {
 	// 	selected += (selected=='') ? "Ids[]=" + element.id : "&Ids[]=" + element.id;
 	// });
+	funcGetParentProject();
 	$('#mdlAddUsers').on('shown.bs.modal', function () {
 		if (  $.fn.DataTable.isDataTable( '#tbl-user' ) ) {
 			tt_user.destroy();
@@ -576,7 +597,11 @@ $(document).ready(function () {
 	});
 
 	$("#btnAddProject").click(function(){
-		var required = ["#titleProject", "#start_date", "#end_date"];
+		if (_role =='admin' )
+		var required = ["#titleProject", "#start_date", "#end_date_pre", "#project_id"];
+		else 
+		var required = ["#titleProject", "#start_date", "#end_date_pre"];
+
         required = checkRequired(required);
         // if (required && vmsNationalCode($("#MelliCode")) && vmobile($("#Mobile"))) {
         if (required) {
@@ -588,7 +613,8 @@ $(document).ready(function () {
 					title : $("#titleProject").val(),
 					start_date : $("#start_date").val(),
 					end_date_pre : $("#end_date_pre").val(),
-					description : $("#descriptionProject").val(),
+					description : $("#descriptionProject").val(),	
+					project_id : $("#project_id").val(),
 				}, success: function(result) {
 					if(result == -1){
 						funcAlert("", "خطا در ثبت اطلاعات");

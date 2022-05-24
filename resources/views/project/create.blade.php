@@ -34,6 +34,7 @@
                         </div>
                     </div>
                 </div>
+               
                 <div class="col-md-3">
                     <div class="row">
                         <x-label class="col-sm-5 col-form-label"  for="start_date" :value="__('تاریخ شروع')" />
@@ -52,6 +53,16 @@
                 </div>
             </div>
             <div class="row p-2">
+                <div class="col-md-3">
+                    <div class="row">
+                        <x-label class="col-sm-4 col-form-label" for="title" :value="__('پروژه ارشد')" />
+                        <div class="col-md-8">
+                            
+                         <select class="selectpicker"  data-live-search="true" id="project_id" name="project_id"> 
+                            </select>
+                        </div>
+                    </div> 
+                </div>
                 <!-- <div class="col-md-3">
                     <div class="row">
                         <x-label class="col-sm-5 col-form-label" :value="__('سطح')" />
@@ -70,8 +81,8 @@
                 </div> -->
                 <div class="col-md-6">
                     <div class="row">
-                        <x-label class="col-sm-1 col-form-label" for="description" :value="__('توضیحات')" />
-                        <div class="col-md-11">
+                        <x-label class="col-sm-2 col-form-label" for="description" :value="__('توضیحات')" />
+                        <div class="col-md-10">
                             <x-input id="description" class="form-control" type="text" name="description" />
                         </div>
                     </div>
@@ -90,5 +101,10 @@
 @stop
 
 @section('scripts')
+    <script> var _role = "<?php
+
+use Illuminate\Support\Facades\Auth;
+
+ echo Auth::user()->role; ?>" ;</script>
    <script src="{{ asset('/js/pages/project.js') }}"></script>
 @endsection

@@ -72,6 +72,14 @@
                         </div>
                     </div>
                     <div class="row p-2">
+                        <x-label class="col-sm-2 col-form-label" for="title" :value="__('پروژه ارشد')" />
+                        <div class="col-md-10">
+                            
+                         <select class="selectpicker"  data-live-search="true" id="project_id" name="project_id"> 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row p-2">
                         <div class="col-md-6">
                             <div class="row">
                                 <x-label class="col-sm-5 col-form-label"  for="start_date" :value="__('زمان شروع')" />
@@ -252,6 +260,12 @@
 @stop
 
 @section('scripts')
+    <script> var _role = "<?php
+
+        use Illuminate\Support\Facades\Auth;
+
+        echo Auth::user()->role; ?>" ;
+    </script>
     <script>
         var myModalUser = new bootstrap.Modal(document.getElementById('mdlAddUsers'), {});
         var myModalParentProject = new bootstrap.Modal(document.getElementById('mdlAddParentProject'), {});

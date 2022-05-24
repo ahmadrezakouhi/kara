@@ -120,7 +120,7 @@
                     <div class="row">
                         <x-label class="col-sm-5 col-form-label" for="project_id" :value="__('پروژه')" />
                         <div class="col-md-7">
-                            <select class="selectpicker" data-live-search="true" id="project_id" name="project_id"> 
+                            <select  class="selectpicker" data-live-search="true" id="project_id" name="project_id"> 
                             </select>
                         </div>
                     </div>
