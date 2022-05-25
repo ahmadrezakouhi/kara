@@ -111,20 +111,41 @@ function funcSetParentProject(e){
 function funcGetParentProject(){
 	$.post("/project/getProjects",{_token: $("input[name=_token]").val(), project_id: 0}, function (res) {
 		var _result =res;
-		$("#project_id, #search-parent-id").find('option')
+		$("#project_id").find('option')
 			.remove()
 			.end();
 			if (_role =='manager' )
-			$("#project_id, #search-parent-id").append('<option value="0" >اصلی</option>');
+			$("#project_id").append('<option value="0" >اصلی</option>');
 			else
-			$("#project_id, #search-parent-id").append('<option value="-1" selected >اصلی</option>');
+			$("#project_id").append('<option value="-1" selected >همه</option>');
 		$(_result).each(function (index, element) { 		
-			$("#project_id, #search-parent-id").append('<option value="' + element.id + '" >' + element.title + '</option>');
+			$("#project_id").append('<option value="' + element.id + '" >' + element.title + '</option>');
 		});	
 		$('.selectpicker').selectpicker('refresh');
 	});
 }
+let parentListId=[];
+function funcGetAllParentProject(){
 
+	$.post("/project/getParentProjects",{_token: $("input[name=_token]").val(), project_id: 0}, function (res) {
+		var _result =res;
+		$("#search-parent-id").find('option')
+			.remove()
+			.end();
+			if (_role =='manager' )
+			$("#search-parent-id").append('<option value="0" >اصلی</option>');
+			else
+			$("#search-parent-id").append('<option value="-1" selected >همه</option>');
+		$(_result).each(function (index, element) { 	
+			if(parentListId.indexOf(element.parent_level_id)<0)
+			{	
+			parentListId.push(element.parent_level_id);
+			$("#search-parent-id").append('<option value="' + element.parent_level_id + '" >' + element.parent_level_name + '</option>');
+			}
+		});	
+		$('.selectpicker').selectpicker('refresh');
+	});
+}
 function funcSetUserTask(_projectid){
 	
 	$.post("/projectUser/getUserProjects",{_token: $("input[name=_token]").val(), project_id: _projectid }, function (res) {
@@ -153,6 +174,7 @@ $(document).ready(function () {
 	// 	selected += (selected=='') ? "Ids[]=" + element.id : "&Ids[]=" + element.id;
 	// });
 	funcGetParentProject();
+	funcGetAllParentProject();
 	$('#mdlAddUsers').on('shown.bs.modal', function () {
 		if (  $.fn.DataTable.isDataTable( '#tbl-user' ) ) {
 			tt_user.destroy();

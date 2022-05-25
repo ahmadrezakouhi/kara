@@ -40,7 +40,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/project', ProjectController::class);
     Route::delete('/project/{id}', [ProjectController::class, "destroy"]);
     Route::post('/project/getData', [ProjectController::class, "getData"]);
-    Route::post('/project/getProjects', [ProjectController::class, "getProjects"]); 
+    Route::post('/project/getProjects', [ProjectController::class, "getProjects"]);  
+    Route::post('/project/getParentProjects', [ProjectController::class, "getParentProjects"]);
     Route::post('/project/addParent', [ProjectController::class, "addParent"]);
     Route::post('/project/addProject', [ProjectController::class, "addProject"]);
     

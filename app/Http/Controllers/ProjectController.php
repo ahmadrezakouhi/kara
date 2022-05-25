@@ -42,13 +42,13 @@ class ProjectController extends Controller
         );
         $queryFiltered = DB::table('projects');
 
-        if( Auth::user()->role != "manager"){
-            $projectUserFiltered = DB::table('project_users');
-            $projectUserFiltered = $projectUserFiltered->select("project_id")->where('userid', Auth::user()->id)->where('title',0)->get();       
-            $projectsid=[];
-            for ($i=0; $i < count($projectUserFiltered); $i++) $projectsid[]= $projectUserFiltered[$i]->project_id;
-            $queryFiltered = $queryFiltered->whereIn("id",$projectsid);
-        }
+        // if( Auth::user()->role != "manager"){
+        //     $projectUserFiltered = DB::table('project_users');
+        //     $projectUserFiltered = $projectUserFiltered->select("project_id")->where('userid', Auth::user()->id)->where('title',0)->get();       
+        //     $projectsid=[];
+        //     for ($i=0; $i < count($projectUserFiltered); $i++) $projectsid[]= $projectUserFiltered[$i]->project_id;
+        //     $queryFiltered = $queryFiltered->whereIn("id",$projectsid);
+        // }
         $recordsTotal = $queryFiltered->count();
     //    var_dump( isset( $request['sf']['search-parent-id'])? true: false);
     //    exit();
@@ -80,6 +80,11 @@ class ProjectController extends Controller
                     $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $toenddateString)->format('Y-m-d H:i:s');
                     $queryFiltered =  $queryFiltered->where('end_date_pre', '<=', $end_date_to); 
                 }
+                $queryFiltered = $queryFiltered->whereIn('id',function($query){
+
+                    $query->select('project_id')->from('project_users')->where("userid",Auth::user()->id );
+     
+                 });
                 $recordsFiltered = $queryFiltered->count();
                 $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
         
@@ -109,11 +114,19 @@ class ProjectController extends Controller
                     $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateStringto)->format('Y-m-d H:i:s');
                     $where .=  " AND s.end_date_pre <='" . $end_date_to . "'";
                 }   
+
+                $where .= " AND s.id IN (SELECT project_id from project_users where userid = '" . Auth::user()->id ."')";
                 $manual_query = "SELECT * FROM (SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, '0' as depth, @tree_ids := id AS foo FROM projects, (SELECT @tree_ids := '', @depth := -1) vars WHERE id = '" . $request['sf']['search-parent-id'] . "' UNION SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, @depth := IF(parent_level_id = '" . $request['sf']['search-parent-id'] . "', 1, @depth + 1) AS depth, @tree_ids := CONCAT(id, ',', @tree_ids) AS foo FROM projects WHERE FIND_IN_SET(parent_level_id, @tree_ids) OR parent_level_id ='" . $request['sf']['search-parent-id'] . "') s where ". $where ." ";
+
                 $data= DB::select($manual_query);
                 $recordsFiltered = count($data);
             }
         }   else{
+            $queryFiltered = $queryFiltered->whereIn('id',function($query){
+
+                $query->select('project_id')->from('project_users')->where("userid",Auth::user()->id );
+ 
+             });
             $recordsFiltered = $queryFiltered->count();
             $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
     
@@ -303,6 +316,21 @@ class ProjectController extends Controller
             $projectuser_query= DB::table('project_users')->where('userid', Auth::user()->id)->where("title",0)->get();
             $project = [];
             for ($i=0; $i< count($projectuser_query); $i++) $project[] = $projectuser_query[$i]->project_id;
+            $queryFiltered->whereIn('id',$project);
+        }
+        $json_data =  $queryFiltered->orderBy('title', 'asc')->get();
+        return response()->json($json_data);
+    }
+
+    public function getParentProjects(Request $request){
+        $queryFiltered = DB::table('projects');
+       
+        if (Gate::allows('isAdmin')  )
+        {
+            $projectuser_query= DB::table('project_users')->where('userid', Auth::user()->id)->where("title",0)->get();
+            $project = [];
+            for ($i=0; $i< count($projectuser_query); $i++) $project[] = $projectuser_query[$i]->project_id;
+            
             $queryFiltered->whereIn('id',$project);
         }
         $json_data =  $queryFiltered->orderBy('title', 'asc')->get();
