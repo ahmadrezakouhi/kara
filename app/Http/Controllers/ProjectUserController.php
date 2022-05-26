@@ -8,7 +8,7 @@ use App\Models\ProjectUser;
 use App\Models\User;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -122,8 +122,10 @@ class ProjectUserController extends Controller
                     $personnel_users->fname       = $data->fname; 
                     $personnel_users->lname       = $data->lname;
                     $personnel_users->project_id  = $request->project_id;
-                    $personnel_users->title       = 1;  //member
-                    $personnel_users->status      = 1;
+                    $project = Project::find($request->project_id);
+                    $personnel_users->project_title  = $project->title;
+
+                    $personnel_users->status       = 1;  //member
                     $personnel_users->user_id     = Auth::user()->id;
                     $personnel_users->save();
                     
@@ -136,8 +138,10 @@ class ProjectUserController extends Controller
             $personnel_users->fname       = $data->fname; 
             $personnel_users->lname       = $data->lname;
             $personnel_users->project_id  = $request->project_id;
-            $personnel_users->title       = 0;  //admin
-            $personnel_users->status      = 1;
+            $project = Project::find($request->project_id);
+            $personnel_users->project_title  = $project->title;
+
+            $personnel_users->status       = 0;  //admin
             $personnel_users->user_id     = Auth::user()->id;
             $personnel_users->save();
             DB::table('tasks')->where('project_id', $request->project_id)->whereIn('userid', $oldUser)->where("username", $data->fname . ' ' . $data->lname)->update(['userid' => $personnel_users->id]);

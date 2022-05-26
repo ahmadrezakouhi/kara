@@ -33,7 +33,6 @@ class ProjectController extends Controller
 
     public function getData(Request $request){
         $columns = array(
-            // 0 => 'id',
             0 => 'title',
             1 => 'StartDate',
             2 => 'EndDatePre',
@@ -41,52 +40,49 @@ class ProjectController extends Controller
             4 => 'parentlevel',
         );
         $queryFiltered = DB::table('projects');
-
-        // if( Auth::user()->role != "manager"){
-        //     $projectUserFiltered = DB::table('project_users');
-        //     $projectUserFiltered = $projectUserFiltered->select("project_id")->where('userid', Auth::user()->id)->where('title',0)->get();       
-        //     $projectsid=[];
-        //     for ($i=0; $i < count($projectUserFiltered); $i++) $projectsid[]= $projectUserFiltered[$i]->project_id;
-        //     $queryFiltered = $queryFiltered->whereIn("id",$projectsid);
-        // }
         $recordsTotal = $queryFiltered->count();
-    //    var_dump( isset( $request['sf']['search-parent-id'])? true: false);
-    //    exit();
+ 
         if (isset($request['sf'])){
-            if ( 
-                 (!isset( $request['sf']['search-parent-id']) || ( isset( $request['sf']['search-parent-id']) && ($request['sf']['search-parent-id'] == "0" || $request['sf']['search-parent-id'] == "-1" )))
+            if ( (!isset( $request['sf']['search-parent-id']) || ( isset( $request['sf']['search-parent-id']) && ($request['sf']['search-parent-id'] == "0" || $request['sf']['search-parent-id'] == "-1" )))
                  ){
-                    //  echo "Ddd";exit();
                 if($request['sf']['search-title'] != '')
-                    $queryFiltered =  $queryFiltered->where('title', 'like','%' .$request['sf']['search-title']. '%' );   
+                    $queryFiltered =  $queryFiltered->where('projects.title', 'like','%' .$request['sf']['search-title']. '%' );   
                 if($request['sf']['search-start-date'] != ''){
                         $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date'], true); 
                         $start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
-                        $queryFiltered =  $queryFiltered->where('start_date', '>=', $start_date); 
+                        $queryFiltered =  $queryFiltered->where('projects.start_date', '>=', $start_date); 
                 }
                 if($request['sf']['search-start-date-to'] != ''){
                     $todateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date-to'], true); 
                     $start_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $todateString)->format('Y-m-d H:i:s');
-                    $queryFiltered =  $queryFiltered->where('start_date', '<=', $start_date_to); 
+                    $queryFiltered =  $queryFiltered->where('projects.start_date', '<=', $start_date_to); 
                 }
                 if($request['sf']['search-end-date'] != ''){
                     $enddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date'], true); 
                     $end_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateString)->format('Y-m-d H:i:s');
-                    $queryFiltered =  $queryFiltered->where('end_date_pre', '>=', $end_date); 
+                    $queryFiltered =  $queryFiltered->where('projects.end_date_pre', '>=', $end_date); 
                 }
                 
                 if($request['sf']['search-end-date-to'] != ''){
                     $toenddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date-to'], true); 
                     $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $toenddateString)->format('Y-m-d H:i:s');
-                    $queryFiltered =  $queryFiltered->where('end_date_pre', '<=', $end_date_to); 
+                    $queryFiltered =  $queryFiltered->where('projects.end_date_pre', '<=', $end_date_to); 
                 }
-                $queryFiltered = $queryFiltered->whereIn('id',function($query){
 
-                    $query->select('project_id')->from('project_users')->where("userid",Auth::user()->id );
-     
-                 });
+                if ( Gate::allows('isAdmin')) { 
+                    $queryFiltered = $queryFiltered->whereIn('projects.id',function($query){
+
+                        $query->select('project_id')->from('project_users')->where("userid",Auth::user()->id );
+        
+                    }); 
+                }
                 $recordsFiltered = $queryFiltered->count();
-                $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+                    if ( Gate::allows('isAdmin'))                    
+                     $queryFiltered = $queryFiltered->where("project_users.userid",Auth::user()->id );
+
+                $data = $queryFiltered->select("projects.*", "project_users.project_id","project_users.status")->
+                leftJoin('project_users', 'projects.id', '=', 'project_users.project_id')
+                ->orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
         
             }else{
                 $where=" 1 ";
@@ -122,13 +118,15 @@ class ProjectController extends Controller
                 $recordsFiltered = count($data);
             }
         }   else{
-            $queryFiltered = $queryFiltered->whereIn('id',function($query){
+            if ( Gate::allows('isAdmin')) { 
+                $queryFiltered = $queryFiltered->whereIn('projects.id',function($query){
 
-                $query->select('project_id')->from('project_users')->where("userid",Auth::user()->id );
- 
-             });
+                    $query->select('project_id')->from('project_users')->where("userid",Auth::user()->id );
+    
+                });
+            }
             $recordsFiltered = $queryFiltered->count();
-            $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+            $data = $queryFiltered->select("projects.*", "project_users.project_id","project_users.status")->leftJoin('project_users', 'projects.id', '=', 'project_users.project_id')->orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
     
         } 
             
@@ -211,9 +209,9 @@ class ProjectController extends Controller
             $personnel_users->userid       = Auth::user()->id; 
             $personnel_users->fname       = $data_user->fname; 
             $personnel_users->lname       = $data_user->lname;
-            $personnel_users->project_id  = $request->title;
-            $personnel_users->title       = 0;  //admin
-            $personnel_users->status      = 1;
+            $personnel_users->project_id  = $request->project_id;
+            $personnel_users->project_title  =  $request->title;
+            $personnel_users->status       = 0;  //admin
             $personnel_users->user_id     = Auth::user()->id;
             $personnel_users->save();
             // redirect
@@ -272,8 +270,8 @@ class ProjectController extends Controller
             $personnel_users->fname       = $data_user->fname; 
             $personnel_users->lname       = $data_user->lname;
             $personnel_users->project_id  = $project->id;
-            $personnel_users->title       = 0;  //admin
-            $personnel_users->status      = 1;
+             $personnel_users->project_title  = $project->title;
+            $personnel_users->status       = 0;  //admin
             $personnel_users->user_id     = Auth::user()->id;
             // echo '<pre>';
             // var_dump($personnel_users);exit();
@@ -313,7 +311,7 @@ class ProjectController extends Controller
             $queryFiltered->where('id', '!=', $request->project_id);
         if (Gate::allows('isAdmin')  )
         {
-            $projectuser_query= DB::table('project_users')->where('userid', Auth::user()->id)->where("title",0)->get();
+            $projectuser_query= DB::table('project_users')->where('userid', Auth::user()->id)->where("status",0)->get();
             $project = [];
             for ($i=0; $i< count($projectuser_query); $i++) $project[] = $projectuser_query[$i]->project_id;
             $queryFiltered->whereIn('id',$project);
@@ -327,7 +325,7 @@ class ProjectController extends Controller
        
         if (Gate::allows('isAdmin')  )
         {
-            $projectuser_query= DB::table('project_users')->where('userid', Auth::user()->id)->where("title",0)->get();
+            $projectuser_query= DB::table('project_users')->where('userid', Auth::user()->id)->where("status",0)->get();
             $project = [];
             for ($i=0; $i< count($projectuser_query); $i++) $project[] = $projectuser_query[$i]->project_id;
             
@@ -350,7 +348,7 @@ class ProjectController extends Controller
         $project = Project::find($id);
         
         $queryFiltered = DB::table('project_users');
-        $users =  $queryFiltered->where('project_id', $id)->orderBy('title', 'asc')->get();
+        $users =  $queryFiltered->where('project_id', $id)->get();
         
         $querySubPoject = DB::table('projects');
         $subPoject =  $querySubPoject->where('parent_level_id', $id)->orderBy('parent_level_name', 'asc')->get();

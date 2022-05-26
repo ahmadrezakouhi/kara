@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('userid'); 
             $table->bigInteger('user_id'); // user create
             $table->bigInteger('project_id');
-            $table->string('title');
+            $table->string('project_title');
             $table->tinyInteger('status')->default(0);
             $table->string('fname');
             $table->string('lname');

@@ -72,7 +72,7 @@ function funcSetUser(e){
 		_users=[];
 		$(_result).each(function (index, element) {
 			_users.push({id:element.userid})
-			if(element.title==0){
+			if(element.status==0){
 				_manage.push({id:element.userid})
 			}
 		});
@@ -277,7 +277,9 @@ $(document).ready(function () {
 				$(row).attr("data-id", _parent == 0 ? data['id'] : data['userid']);
 				$(row).attr("data-name", data['fname'] + ' ' +  data['lname']);
 				// $(row).attr("data-mobile", data['mobile']);
-			
+				if(data['status'] == 1 && _role !="manager"){
+					row.childNodes[5].innerHTML = '-';
+				}
 				
 			},
 			"language": {

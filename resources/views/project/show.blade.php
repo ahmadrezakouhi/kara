@@ -23,7 +23,7 @@
                             <ul class="list-group list-group-flush">
                                 @for($i=0; $i< count($users); $i++)
                                 
-                                    @if($users[$i]->title ==0)
+                                    @if($users[$i]->status ==0)
                                         <li class="list-group-item list-group-item-primary">{{ 'مدیر گروه: ' . $users[$i]->fname . ' ' . $users[$i]->lname }}</li>
                                     @else    
                                         <li class="list-group-item"><span class="badge bg-primary rounded-pill">{{$i}}</span> {{  $users[$i]->fname . ' ' . $users[$i]->lname }}</li>
