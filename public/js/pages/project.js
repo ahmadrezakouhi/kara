@@ -277,9 +277,7 @@ $(document).ready(function () {
 				$(row).attr("data-id", _parent == 0 ? data['id'] : data['userid']);
 				$(row).attr("data-name", data['fname'] + ' ' +  data['lname']);
 				// $(row).attr("data-mobile", data['mobile']);
-				if(data['status'] == 1 && _role !="manager"){
-					row.childNodes[5].innerHTML = '-';
-				}
+				
 				
 			},
 			"language": {
@@ -421,6 +419,9 @@ $(document).ready(function () {
 				// $(row).attr("data-name", data['fname'] + ' ' +  data['lname']);
 				$(row).attr("data-title", data['title']);
 				$(row).attr("data-parent", data['parent_level_id']);
+				if(data['status'] == 1 && _role !="manager"){
+					row.childNodes[5].innerHTML = '-';
+				}
 			},
 			"language": {
 				"decimal": "-",
