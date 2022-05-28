@@ -77,16 +77,16 @@ class ProjectController extends Controller
                     }); 
                 }
                 $recordsFiltered = $queryFiltered->count();
-                // if ( Gate::allows('isAdmin') || Gate::allows('isAUser')) {                   
+                if ( Gate::allows('isAdmin') || Gate::allows('isAUser')) {                   
                      $queryFiltered = $queryFiltered->where("project_users.userid",Auth::user()->id );
 
                      $queryFiltered = $queryFiltered->select("projects.*", "project_users.project_id","project_users.status")->leftJoin('project_users', 'projects.id', '=', 'project_users.project_id');
                 $data = $queryFiltered->orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
     
-                // }else{
-                //     $data = $queryFiltered->select("projects.*", "projects.user_id as status")->
-                //     orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
-                // }
+                }else{
+                    $data = $queryFiltered->select("projects.*", "projects.user_id as status")->
+                    orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+                }
             }else{
                 $where=" 1 ";
                 if( $request['sf']['search-title'] != '' )
