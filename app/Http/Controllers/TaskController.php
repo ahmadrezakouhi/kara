@@ -54,7 +54,7 @@ class TaskController extends Controller
             $projectsid=[];
             $projectsiduser=[];
             for ($i=0; $i < count($projectUserFiltered); $i++) {
-                if($projectUserFiltered[$i]->title == 0)
+                if($projectUserFiltered[$i]->status == 0)
                     $projectsid[]= $projectUserFiltered[$i]->project_id;
                 else
                     $projectsiduser[]= $projectUserFiltered[$i]->id;
