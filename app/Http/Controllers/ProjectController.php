@@ -41,7 +41,7 @@ class ProjectController extends Controller
         );
         $queryFiltered = DB::table('projects');
         $recordsTotal = $queryFiltered->count();
- 
+        $manual_query="";
         if (isset($request['sf'])){
             if ( (!isset( $request['sf']['search-parent-id']) || ( isset( $request['sf']['search-parent-id']) && ($request['sf']['search-parent-id'] == "0" || $request['sf']['search-parent-id'] == "-1" )))
                  ){
@@ -77,13 +77,16 @@ class ProjectController extends Controller
                     }); 
                 }
                 $recordsFiltered = $queryFiltered->count();
-                    if ( Gate::allows('isAdmin'))                    
+                // if ( Gate::allows('isAdmin') || Gate::allows('isAUser')) {                   
                      $queryFiltered = $queryFiltered->where("project_users.userid",Auth::user()->id );
 
-                $data = $queryFiltered->select("projects.*", "project_users.project_id","project_users.status")->
-                leftJoin('project_users', 'projects.id', '=', 'project_users.project_id')
-                ->orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
-        
+                     $queryFiltered = $queryFiltered->select("projects.*", "project_users.project_id","project_users.status")->leftJoin('project_users', 'projects.id', '=', 'project_users.project_id');
+                $data = $queryFiltered->orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+    
+                // }else{
+                //     $data = $queryFiltered->select("projects.*", "projects.user_id as status")->
+                //     orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+                // }
             }else{
                 $where=" 1 ";
                 if( $request['sf']['search-title'] != '' )
@@ -110,27 +113,60 @@ class ProjectController extends Controller
                     $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateStringto)->format('Y-m-d H:i:s');
                     $where .=  " AND s.end_date_pre <='" . $end_date_to . "'";
                 }   
-
+                // if ( Gate::allows('isAdmin') || Gate::allows('isAUser')) {                   
+                    $where .=" AND project_users.userid = ' " . Auth::user()->id . "'";
+                // }
                 $where .= " AND s.id IN (SELECT project_id from project_users where userid = '" . Auth::user()->id ."')";
-                $manual_query = "SELECT * FROM (SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, '0' as depth, @tree_ids := id AS foo FROM projects, (SELECT @tree_ids := '', @depth := -1) vars WHERE id = '" . $request['sf']['search-parent-id'] . "' UNION SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, @depth := IF(parent_level_id = '" . $request['sf']['search-parent-id'] . "', 1, @depth + 1) AS depth, @tree_ids := CONCAT(id, ',', @tree_ids) AS foo FROM projects WHERE FIND_IN_SET(parent_level_id, @tree_ids) OR parent_level_id ='" . $request['sf']['search-parent-id'] . "') s where ". $where ." ";
+                $manual_query = "SELECT s.*, project_users.project_id,project_users.status FROM (SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, '0' as depth, @tree_ids := id AS foo FROM projects, (SELECT @tree_ids := '', @depth := -1) vars WHERE id = '" . $request['sf']['search-parent-id'] . "' UNION SELECT id, parent_level_id, title, description, start_date, end_date_pre, user_id, parent_level_name, progress, @depth := IF(parent_level_id = '" . $request['sf']['search-parent-id'] . "', 1, @depth + 1) AS depth, @tree_ids := CONCAT(id, ',', @tree_ids) AS foo FROM projects WHERE FIND_IN_SET(parent_level_id, @tree_ids) OR parent_level_id ='" . $request['sf']['search-parent-id'] . "') s left join `project_users` on `s`.`id` = `project_users`.`project_id`  where ". $where ." ";
 
                 $data= DB::select($manual_query);
                 $recordsFiltered = count($data);
             }
         }   else{
-            if ( Gate::allows('isAdmin')) { 
-                $queryFiltered = $queryFiltered->whereIn('projects.id',function($query){
+            // if ( Gate::allows('isAdmin') || Gate::allows('isAUser')) {                   
+                $queryFiltered = $queryFiltered->where("project_users.userid",Auth::user()->id );
 
-                    $query->select('project_id')->from('project_users')->where("userid",Auth::user()->id );
+                $queryFiltered = $queryFiltered->select("projects.*", "project_users.project_id","project_users.status")->leftJoin('project_users', 'projects.id', '=', 'project_users.project_id');
+                $data = $queryFiltered->orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
     
-                });
-            }
+        //    }else{
+        //        $data = $queryFiltered->select("projects.*", "projects.user_id as status")->
+        //        orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+        //    }
             $recordsFiltered = $queryFiltered->count();
-            $data = $queryFiltered->select("projects.*", "project_users.project_id","project_users.status")->leftJoin('project_users', 'projects.id', '=', 'project_users.project_id')->orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
-    
+            
+          
         } 
             
+        foreach ($data as $arr) {
+            if ( $arr->status == "0" ) continue;
 
+            $var = $arr;
+            while ($var->parent_level_id>0){
+                if($manual_query =="")
+                    $parentdata= $queryFiltered->where("projects.id", $var->parent_level_id)->get();
+                else{
+                    $manual_query .= " AND  s.id = '" . $var->parent_level_id . "'";
+                    $parentdata= DB::select($manual_query);
+                }
+                
+                if(count($parentdata) == 0) { 
+                    break;
+                }
+                if($parentdata[0]->status == 0) {
+                    $arr->status = 0;
+                     break;
+                }
+
+                if($parentdata[0]->parent_level_id > 0){
+
+                    $var->parent_level_id = $parentdata[0]->parent_level_id;
+                 } else
+                    break;
+
+            }
+                
+        }
         
       
         $json_data = array(

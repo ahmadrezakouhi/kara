@@ -429,7 +429,7 @@ $(document).ready(function () {
 				"emptyTable": "هیچ اطلاعاتی برای نمایش وجود ندارد!",
 				"info": "نمایش _START_ تا _END_ از تمام _TOTAL_ ",
 				"infoEmpty": "چیزی پیدا نشد",
-				"infoFiltered": "(جستجو شده از  _MAX_ پرسنل )",
+				"infoFiltered": "(جستجو شده از  _MAX_ پروژه )",
 				"infoPostFix": "",
 				"thousands": ",",
 				"lengthMenu": "نمایش _MENU_ ",
