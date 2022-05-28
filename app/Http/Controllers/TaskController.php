@@ -47,7 +47,7 @@ class TaskController extends Controller
             $projectUserFiltered = $projectUserFiltered->select("id", "project_id", "status")->
             where(function($query) {
                 $query->where('userid', Auth::user()->id)
-                      ->where('title',0);
+                      ->where('status',0);
             })->orWhere('userid', Auth::user()->id)->get();  
             // echo '<pre>';
              //var_dump($projectUserFiltered);exit();
