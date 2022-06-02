@@ -8,7 +8,7 @@ use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MigController;
 use App\Http\Controllers\TaskTitleController;
-use App\Http\Controllers\Owner\RequirementController;
+use App\Http\Controllers\RequirementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/project/getParentProjects', [ProjectController::class, "getParentProjects"]);
     Route::post('/project/addParent', [ProjectController::class, "addParent"]);
     Route::post('/project/addProject', [ProjectController::class, "addProject"]);
+    Route::get('/project/{id}/requirements', [RequirementController::class, "index"]);
+    Route::post('/requirements/create',[RequirementController::class,'store']);
 
     Route::resource('/projectUser', ProjectUserController::class);
     Route::prefix("projectUser")->group(function() {

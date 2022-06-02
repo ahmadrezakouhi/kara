@@ -17,7 +17,7 @@ function funcDelete(e) {
 					headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     url: "/user/" + data_id,
                     async: false,
-               
+
 					success: function (data) {
 							$(e).parent().parent().remove();
 							Confirm('تایید', '45%', '', 'آیتم شما با کد پیگیری  ' + data_id + 'از سیستم حذف شد ', {
@@ -31,7 +31,7 @@ function funcDelete(e) {
 							}, 'green');
 						},
 					error: function (data) {
-						//this function called in return, but controller destroy function do what we want and 
+						//this function called in return, but controller destroy function do what we want and
 					   //record deleted
 						console.log(data);
 						if(data.status == 403)
@@ -77,8 +77,8 @@ $(document).ready(function () {
 		var btnManage = _btnDelete + _btnShow + _bnEdit;
 	} else
 	var btnManage =  _btnShow + _bnEdit;
-	
-	
+
+
 	$("#btn-filter").click(function(){
 		tt_user.ajax.reload();
 	});
@@ -102,8 +102,8 @@ $(document).ready(function () {
 			order: [[0, "desc"]],
 			"pageLength": 5,
 			"searchDelay": 1000,
-			"columns": [			
-              
+			"columns": [
+
 				{ title: 'ردیف', "defaultContent": "-", },
 				///
 				{
@@ -112,9 +112,9 @@ $(document).ready(function () {
 					}
 					, "visible": true
 				},
-				
+
 				{title: 'تلفن همراه', "name": 'mobile', "data": 'mobile'},
-                {title: 'تلفن ثابت', "name": 'phone', "data": 'phone'},				
+                {title: 'تلفن ثابت', "name": 'phone', "data": 'phone'},
 				{title: 'ایمیل', "name": 'email', "data": 'email'},
 				{title: 'نوع کاربری', "name": 'role', "data": 'role'},
 				{
@@ -141,8 +141,8 @@ $(document).ready(function () {
 						_role= 'کارمند';
 						break;
 				}
-				row.childNodes[4].innerHTML = _role;
-				
+				row.childNodes[5].innerHTML = _role;
+
 			},
 			"language": {
 				"decimal": "-",
@@ -166,17 +166,17 @@ $(document).ready(function () {
 				}
 			}
 		});
-		
+
 
 
 		// ///////
 		tt_user.on('draw', function() {
-			
+
 			tt_user.column(0, {
 			  search: 'applied',
 			  order: 'applied'
 			}).nodes().each(function(cell, i) {
-			 
+
 			  cell.innerHTML = tt_user.page.len() * tt_user.page()+i+1;
 			});
 		  }).draw();
@@ -219,7 +219,7 @@ $(document).ready(function () {
 			funcAlert("", ".رمز ورود با تکرار آن همخوانی ندارد");
 			return false
 		}
-		
+
 	});
 
 });

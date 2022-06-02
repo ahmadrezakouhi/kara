@@ -8,7 +8,8 @@ use App\Models\Project;
 use App\Models\Requirement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Datatable;
+use App\Models\User;
+use DataTables;
 class RequirementController extends Controller
 {
     /**
@@ -20,9 +21,44 @@ class RequirementController extends Controller
     {
 
 
-
-
         return view('owner.requirement.index');
+
+    }
+
+    public function getData(Request $request){
+        $columns = array(
+            // 0 => 'id',
+            0 => 'title',
+            1 => 'description',
+            2 => 'created_at',
+
+        );
+        $queryFiltered = DB::table('requirements');
+        // var_dump(Auth::user()->id);exit();
+        // if ( Gate::allows('isAdmin') || Gate::allows('isUser') ){
+        //     $queryFiltered =  $queryFiltered->where('id', Auth::user()->id);
+        // }
+
+        $recordsTotal = $queryFiltered->count();
+        if (isset($request['sf'])){
+            if($request['sf']['search-title'] != '')
+                $queryFiltered =  $queryFiltered->where('title', $request['sf']['search-title']);
+            // if($request['sf']['search-name'] != ''){
+            //     $queryFiltered =  $queryFiltered->where('fname', 'like', '%' . $request['sf']['search-name'] . '%');
+            //     $queryFiltered =  $queryFiltered->where('lname', 'like', '%' .   $request['sf']['search-name'] . '%');
+            // }
+        }
+        $recordsFiltered = $queryFiltered->count();
+        $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+
+        $json_data = array(
+            "draw" => intval($_REQUEST['draw']),
+            "recordsTotal" => intval($recordsTotal),
+            "recordsFiltered" => intval($recordsFiltered),
+            "data" => $data
+        );
+        return response()->json($json_data);
+        // echo json_encode($json_data);
     }
 
     /**
