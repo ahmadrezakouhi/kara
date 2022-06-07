@@ -8,6 +8,7 @@ use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MigController;
 use App\Http\Controllers\TaskTitleController;
+use App\Http\Controllers\RequirementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    
+
     Route::resource('/personnel', PersonnelController::class);
     // Route::delete('/personnel/{personnel}', [PersonnelController::class, "destroy"]);
     Route::post('/personnel/getData', [PersonnelController::class, "getData"]);
@@ -40,13 +41,14 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/project', ProjectController::class);
     Route::delete('/project/{id}', [ProjectController::class, "destroy"]);
     Route::post('/project/getData', [ProjectController::class, "getData"]);
-    Route::post('/project/getProjects', [ProjectController::class, "getProjects"]);  
+    Route::post('/project/getProjects', [ProjectController::class, "getProjects"]);
     Route::post('/project/getParentProjects', [ProjectController::class, "getParentProjects"]);
     Route::post('/project/addParent', [ProjectController::class, "addParent"]);
     Route::post('/project/addProject', [ProjectController::class, "addProject"]);
-    
+
+
     Route::resource('/projectUser', ProjectUserController::class);
-    Route::prefix("projectUser")->group(function() {
+    Route::prefix("projectUser")->group(function () {
         Route::delete('{id}', [ProjectUserController::class, "destroy"]);
         Route::post('getData', [ProjectUserController::class, "getData"]);
         Route::post('add', [ProjectUserController::class, "add"]);
@@ -61,13 +63,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/task/getData', [TaskController::class, "getData"]);
     Route::post('/task/addTask', [TaskController::class, "addTask"]);
     Route::post('/task/setDoneTask', [TaskController::class, "setDoneTask"]);
- 
+
     Route::resource('/taskTitle', TaskTitleController::class);
     Route::delete('/taskTitle/{id}', [TaskTitleController::class, "destroy"]);
     Route::post('/taskTitle/getData', [TaskTitleController::class, "getData"]);
     Route::post('/taskTitle/addTaskTitle', [TaskTitleController::class, "addTaskTitle"]);
-    Route::post('/taskTitle/getTaskTitles', [TaskTitleController::class, "getTaskTitles"]); 
-    
+    Route::post('/taskTitle/getTaskTitles', [TaskTitleController::class, "getTaskTitles"]);
+
     Route::resource('/mig', MigController::class);
 });
 
@@ -75,7 +77,7 @@ Route::middleware(['auth'])->group(function () {
 //     return view('project');
 // })->middleware(['auth'])->name('project');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Auth::routes();
 
@@ -92,3 +94,24 @@ require __DIR__.'/auth.php';
 // Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::prefix('projects')->group(function () {
+
+    Route::get('/{id}/requirements', [RequirementController::class, 'index'])
+        ->name('projects.requirements.index');
+
+    Route::post('/requirements/{id?}', [RequirementController::class, 'store'])
+        ->name('projects.requirements.store');
+
+    Route::delete('/requirements/{id}', [RequirementController::class, 'destroy'])
+        ->name('projects.requirements.destroy');
+
+    Route::get('/requirements/{id}', [RequirementController::class, 'edit'])
+        ->name('projects.requirements.edit');
+
+
+});
+
+

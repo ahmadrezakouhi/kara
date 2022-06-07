@@ -1,9 +1,9 @@
-let tt_user;
+let tt_requirements;
 
 function funcDelete(e) {
     let data_id = $(e).parent().parent().attr("data-id");
-    let data_name = $(e).parent().parent().attr("data-name");
-    Confirm('توجه', '40%', 'BackToHome|5000', data_name + ' از لیست کاربران حذف شود؟ ', {
+    let data_name = $(e).parent().parent().attr("data-title");
+    Confirm('توجه', '40%', 'BackToHome|5000', data_name + ' از لیست نیازمندی ها حذف شود؟ ', {
         BackToHome: {
             text: 'بازگشت به صفحه اصلی',
             btnClass: 'btn-' + 'green',
@@ -15,7 +15,7 @@ function funcDelete(e) {
                 $.ajax({
                     type: "DELETE",
 					headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                    url: "/user/" + data_id,
+                    url: "/requirement/" + data_id,
                     async: false,
 
 					success: function (data) {
@@ -54,6 +54,7 @@ function funcEdit(e){
 	window.open('/user/'+ data_id + '/edit', '_blank');
 }
 
+
 $(document).ready(function () {
 
 	var _btnDelete = '<button type="button" class="btn btn-warning pull-right"  onclick="funcDelete(this)">'+
@@ -73,16 +74,16 @@ $(document).ready(function () {
   '</svg>'+
 '</button>';
 '	</button>';
-	if (_role == 'manager'){
-		var btnManage = _btnDelete + _btnShow + _bnEdit;
-	} else
-	var btnManage =  _btnShow + _bnEdit;
+	// if (_role == 'manager'){
+	// 	var btnManage = _btnDelete + _btnShow + _bnEdit;
+	// } else
+	// var btnManage =  _btnShow + _bnEdit;
 
 
 	$("#btn-filter").click(function(){
-		tt_user.ajax.reload();
+		tt_requirements.ajax.reload();
 	});
-    tt_user = $('#tbl-user').on('preXhr.dt', function (e, settings, json, xhr) {}).DataTable(
+    tt_requirements = $('#tbl_requirements').on('preXhr.dt', function (e, settings, json, xhr) {}).DataTable(
 		{
 			"drawCallback": function (settings) {},
 			"processing": true,
@@ -90,7 +91,7 @@ $(document).ready(function () {
 			"serverSide": true,
 			"responsive": true,
 			"ajax": {
-				"url":"/user/getData",
+				"url":"/projects/requirements",
 				"type": "POST",
 				"data": function (d) {
 					d.sf = $('#sf').serializeObject();
@@ -106,42 +107,24 @@ $(document).ready(function () {
 
 				{ title: 'ردیف', "defaultContent": "-", },
 				///
-				{
-					data: null, title: 'نام و نام خانوادگی', render: function (data, type, row) {
-						return data.fname + ' ' + data.lname;
-					}
-					, "visible": true
-				},
 
-				{title: 'تلفن همراه', "name": 'mobile', "data": 'mobile'},
-                {title: 'تلفن ثابت', "name": 'phone', "data": 'phone'},
-				{title: 'ایمیل', "name": 'email', "data": 'email'},
-				{title: 'نوع کاربری', "name": 'role', "data": 'role'},
-				{
-					responsivePriority: 0,
-					data: null,
-					title: "مدیریت",
-					className: "center",
-					defaultContent: btnManage
-				}
+                {title: 'عنوان', "name": 'title', "data": 'title'},
+				{title: 'شرح', "name": 'description', "data": 'description'},
+
+				// {
+				// 	responsivePriority: 0,
+				// 	data: null,
+				// 	title: "مدیریت",
+				// 	className: "center",
+				// 	defaultContent: btnManage
+				// }
 			],
 			createdRow: function (row, data, dataIndex) {
 				$(row).attr("data-id", data['id']);
-				$(row).attr("data-name", data['fname'] + ' ' +  data['lname']);
-				$(row).attr("data-mobile", data['mobile']);
-				let _role='';
-				switch(data['role']){
-					case 'manager':
-						_role= 'کاربر ارشد';
-						break;
-					case 'admin':
-						_role= 'مدیر';
-						break;
-					default:
-						_role= 'کارمند';
-						break;
-				}
-				row.childNodes[5].innerHTML = _role;
+				$(row).attr("data-title", data['title']);
+				$(row).attr("data-description", data['description']);
+
+
 
 			},
 			"language": {
@@ -170,14 +153,14 @@ $(document).ready(function () {
 
 
 		// ///////
-		tt_user.on('draw', function() {
+		tt_requirements.on('draw', function() {
 
-			tt_user.column(0, {
+			tt_requirements.column(0, {
 			  search: 'applied',
 			  order: 'applied'
 			}).nodes().each(function(cell, i) {
 
-			  cell.innerHTML = tt_user.page.len() * tt_user.page()+i+1;
+			  cell.innerHTML = tt_requirements.page.len() * tt_requirements.page()+i+1;
 			});
 		  }).draw();
 
@@ -208,7 +191,7 @@ $(document).ready(function () {
 							$("#frmUser")[0].reset();
 							myModalUser.hide()
 							funcAlert("", "کاربر " + $("#fname").val() + " " + $("#lname").val() + "در سیستم ثبت شد.");
-							tt_user.ajax.reload();
+							tt_requirements.ajax.reload();
 						}
 					}
 				})
@@ -221,5 +204,8 @@ $(document).ready(function () {
 		}
 
 	});
+
+
+    
 
 });

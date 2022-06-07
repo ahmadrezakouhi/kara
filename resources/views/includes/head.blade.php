@@ -24,6 +24,7 @@
 <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/css/mdb.rtl.min.css"/>
 
 <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/css/main.css" />
+<link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
 <script>
     var _start ="";
 	var _end ="";
