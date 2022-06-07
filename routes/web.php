@@ -45,11 +45,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/project/getParentProjects', [ProjectController::class, "getParentProjects"]);
     Route::post('/project/addParent', [ProjectController::class, "addParent"]);
     Route::post('/project/addProject', [ProjectController::class, "addProject"]);
-    Route::get('/project/{id}/requirements', [RequirementController::class, "index"]);
-    Route::post('/requirements/create',[RequirementController::class,'store']);
+
 
     Route::resource('/projectUser', ProjectUserController::class);
-    Route::prefix("projectUser")->group(function() {
+    Route::prefix("projectUser")->group(function () {
         Route::delete('{id}', [ProjectUserController::class, "destroy"]);
         Route::post('getData', [ProjectUserController::class, "getData"]);
         Route::post('add', [ProjectUserController::class, "add"]);
@@ -78,7 +77,7 @@ Route::middleware(['auth'])->group(function () {
 //     return view('project');
 // })->middleware(['auth'])->name('project');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Auth::routes();
 
@@ -98,12 +97,21 @@ require __DIR__.'/auth.php';
 
 
 
-Route::prefix('owner')->group(function(){
+Route::prefix('projects')->group(function () {
 
+    Route::get('/{id}/requirements', [RequirementController::class, 'index'])
+        ->name('projects.requirements.index');
 
+    Route::post('/requirements/{id?}', [RequirementController::class, 'store'])
+        ->name('projects.requirements.store');
 
+    Route::delete('/requirements/{id}', [RequirementController::class, 'destroy'])
+        ->name('projects.requirements.destroy');
 
-    Route::get('/projects/requirements',[RequirementController::class,'index'])
-    ->name('requirements.index');
+    Route::get('/requirements/{id}', [RequirementController::class, 'edit'])
+        ->name('projects.requirements.edit');
+
 
 });
+
+

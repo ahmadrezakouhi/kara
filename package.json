@@ -28,6 +28,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "@forevolve/bootstrap-dark": "^2.1.0"
+        "@forevolve/bootstrap-dark": "^2.1.0",
+        "sweetalert2": "^11.4.17"
     }
 }

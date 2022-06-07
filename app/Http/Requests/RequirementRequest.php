@@ -13,7 +13,7 @@ class RequirementRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -32,7 +32,8 @@ class RequirementRequest extends FormRequest
 
     public function messages(){
         return [
-            'title.required'=>''
+            'title.required'=>'عنوان الزامی می باشد.',
+            'description.required'=>'توضیحات الزامی می باشد.'
         ];
     }
 }

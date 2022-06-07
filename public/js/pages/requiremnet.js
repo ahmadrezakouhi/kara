@@ -206,22 +206,6 @@ $(document).ready(function () {
 	});
 
 
-    $('form').submit(function(event){
-        event.preventDefault();
-        $.ajax({
-            method: 'POST',
-            url: '/requirements/create',
-            data: $(this).serialize(),
-            success: function(res) {
-                console.log('ok')
-            },
-            error: function(res) {
-                var error = eval("(" + res.responseText + ")")
-                $.each(error.errors, function(index, value) {
-                    console.log(value);
-                })
-            }
-        })
-    });
+    
 
 });

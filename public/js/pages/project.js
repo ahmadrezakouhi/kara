@@ -59,7 +59,7 @@ function funcEdit(e) {
 
 function funcShowRequirements(e) {
     let data_id = $(e).parent().parent().attr("data-id");
-    window.location = '/project/'+data_id+'/requirements';
+    window.location = '/projects/'+data_id+'/requirements';
 }
 
 function funcSetUser(e) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RequirementRequest;
 use App\Models\Project;
 use App\Models\Requirement;
 use Illuminate\Http\Request;
@@ -11,20 +12,44 @@ class RequirementController extends Controller
 {
 
 
-    public function index($id){
+    public function index(Request $request, $id)
+    {
         $project = Project::find($id);
-        return view('requirement.index',compact('project'));
+        if ($request->ajax()) {
+            $requirements = $project->requirements;
+            $recordTotal = $requirements->count();
+            $data = array(
+                "draw" => intval($request['draw']),
+                "recordsTotal" => intval($recordTotal),
+                "recordsFiltered" => intval(2),
+                "data" => $requirements
+            );
+            return response()->json($data);
+        }
+        return view('requirement.index', compact('project'));
     }
 
-    public function store(Request $request){
-        $user = Auth::user();
-        Requirement::create([
-            'user_id'=>$user->id,
-            'project_id'=>$request->input('project_id'),
-            'title'=>$request->input('title'),
-            'description'=>$request->input('description')
-        ]);
-        return response()->json(['message'=>'نیازمندی جدید افزوده شد.']);
+    public function store(RequirementRequest $request, $requirement_id=null)
+    {
 
+        $user = Auth::user();
+        $inputs = $request->all();
+        $inputs['user_id'] = $user->id;
+        $inputs['project_id'] = $request->project_id;
+        Requirement::updateOrCreate(['id' => $requirement_id], $inputs);
+        return response()->json(['message' => 'نیازمندی جدید افزوده شد.']);
+    }
+
+    public function edit($id)
+    {
+        $requirement = Requirement::select('id', 'title', 'description')->findOrFail($id);
+        return response()->json($requirement,200);
+    }
+
+
+    public function destroy($id)
+    {
+        Requirement::destroy($id);
+        return response()->json(['message' => 'نیازمندی مورد نظر حذف شد.']);
     }
 }
