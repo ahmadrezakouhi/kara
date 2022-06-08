@@ -45,10 +45,8 @@ class PhaseController extends Controller
         $project = Project::findOrFail($request->project_id);
         $inputs = $request->all();
         $inputs['user_id'] = $user->id;
-        $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true);
-        $inputs['start_date'] =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
-        $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->end_date, true);
-        $inputs['end_date']   =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
+        $inputs['start_date'] = convertJalaliToGeorgian($request->start_date);
+        $inputs['end_date']   = convertJalaliToGeorgian($request->end_date); 
         $inputs['priority']=($project->phases->count()+1);
         Phase::updateOrCreate(['id' => $phase_id], $inputs);
         if($phase_id){
