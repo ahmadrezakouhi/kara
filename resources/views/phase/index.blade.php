@@ -43,6 +43,7 @@
                 </div>
                 <table id="tbl_requirements" class="table table-bordered table-striped">
                     <thead>
+                        <th></th>
                         <th>عنوان</th>
                         <th>توضیحات</th>
                         <th>مدت زمان انجام</th>
@@ -123,17 +124,20 @@
 
 
     <script>
-
         $(document).ready(function() {
-        $("#start_date, #end_date").pDatepicker({
-		format: "YYYY/MM/DD",
-		autoClose: true,
-		onSelect: function () {}
+            $("#start_date, #end_date").pDatepicker({
+                format: "YYYY/MM/DD",
+                autoClose: true,
+                onSelect: function() {}
 
-	});
-	$("#start_date, #end_date").val("");
+            });
+            $("#start_date, #end_date").val("");
             var clickButtonID;
             var columns = [{
+                    title: 'ردیف',
+                    "defaultContent": "-",
+                },
+                {
                     data: 'title'
                 },
                 {
@@ -190,8 +194,8 @@
 
             $('#create_update').submit(function(event) {
                 event.preventDefault();
-                submit_form(this, clickButtonID,
-                        '{{ route("projects.phases.store") }}', '#add_requirements', table)
+                submit_form('#create_update', clickButtonID,
+                        '{{ route('projects.phases.store') }}', '#add_requirements', table)
                     .then(function(res) {
 
                     }).catch(function(res) {
@@ -203,31 +207,44 @@
             $(document).on('click', '.delete', function(event) {
                 var id = $(this).attr('data-id');
                 var url = "{{ route('projects.phases.store') }}" + '/' + id;
-                ajaxfunc(url, 'DELETE', '').then(function(res) {
-                    toastr['success'](res.message)
-                })
-                table.ajax.reload();
+                // ajaxfunc(url, 'DELETE', '').then(function(res) {
+                //     toastr['success'](res.message)
+                // })
 
+                Swal.fire({
+                    text: "می خواهید رکورد مورد نظر حذف شود ؟",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله می خواهم'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        ajaxfunc(url, 'DELETE', '').then(function(res) {
+                            toastr['warning'](res.message);
+                            table.ajax.reload();
+                        }).catch(function(res) {
+                            toastr['warning']('خطایی رخ داده است')
+                        })
+
+
+                        // Swal.fire(
+                        //     'Deleted!',
+                        //     'Your file has been deleted.',
+                        //     'success'
+                        // )
+                    }
+                })
             })
 
 
             $(document).on('click', '.edit', function(event) {
                 clickButtonID = $(this).attr('data-id');
-                // $.ajax({
-                //     url: "{{ route('projects.requirements.store') }}" +"/"+ clickButtonID,
-                //     method: 'GET',
-                //     success: function(res,status) {
-                //         $('#title').val(res.title);
-                //         $('#description').val(res.description);
-                //         $('#add_requirements').modal('show');
 
 
-                //     },
 
-                // })
-
-
-                ajaxfunc('{{ route("projects.phases.store") }}' + '/' + clickButtonID,
+                ajaxfunc('{{ route('projects.phases.store') }}' + '/' + clickButtonID,
                         'GET', '').then(function(res) {
                         if (res.message) {
                             toastr['success'](res.message)
@@ -235,6 +252,9 @@
                         // console.log(res)
                         $('#title').val(res.title);
                         $('#description').val(res.description);
+                        $('#duration').val(res.duration);
+                        $('#start_date').val(covertJalaliToGregorian(res.start_date));
+                        $('#end_date').val(covertJalaliToGregorian(res.end_date));
                         $('#add_requirements').modal('show');
                     })
                     .catch(function(res) {
@@ -243,10 +263,7 @@
                     })
 
 
-                // var res =
-                //  $('#title').val(res.title);
-                //     $('#description').val(res.description);
-                //     $('#add_requirements').modal('show');
+
 
             });
 
@@ -258,8 +275,7 @@
             })
 
 
-
-
+            
 
         });
     </script>

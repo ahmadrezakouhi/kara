@@ -88,13 +88,23 @@ function datatable(table_id, url,columns){
 
 
 );
+table.on('draw', function() {
+
+    table.column(0, {
+        search: 'applied',
+        order: 'applied'
+    }).nodes().each(function(cell, i) {
+
+        cell.innerHTML = table.page.len() * table.page() + i + 1;
+    });
+}).draw();
 
 
 return table;
 }
 
 
-function submit_form(form_id,id,url,modal_id,table,){
+function submit_form(form_id,id,url,modal_id,table){
 
 
         if (id ) {
@@ -135,3 +145,9 @@ function removeIDValues(form_id){
         $('#' + element).val("")
     });
 }
+
+
+function covertJalaliToGregorian(date){
+    return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD');
+}
+
