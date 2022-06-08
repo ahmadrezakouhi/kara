@@ -15,6 +15,15 @@ return new class extends Migration
     {
         Schema::create('sprints', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('phase_id');
+            $table->foreign('phase_id')->references('id')->on('phases');
+            $table->string('title');
+            $table->text('description');
+            $table->integer('duration');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
             $table->timestamps();
         });
     }
