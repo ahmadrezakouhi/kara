@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('project_id')->references('id')->on('projects');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('name');
+            $table->string('title');
             $table->integer('duration');
             $table->timestamp('start_date');
             $table->timestamp('end_date');
