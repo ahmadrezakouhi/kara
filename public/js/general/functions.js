@@ -2,36 +2,42 @@
 
 
 function ajaxfunc(url, method, data) {
-    var response;
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+   return new Promise(function(resolve,reject){
     $.ajax(
         {
             url: url,
             method: method,
             data: data,
-            async: false,
-            succuss: function (res) {
-                toastr["success"](res.message);
-                // toastr["success"]('جذف شد');
-                // response = res;
-                // table.ajax.reload();
-                console.log(res.title)
-                return res;
-            },
-            error: function (res) {
-                var error = eval("(" + res.responseText + ")")
-                $.each(error.errors, function (index, value) {
-                    toastr["error"](value);
-                })
-                // response = res;
-            }
+            // async: true,
+            // succuss: function (res) {
+            //     resolve(res);
+            //     // toastr["success"](res.message);
+            //     // toastr["success"]('جذف شد');
+            //     // response = res;
+            //     // table.ajax.reload();
+            //     // console.log(res.title)
+            //     // toastr["success"]('slkdfalk');
+
+            // },
+            // error: function (res) {
+            //     // var error = eval("(" + res.responseText + ")")
+            //     // $.each(error.errors, function (index, value) {
+            //     //     toastr["error"](value);
+            //     // })
+            //     reject(res)
+
+            // }
 
         }
-    )
+    ).done(resolve)
+    .fail(reject)
+   })
 
 
     // return response;
@@ -94,9 +100,20 @@ function submit_form(form_id,id,url,modal_id,table,){
         if (id ) {
             url += ('/'+id)
         }
-        ajaxfunc(url, "POST", $(form_id).serialize());
-        $(modal_id).modal('hide');
-        table.ajax.reload();
+        ajaxfunc(url, "POST", $(form_id).serialize())
+        .then(function(res){
+            toastr["success"](res.message);
+            $(modal_id).modal('hide');
+            table.ajax.reload();
+        })
+        .catch(function(res){
+             var error = eval("(" + res.responseText + ")")
+                $.each(error.errors, function (index, value) {
+                    toastr["error"](value);
+                })
+        })
+        ;
+
 
 }
 

@@ -5,13 +5,13 @@
     <div class="container">
         <div class="card shadow-sm mt-5">
             <div class="card-header d-flex justify-content-between">
-                <h2>نیاز مندی های پروژه <span class="text-success text-weight-bold">{{ $project->title }}</span></h2>
+                <h2>نیازمندی های پروژه {{ $project->title }}</h2>
                 <button class="btn btn-success" id="create_button"> افزودن
                     نیازمندی</button>
             </div>
             <div class="card-body">
                 <div class="row pt-3">
-                    <div class="col-md-10">
+                    {{-- <div class="col-md-10">
                         <form id='sf' action="getData" method="POST">
                             @csrf
                             <div class="row pt-3">
@@ -31,7 +31,7 @@
                             </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         </form>
-                    </div>
+                    </div> --}}
                     {{-- <div class="col-md-2 pt-3 align-left">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#mdlAddUser">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
@@ -150,14 +150,21 @@
             $('#create_update').submit(function(event) {
                 event.preventDefault();
                 submit_form(this, clickButtonID,
-                    '{{ route('projects.requirements.store') }}', '#add_requirements', table);
+                    '{{ route('projects.requirements.store') }}', '#add_requirements', table)
+                    .then(function(res){
+
+                    }).catch(function(res){
+                        console.log(res)
+                    });
             })
 
 
             $(document).on('click', '.delete', function(event) {
                 var id = $(this).attr('data-id');
                 var url = "{{ route('projects.requirements.store') }}" + '/' + id;
-                ajaxfunc(url, 'DELETE', '');
+                ajaxfunc(url, 'DELETE', '').then(function(res){
+                    toastr['success'](res.message)
+                })
                 table.ajax.reload();
 
             })
@@ -177,12 +184,29 @@
                 //     },
 
                 // })
-                var res = ajaxfunc('{{ route('projects.requirements.store') }}' + '/' + clickButtonID,
-                    'GET', '')
+
+
+                        ajaxfunc('{{ route('projects.requirements.store') }}' + '/' + clickButtonID,
+                    'GET', '').then(function(res){
+                        if(res.message){
+                            toastr['success'](res.message)
+                        }
+                        console.log(res)
+                           $('#title').val(res.title);
+                    $('#description').val(res.description);
+                    $('#add_requirements').modal('show');
+                    })
+                    .catch(function (res) {
+
+                        
+                    })
+
+
+                // var res =
                 //  $('#title').val(res.title);
                 //     $('#description').val(res.description);
                 //     $('#add_requirements').modal('show');
-                // console.log(res)
+
             });
 
             $('#create_button').click(function() {
