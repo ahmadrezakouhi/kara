@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sprint;
+use App\Models\Phase;
 use Illuminate\Http\Request;
 
 class SprintController extends Controller
@@ -12,9 +13,22 @@ class SprintController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request , $phase_id)
     {
-        //
+        $phase = Phase::findOrFail($phase_id);
+        if($request->ajax()){
+            $sprints = $phase->sprints;
+            $recordTotal = $sprints->count();
+            $data = array(
+                "draw" => intval($request['draw']),
+                "recordsTotal" => intval($recordTotal),
+                "recordsFiltered" => intval(2),
+                "data" => $sprints
+            );
+            return response()->json($data);
+        }
+        return view('sprint.index',compact('phase'));
+
     }
 
     /**
