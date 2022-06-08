@@ -31,4 +31,17 @@ class SprintRequest extends FormRequest
             'end_date'=>'required'
         ];
     }
+
+
+
+    public function messages()
+    {
+        return [
+            'title.required'=>'عنوان الزامی می باشد.',
+            'description.required'=>'توضیحات الزامی می باشد.',
+            'duration.required'=>'مدت زمان انجام الزامی می باشد .',
+            'start_date.required'=>'تاریخ شروع الزامی می باشد.',
+            'end_date.required'=>'تاریخ پایان الزامی می باشد.'
+        ]
+    }
 }
