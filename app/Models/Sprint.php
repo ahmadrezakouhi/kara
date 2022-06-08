@@ -13,4 +13,8 @@ class Sprint extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function phase(){
+        return $this->belongsTo(Phase::class);
+    }
 }
