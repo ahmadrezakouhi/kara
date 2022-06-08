@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sprint;
 use Illuminate\Http\Request;
 
 class SprintController extends Controller
@@ -79,6 +80,7 @@ class SprintController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Sprint::destroy($id);
+        return response()->json(['message','اسپرینت مورد نظر حذف شد.']);
     }
 }
