@@ -13,4 +13,8 @@ class Phase extends Model
     public function project(){
         return $this->belongsTo(Project::class);
     }
+
+    public function sprints(){
+        return $this->hasMany(Sprint::class);
+    }
 }
