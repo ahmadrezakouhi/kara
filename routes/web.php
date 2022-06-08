@@ -9,6 +9,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MigController;
 use App\Http\Controllers\TaskTitleController;
 use App\Http\Controllers\RequirementController;
+use App\Http\Controllers\PhaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,6 +111,20 @@ Route::prefix('projects')->group(function () {
 
     Route::get('/requirements/{id}', [RequirementController::class, 'edit'])
         ->name('projects.requirements.edit');
+
+
+        Route::get('/{id}/phases', [PhaseController::class, 'index'])
+        ->name('projects.phases.index');
+
+        Route::post('/phases/{id?}', [PhaseController::class, 'store'])
+        ->name('projects.phases.store');
+
+    Route::delete('/phases/{id}', [PhaseController::class, 'destroy'])
+        ->name('projects.phases.destroy');
+
+    Route::get('/phases/{id}', [PhaseController::class, 'edit'])
+        ->name('projects.phases.edit');
+
 
 
 });
