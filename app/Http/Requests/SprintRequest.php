@@ -42,6 +42,6 @@ class SprintRequest extends FormRequest
             'duration.required'=>'مدت زمان انجام الزامی می باشد .',
             'start_date.required'=>'تاریخ شروع الزامی می باشد.',
             'end_date.required'=>'تاریخ پایان الزامی می باشد.'
-        ]
+        ];
     }
 }
