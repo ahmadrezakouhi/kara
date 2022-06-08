@@ -57,7 +57,8 @@ class SprintController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sprint = Sprint::findOrFail($id);
+        return response()->json($sprint);
     }
 
     /**
