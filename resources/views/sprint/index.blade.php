@@ -5,9 +5,9 @@
     <div class="container">
         <div class="card shadow-sm mt-5">
             <div class="card-header d-flex justify-content-between">
-                <h2>فازهای پروژه {{ $project->title }}</h2>
+                <h2>اسپرینت های پروژه {{ $phase->title }}</h2>
                 <button class="btn btn-success" id="create_button"> افزودن
-                    فاز</button>
+                    اسپرینت</button>
             </div>
             <div class="card-body">
                 <div class="row pt-3">
@@ -69,11 +69,11 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modal_title">افزودن فاز ها</h4>
+                    <h4 class="modal-title" id="modal_title">افزودن اسپرینت ها</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form action="" action="post" id="create_update">
-                    <input type="hidden" name="project_id" value="{{ $project->id }}">
+                    <input type="hidden" name="phase_id" value="{{ $phase->id }}">
                     <input type="hidden" name="requirement_id">
                     <!-- Modal body -->
                     <div class="modal-body">
@@ -194,7 +194,7 @@
             ];
             var table =
                 datatable('#tbl_requirements',
-                    '{{ route('projects.phases.index', $project->id) }}',
+                    '{{ route("phases.sprints.index", $phase->id) }}',
                     columns);
 
 
@@ -202,9 +202,10 @@
             $('#create_update').submit(function(event) {
                 event.preventDefault();
                 submit_form('#create_update', clickButtonID,
-                        '{{ route('projects.phases.store') }}', '#add_requirements', table)
+                        '{{ route("phases.sprints.store") }}', '#add_requirements', table)
                     .then(function(res) {
-
+                        toastr['success'](res.message);
+                        table.ajax.reload();
                     }).catch(function(res) {
 
                     });
@@ -213,7 +214,7 @@
 
             $(document).on('click', '.delete', function(event) {
                 var id = $(this).attr('data-id');
-                var url = "{{ route('projects.phases.store') }}" + '/' + id;
+                var url = "{{ route('phases.sprints.store') }}" + '/' + id;
                 // ajaxfunc(url, 'DELETE', '').then(function(res) {
                 //     toastr['success'](res.message)
                 // })
@@ -236,11 +237,7 @@
                         })
 
 
-                        // Swal.fire(
-                        //     'Deleted!',
-                        //     'Your file has been deleted.',
-                        //     'success'
-                        // )
+                        
                     }
                 })
             })
@@ -251,13 +248,13 @@
 
 
 
-                ajaxfunc('{{ route('projects.phases.store') }}' + '/' + clickButtonID,
+                ajaxfunc('{{ route('phases.sprints.store') }}' + '/' + clickButtonID,
                         'GET', '').then(function(res) {
                         if (res.message) {
                             toastr['success'](res.message)
                         }
                         // console.log(res)
-                        $('#title').val(res.title);
+                        $('#title').val(res['title']);
                         $('#description').val(res.description);
                         $('#duration').val(res.duration);
                         $('#start_date').val(covertJalaliToGregorian(res.start_date));
@@ -282,10 +279,10 @@
             })
 
 
-            $(document).on('click', '.sprints', function(e){
+            $(document).on('click', '.sprints', (e) => {
                 let data_id = $(this).attr("data-id");
                 window.location = '/phases/' + data_id + '/sprints';
-
+                // console.log(data_id)
             })
 
 
