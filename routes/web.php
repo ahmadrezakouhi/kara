@@ -10,6 +10,7 @@ use App\Http\Controllers\MigController;
 use App\Http\Controllers\TaskTitleController;
 use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\PhaseController;
+use App\Http\Controllers\SprintController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,10 +114,10 @@ Route::prefix('projects')->group(function () {
         ->name('projects.requirements.edit');
 
 
-        Route::get('/{id}/phases', [PhaseController::class, 'index'])
+    Route::get('/{id}/phases', [PhaseController::class, 'index'])
         ->name('projects.phases.index');
 
-        Route::post('/phases/{id?}', [PhaseController::class, 'store'])
+    Route::post('/phases/{id?}', [PhaseController::class, 'store'])
         ->name('projects.phases.store');
 
     Route::delete('/phases/{id}', [PhaseController::class, 'destroy'])
@@ -124,9 +125,20 @@ Route::prefix('projects')->group(function () {
 
     Route::get('/phases/{id}', [PhaseController::class, 'edit'])
         ->name('projects.phases.edit');
-
-
-
 });
 
 
+Route::prefix('phases')->group(function(){
+
+    Route::get('/{id}/sprints',[SprintController::class,'index'])
+    ->name('phases.sprints.index');
+
+    Route::post('/sprints/{id?}', [SprintController::class, 'store'])
+    ->name('phases.sprints.store');
+
+    Route::delete('/sprints/{id}', [SprintController::class, 'destroy'])
+        ->name('phases.sprints.destroy');
+
+    Route::get('/sprints/{id}', [SprintController::class, 'edit'])
+        ->name('phases.sprints.edit');
+});
