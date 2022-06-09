@@ -10,11 +10,18 @@ class Sprint extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function phase(){
+    public function phase()
+    {
         return $this->belongsTo(Phase::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }
