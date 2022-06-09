@@ -19,15 +19,16 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date_pre')->nullable();
-            // $table->tinyInteger('level')->default(0); 
-            $table->bigInteger('project_id')->default(0);
-            $table->text('project_title')->nullable();
+            // $table->tinyInteger('level')->default(0);
+            // $table->bigInteger('project_id')->default(0);
+            // $table->text('project_title')->nullable();
             $table->bigInteger('user_id');
-            $table->bigInteger('userid')->default(0);
-            $table->text('username')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            // $table->bigInteger('userid')->default(0);
+            // $table->text('username')->nullable();
             $table->tinyInteger('status')->default(0)->comment('0:undone 1:done');
-            $table->dateTime('time_do')->nullable();
-            $table->bigInteger('category_id')->default(0); 
+            // $table->dateTime('time_do')->nullable();
+            $table->bigInteger('category_id')->default(0);
             $table->text('category_title')->nullable();
             $table->timestamps();
 
