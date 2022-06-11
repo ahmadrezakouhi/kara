@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTaskRequest;
-use App\Http\Requests\UpdateTaskRequest;
-use App\Http\Controllers\Controller;
-
+use App\Http\Requests\TaskRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
-
+use App\Models\Sprint;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,73 +16,24 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $sprint_id)
     {
-        //
-        return \View::make('task.index')
-        ->with('task');
+        $sprint = Sprint::with('tasks.category')->findOrFail($sprint_id);
+        $categories = Category::all();
+        if ($request->ajax()) {
+            $tasks = $sprint->tasks;
+            $recordTotal = $tasks->count();
+            $data = array(
+                "draw" => intval($request['draw']),
+                "recordsTotal" => intval($recordTotal),
+                "recordsFiltered" => intval(2),
+                "data" => $tasks
+            );
+            return response()->json($data);
+        }
+        return view('task.index', compact('sprint', 'categories'));
     }
 
-    public function getData(Request $request){
-        $columns = array(
-            // 0 => 'id',
-            0 => 'title',
-            1 => 'StartDate',
-            3 => 'EndDatePre',
-            4 => 'project_title',
-            5 => 'category_title',
-            6 =>  'username', 
-            7 =>  'time_do', 
-        );
-        $queryFiltered = DB::table('tasks');
-        $projectUserFiltered = DB::table('project_users');
-
-        if( Auth::user()->role == "admin" || Auth::user()->role == "user"){
-
-            $projectUserFiltered = $projectUserFiltered->select("id", "project_id", "status")->
-            where(function($query) {
-                $query->where('userid', Auth::user()->id)
-                      ->where('status',0);
-            })->orWhere('userid', Auth::user()->id)->get();  
-            // echo '<pre>';
-             //var_dump($projectUserFiltered);exit();
-            $projectsid=[];
-            $projectsiduser=[];
-            for ($i=0; $i < count($projectUserFiltered); $i++) {
-                if($projectUserFiltered[$i]->status == 0)
-                    $projectsid[]= $projectUserFiltered[$i]->project_id;
-                else
-                    $projectsiduser[]= $projectUserFiltered[$i]->id;
-            }
-//echo '<pre>';  var_dump($projectsid); var_dump($projectsiduser);  exit();
-            
-            $queryFiltered = $queryFiltered->whereIn("project_id",$projectsid);
-
-            
-            $queryFiltered = $queryFiltered->orWhere(function($query) use ($projectsiduser){
-          //      $query->whereIn("project_id",$projectsiduser)
-          //$query   ->where('userid', Auth::user()->id);
-          $query->whereIn("userid",$projectsiduser);
-            });
-        }
-
-        $recordsTotal = $queryFiltered->count();
-        if (isset($request['sf'])){
-            if($request['sf']['search-title'] != '')
-                $queryFiltered =  $queryFiltered->where('title', $request['sf']['search-title']);            
-        }
-        $recordsFiltered = $queryFiltered->count();
-        $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
-
-        $json_data = array(
-            "draw" => intval($_REQUEST['draw']),
-            "recordsTotal" => intval($recordsTotal),
-            "recordsFiltered" => intval($recordsFiltered),
-            "data" => $data
-        );
-        return response()->json($json_data);
-        // echo json_encode($json_data);
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -96,236 +42,72 @@ class TaskController extends Controller
     public function create()
     {
         //
-        return \View::make('task.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreTaskRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTaskRequest $request)
+    public function store(TaskRequest $request, $task_id = null)
     {
-        //
-         //
-
-         $rules = array(
-            // 'title'           => 'required',
-            // 'start_date'      => 'required',
-            // 'end_date_pre'    => 'required',
-        );
-        
-        $validator = Validator::make($request->all(), $rules);
-        // process the login
-        if ($validator->fails()) {
-            return redirect('task/create')
-                        ->withErrors($validator)
-                        ->withInput();
-        } else {
-            // store
-            $task = new Task;
-            $task->title         = $request->title; 
-            $task->description   = $request->description;
-           
-            $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true); 
-            $task->start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
-            
-            $dateStringEnd_date_pre = \Morilog\Jalali\CalendarUtils::convertNumbers($request->end_date_pre, true); 
-            $task->end_date_pre     =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateStringEnd_date_pre)->format('Y-m-d H:i:s');
-            // $project->description = $request->description;
-            $project = DB::table('projects')->find($request->project_id);
-            $task->project_id    = $request->project_id;
-            $task->project_title = $project->title;
-
-            $category = DB::table('task_titles')->find($request->category_id);
-            $task->category_id    = $request->category_id;
-            $task->category_title = $category->title;
-
-            $task->user_id       = Auth::user()->id;
-            $task->userid       = $request->userid;
-            $user = DB::table('project_users')->find($request->userid);
-            $task->username       = $user->fname . " " . $user->lname;
-            $task->save();
-
-
-            // redirect
-            $request->session()->flash('message', 'task ' . $request->title .' با موفقیت ثبت شد!');
-            return redirect('task');
+        $user = Auth::user();
+        $inputs = $request->all();
+        $inputs['user_id'] = $user->id;
+        $inputs['sprint_id'] = $request->sprint_id;
+        $inputs['category_id'] = $request->category;
+        Task::updateOrCreate(['id' => $task_id], $inputs);
+        if ($task_id) {
+            return response()->json(['message' => 'تسک مورد نظر به روز شد.']);
         }
-    }
-
-    public function addTask(Request $request, Task $task)
-    {
-            //
-            if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('update',$task)) {
-                    // store
-                    $project = DB::table('projects')->find($request->project_id);
-                    $task = new Task;
-                    $task->project_id = $request->project_id;
-                    $task->project_title = $project->title; 
-                    $task->category_id = $request->category_id;
-                    $category = DB::table('task_titles')->find($request->category_id);
-                    $task->category_title = $category->title;
-                    $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true); 
-                    $task->start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
-            
-                    $dateStringEnd_date_pre = \Morilog\Jalali\CalendarUtils::convertNumbers($request->end_date, true); 
-                    $task->end_date_pre     =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateStringEnd_date_pre)->format('Y-m-d H:i:s');
-                 
-                    $task->title  = $request->title;
-                    $task->userid  = $request->userid;
-                    $task->username  = $request->username;
-                    $task->description  = $request->description;
-                    $task->user_id     = Auth::user()->id;
-                    $task->save();
-    
-                    // redirect
-                    $request->session()->flash('message', 'فعالیت ' . $request->title . ' برای کاربر ' .  $request->username .'ثبت گردید !');
-                    return redirect('project');
-            }else{
-                $request->session()->flash('message', 'عدم دسترسی!');
-                return redirect('project');
-            }
-    
+        return response()->json(['message' => 'تسک ایجاد شد.']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Task  $task
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show($id)
     {
-        //
-        $task = Task::find($task->id);        
-        
-        // show the view and pass the task to it
-        return \View::make('task.show')
-            ->with('task', $task);
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Task  $task
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task)
+    public function edit($id)
     {
-        //
-        $queryFiltered = DB::table('projects');
-        $projects =  $queryFiltered->orderBy('title', 'asc')->get();
-        
-       
-
-        $task = Task::find($task->id);
-
-        $usersFiltered = DB::table('project_users');
-        $users =  $usersFiltered->where("project_id", $task->project_id)->get(); 
-        
-        $taskTitlesFiltered = DB::table('task_titles');
-        $taskTitles =  $taskTitlesFiltered->get();
-
-        // show the edit form and pass the task
-        return \View::make('task.edit')
-            ->with('task', $task)->with('projects', $projects)->with('users', $users)->with('taskTitles', $taskTitles);
+        $task = Task::findOrFail($id);
+        return response()->json($task);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateTaskRequest  $request
-     * @param  \App\Models\Task  $task
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(Request $request, $id)
     {
         //
-        if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('update',$task)) {
-            $rules = array(
-                'title'       => 'required',
-                'start_date'   => 'required',
-                'end_date_pre'   => 'required',
-            );
-            $validator = Validator::make($request->all(), $rules);
-
-            // process the login
-            if ($validator->fails()) {
-                return redirect('task/' . $task->id . '/edit')
-                    ->withErrors($validator)
-                    ->withInput();
-            } else {
-                // store
-                $task = Task::find($task->id);
-                $task->title         = $request->title; 
-                $task->description   = $request->description;
-                $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true); 
-                $task->start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
-            
-                $dateStringEnd_date_pre = \Morilog\Jalali\CalendarUtils::convertNumbers($request->end_date_pre, true); 
-                $task->end_date_pre    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateStringEnd_date_pre)->format('Y-m-d H:i:s');
-                // $project->description = $request->description;
-                // $project->level         = $request->level;
-                $project = DB::table('projects')->find($request->project_id);
-                $task->project_id    = $request->project_id;
-                $task->project_title = $project->title;
-                $task->category_id = $request->category_id;
-                $category = DB::table('task_titles')->find($request->category_id);
-                $task->category_title = $category->title;
-                $task->userid       = $request->userid; 
-                $user = DB::table('project_users')->find($request->userid);
-                $task->username       = $user->fname . " " . $user->lname;
-                $task->user_id     = Auth::user()->id;
-                $task->save();
-
-                // redirect
-                $request->session()->flash('message', 'task با موفقیت بروز رسانی شد!');
-                return redirect('task');
-            }
-        }else{
-            $request->session()->flash('message', 'عدم دسترسی!');
-            return redirect('project');
-        }
     }
 
-    public function setDoneTask(Request $request)
-    {
-        # code...
-        if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('update',$task)) {
-            $task = Task::find($request->id);
-            date_default_timezone_set("Asia/Tehran");
-            $task->time_do    =  $request->type == 1 ? date('Y-m-d H:i:s') : null;
-            $task->status = $request->type;
-            $task->save();
-
-                // redirect
-            $request->session()->flash('message', 'وضعیت فعالیت تغییر کرد.');
-            return $request->type;
-        }
-    }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Task  $task
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Task $task)
+    public function destroy($id)
     {
-        //
-        if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('delete',$task)) {
-            //
-                // delete
-                $task = Task::find($task->id);
-                $task->delete();
-    
-                // redirect
-                $request->session()->flash('message', 'Task با موفقیت حذف شد!');
-                return true;
-            }else{
-                $request->session()->flash('message', 'عدم دسترسی برای حذف!');
-                abort(403);
-            }
+        Task::destroy($id);
+        return response()->json(['message'=>'تسک مورد نظر حذف شد.']);
     }
 }
