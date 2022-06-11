@@ -23,11 +23,10 @@ return new class extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('title');
             $table->text('description');
-            $table->text('explanation');
             $table->integer('duration');
-            $table->timestamp('indo_date');
-            $table->timestamp('done_date');
-            $table->tinyInteger('confirm')->default(0);
+            $table->timestamp('todo_date')->nullable();
+            $table->timestamp('indo_date')->nullable();
+            $table->timestamp('done_date')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
