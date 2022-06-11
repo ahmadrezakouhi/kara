@@ -43,6 +43,7 @@
                 </div>
                 <table id="tbl_requirements" class="table table-bordered table-striped">
                     <thead>
+                        <th></th>
                         <th>عنوان</th>
                         <th>توضیحات</th>
                         <th>تاریخ ثبت</th>
@@ -105,7 +106,12 @@
     <script>
         $(document).ready(function() {
             var clickButtonID;
-            var columns = [{
+            var columns = [
+                {
+                    title: 'ردیف',
+                    "defaultContent": "-",
+                },
+                {
                     data: 'title'
                 },
                 {
@@ -162,10 +168,28 @@
             $(document).on('click', '.delete', function(event) {
                 var id = $(this).attr('data-id');
                 var url = "{{ route('projects.requirements.store') }}" + '/' + id;
-                ajaxfunc(url, 'DELETE', '').then(function(res){
-                    toastr['success'](res.message)
+
+
+                Swal.fire({
+                    text: "می خواهید رکورد مورد نظر حذف شود ؟",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله می خواهم'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        ajaxfunc(url, 'DELETE', '').then(function(res) {
+                            toastr['warning'](res.message);
+                            table.ajax.reload();
+                        }).catch(function(res) {
+                            toastr['warning']('خطایی رخ داده است')
+                        })
+
+
+                    }
                 })
-                table.ajax.reload();
 
             })
 
@@ -198,7 +222,7 @@
                     })
                     .catch(function (res) {
 
-                        
+
                     })
 
 
