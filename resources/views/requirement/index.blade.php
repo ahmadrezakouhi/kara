@@ -43,6 +43,7 @@
                 </div>
                 <table id="tbl_requirements" class="table table-bordered table-striped">
                     <thead>
+                        <th></th>
                         <th>عنوان</th>
                         <th>توضیحات</th>
                         <th>تاریخ ثبت</th>
@@ -105,7 +106,12 @@
     <script>
         $(document).ready(function() {
             var clickButtonID;
-            var columns = [{
+            var columns = [
+                {
+                    title: 'ردیف',
+                    "defaultContent": "-",
+                },
+                {
                     data: 'title'
                 },
                 {
