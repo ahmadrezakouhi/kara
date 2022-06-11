@@ -20,4 +20,8 @@ class Task extends Model
     {
         return $this->belongsTo(Sprint::class);
     }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }
