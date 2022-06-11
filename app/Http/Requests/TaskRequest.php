@@ -24,13 +24,11 @@ class TaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required',
-            'description'=>'required',
-            'explanation'=>'required',
-            'duration'=>'required',
-            'indo_date'=>'required',
-            'done_date'=>'required',
-            
+            'title' => 'required',
+            'description' => 'required',
+            'duration' => 'required',
+
+
         ];
     }
 }
