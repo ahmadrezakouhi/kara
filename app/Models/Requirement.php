@@ -19,4 +19,8 @@ class Requirement extends Model
     {
         return $this->hasOne(Priority::class);
     }
+
+    public function phase(){
+        return $this->belongsTo(Phase::class);
+    }
 }
