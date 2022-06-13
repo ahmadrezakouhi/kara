@@ -104,10 +104,10 @@ return table;
 }
 
 
-function submit_form(form_id,id,url,modal_id,table){
+function submit_form(form_id,id,url,modal_id,table,check_id=true){
 
 
-        if (id ) {
+        if ( check_id && id ) {
             url += ('/'+id)
         }
         ajaxfunc(url, "POST", $(form_id).serialize())
