@@ -130,8 +130,8 @@ Route::prefix('projects')->group(function () {
 
 Route::prefix('requirements')->group(function () {
 
-    Route::post('/{id?}/phases',[RequirementController::class,'add_phase'])
-    ->name('requirements.phases.store');
+    Route::post('/{id?}/phases', [RequirementController::class, 'add_phase'])
+        ->name('requirements.phases.store');
 });
 
 
@@ -163,4 +163,12 @@ Route::prefix('sprints')->group(function () {
 
     Route::get('/tasks/{id}', [TaskController::class, 'edit'])
         ->name('sprints.tasks.edit');
+});
+
+Route::prefix('tasks')->group(function () {
+    Route::get('task-board',[TaskController::class,'taskBoard'])
+    ->name('tasks.task-borad');
+
+    Route::post('change-status',[TaskController::class,'changeStatus'])
+    ->name('tasks.change-status');
 });
