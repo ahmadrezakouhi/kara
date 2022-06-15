@@ -105,7 +105,20 @@ class TaskController extends Controller
     }
 
 
-   
+    public function changeStatus(Request $request)
+    {
+        $task = Task::findOrFail($request->task_id);
+
+        if ($task->status >= 0 && $task->status < 2) {
+
+            $task->status++;
+            $task->save();
+            return response()->json(['message'=>'وضعیت تغییر کرد.']);
+        }
+
+        return response()->json(['message'=>'امکان تغییر وضعیت وجود ندارد.']);
+
+    }
 
     /**
      * Remove the specified resource from storage.
