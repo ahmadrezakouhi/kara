@@ -14,7 +14,8 @@ class RequirementController extends Controller
 
     public function index(Request $request, $id)
     {
-        $project = Project::find($id);
+        $project = Project::with('requirements.phase')->findOrFail($id);
+        $phases = $project->phases;
         if ($request->ajax()) {
             $requirements = $project->requirements;
             $recordTotal = $requirements->count();
@@ -26,7 +27,7 @@ class RequirementController extends Controller
             );
             return response()->json($data);
         }
-        return view('requirement.index', compact('project'));
+        return view('requirement.index', compact('project','phases'));
     }
 
     public function store(RequirementRequest $request, $requirement_id=null)
@@ -54,5 +55,15 @@ class RequirementController extends Controller
     {
         Requirement::destroy($id);
         return response()->json(['message' => 'نیازمندی مورد نظر حذف شد.']);
+    }
+
+
+
+    public function add_phase(Request $request,$requirement_id){
+        Requirement::findOrFail($requirement_id)->update([
+            'phase_id'=>$request->phase_id
+        ]);
+
+        return response()->json(['message'=>'نیازمندی به فاز لینک شد.']);
     }
 }

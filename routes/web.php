@@ -128,6 +128,13 @@ Route::prefix('projects')->group(function () {
 });
 
 
+Route::prefix('requirements')->group(function () {
+
+    Route::post('/{id?}/phases',[RequirementController::class,'add_phase'])
+    ->name('requirements.phases.store');
+});
+
+
 Route::prefix('phases')->group(function () {
 
     Route::get('/{id}/sprints', [SprintController::class, 'index'])
@@ -151,11 +158,9 @@ Route::prefix('sprints')->group(function () {
     Route::post('/tasks/{id?}', [TaskController::class, 'store'])
         ->name('sprints.tasks.store');
 
-        Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])
+    Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])
         ->name('sprints.tasks.destroy');
 
     Route::get('/tasks/{id}', [TaskController::class, 'edit'])
         ->name('sprints.tasks.edit');
 });
-
-

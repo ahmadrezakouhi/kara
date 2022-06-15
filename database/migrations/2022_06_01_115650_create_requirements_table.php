@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->unsignedBigInteger('priority_id');
-            $table->foreign('priority_id')->references('id')->on('priorites');
+            $table->unsignedBigInteger('phase_id')->nullable();
+            $table->foreign('phase_id')->references('id')->on('phases');
             $table->string('title');
             $table->text('description');
             $table->timestamps();
