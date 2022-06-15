@@ -34,6 +34,12 @@ class TaskController extends Controller
         return view('task.index', compact('sprint', 'categories'));
     }
 
+
+    public function taskBoard(){
+        $tasks = Task::all();
+        return view('task.task_board',compact($tasks));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -72,7 +78,6 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -99,6 +104,9 @@ class TaskController extends Controller
         //
     }
 
+
+   
+
     /**
      * Remove the specified resource from storage.
      *
@@ -108,6 +116,6 @@ class TaskController extends Controller
     public function destroy($id)
     {
         Task::destroy($id);
-        return response()->json(['message'=>'تسک مورد نظر حذف شد.']);
+        return response()->json(['message' => 'تسک مورد نظر حذف شد.']);
     }
 }
