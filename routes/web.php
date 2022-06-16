@@ -169,6 +169,6 @@ Route::prefix('tasks')->group(function () {
     Route::get('task-board',[TaskController::class,'taskBoard'])
     ->name('tasks.task-borad');
 
-    Route::post('change-status',[TaskController::class,'changeStatus'])
+    Route::post('/{id}/change-status',[TaskController::class,'changeStatus'])
     ->name('tasks.change-status');
 });

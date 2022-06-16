@@ -148,6 +148,9 @@ function removeIDValues(form_id){
 
 
 function covertJalaliToGregorian(date){
+    if(date == null){
+        return '-';
+    }
     return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD');
 }
 

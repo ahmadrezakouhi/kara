@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Sprint;
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
@@ -35,9 +36,13 @@ class TaskController extends Controller
     }
 
 
-    public function taskBoard(){
-        $tasks = Task::all();
-        return view('task.task_board',compact($tasks));
+    public function taskBoard(Request $request)
+    {
+        if ($request->ajax()) {
+            $tasks = Task::all();
+            return response()->json($tasks);
+        }
+        return view('task.task_board');
     }
 
     /**
@@ -105,19 +110,25 @@ class TaskController extends Controller
     }
 
 
-    public function changeStatus(Request $request)
+    public function changeStatus($task_id)
     {
-        $task = Task::findOrFail($request->task_id);
+        $task = Task::findOrFail($task_id);
 
-        if ($task->status >= 0 && $task->status < 2) {
+        // if ($task->status >= 0 && $task->status <2) {
 
-            $task->status++;
+            if($task->status == 0){
+                $task->status = 1;
+                $task->indo_date = Carbon::now();
+            }else if($task->status == 1) {
+                $task->status =2;
+                $task->done_date = Carbon::now();
+            }
             $task->save();
-            return response()->json(['message'=>'وضعیت تغییر کرد.']);
-        }
+            return response()->json($task);
+            // return response()->json(['message' => 'وضعیت تغییر کرد.']);
+        // }
 
-        return response()->json(['message'=>'امکان تغییر وضعیت وجود ندارد.']);
-
+        // return response()->json(['message' => 'امکان تغییر وضعیت وجود ندارد.']);
     }
 
     /**
