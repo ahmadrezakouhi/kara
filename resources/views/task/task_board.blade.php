@@ -44,7 +44,8 @@
             ajaxfunc(url, 'GET', '').then(function(res) {
                 res.forEach(element => {
                     var $li =
-                        '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2 bg-danger  text-white rounded "style="width:100%;height: 80px;" data-id="'+element.id +'">' +
+                        '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2 bg-danger  text-white rounded "style="width:100%;height: 80px;" data-id="' +
+                        element.id + '">' +
 
                         '<div class="d-flex justify-content-between"> ' +
                         '<h4 class="persian">' + element.title + '</h4> ' +
@@ -53,13 +54,13 @@
                         'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
                         'class="bi bi-plus-square-fill" viewBox="0 0 16 16"> ' +
                         '<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" /> ' +
-                        '</svg></a> ' +
+                        '</svg></a> ' + ((element.status != 2)? (
                         '<a class="text-white next_level" style="text-decoration: none ;cursor: pointer ;"><svg ' +
                         'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
                         'class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16"> ' +
-                        '<path ' +
+                        '<path '  +
                         'd="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z" /> ' +
-                        '</svg></a> ' +
+                        '</svg></a> ') : '') +
                         '</div> ' +
                         '</div> ' +
 
@@ -76,20 +77,23 @@
 
                         '<div class="content" style="display:none ;">' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p class="persian">زمان ورود به صف در حال انجام </p>' +
-                        '<p class="persian text-center todo_date">' + covertJalaliToGregorian(element
+                        '<p class="persian">زمان ورود به صف انتظار</p>' +
+                        '<p class="persian text-center todo_date">' + covertJalaliToGregorian(
+                            element
                             .todo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p class="persian">زمان ورود به صف انتظار</p>' +
-                        '<p class="persian text-center indo_date">' + covertJalaliToGregorian(element.indo_date) +'</p>' +
+                        '<p class="persian">زمان ورود به صف در حال انجام</p>' +
+                        '<p class="persian text-center indo_date">' + covertJalaliToGregorian(
+                            element.indo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
                         '<p class="persian">زمان پایان</p>' +
-                        '<p class="persian text-center done_date">' + covertJalaliToGregorian(element.done_date) +'</p>' +
+                        '<p class="persian text-center done_date">' + covertJalaliToGregorian(
+                            element.done_date) + '</p>' +
                         '</div>' +
                         '<hr>' +
-                        '<p class="persian">'+element.description+'</p>' +
+                        '<p class="persian">' + element.description + '</p>' +
 
                         '<div class="p-1 rounded bg-white">' +
                         '<div class="progress">' +
@@ -107,15 +111,16 @@
 
                         '</div>' +
                         '</li>'
-                        var target = ''
-                        if(element.status==0){
-                            target = '#todo';
-                        }else if(element.status==1){
-                            target = '#indo';
-                        }else {
-                            target = '#done';
-                        }
-                        $(target).append($li);
+                    var target = ''
+                    if (element.status == 0) {
+                        target = '#todo';
+                    } else if (element.status == 1) {
+                        target = '#indo';
+                    } else {
+                        target = '#done';
+                        // removeNextLevelButton($li)
+                    }
+                    $(target).append($li);
 
                 });
             }).catch(function(res) {
@@ -128,7 +133,7 @@
             });
             $(".draggable").draggable();
             $(".droppable").droppable({
-                // tolerance: "fit",
+
                 drop: function(event, ui) {
                     var $item = $(ui.draggable);
                     var parentID = $item.parent().attr('id');
@@ -137,18 +142,8 @@
                     var $target = $(event.target);
                     var targetID = $target.attr('id');
                     if (canMove(parentID, targetID)) {
-                        var task_id = $item.attr('data-id');
-                        ajaxfunc('/tasks/'+task_id+'/change-status','POST','').then(function(res){
-                        $item.detach();
-                        $item.css('position', '');
-                        $item.css('left', '');
-                        $item.css('top', '');
-                        $item.css('z-index', '');
-                        $target.append($item[0].outerHTML)
-                        }).catch(function(res){
 
-                        });
-
+                        changeStatus($item,$target);
 
                     }
 
@@ -199,14 +194,8 @@
                         } else if (parentID == 'indo') {
                             targetID = 'done';
                         }
-                        var task_id = $item.attr('data-id');
-                        ajaxfunc('/tasks/'+task_id+'/change-status','POST','').then(function(res){
-                            $item.remove();
-                        $('#' + targetID).append($item[0].outerHTML);
-                        }).catch(function(res){
-
-                        });
-
+                        $target = $('#'+targetID);
+                        changeStatus($item,$target);
                     }
 
 
@@ -223,6 +212,36 @@
 
         }
 
+
+        function changeStatus($item, $target) {
+            var task_id = $item.attr('data-id');
+                        ajaxfunc('/tasks/' + task_id + '/change-status', 'POST', '').then(function(
+                        res) {
+                            $item.detach();
+                            $item.css({
+                                'position': '',
+                                'left': '',
+                                'top': '',
+                                'z-index': ''
+                            });
+                            $item.find('.indo_date').text(covertJalaliToGregorian(res
+                                .indo_date));
+                            $item.find('.done_date').text(covertJalaliToGregorian(res
+                                .done_date));
+                                if($target.attr('id')=='done'){
+                                    removeNextLevelButton($item);
+
+                                }
+                            $target.append($item[0].outerHTML);
+                        }).catch(function(res) {
+
+                        });
+        }
+
+
+        function removeNextLevelButton($item){
+            $item.find('.next_level').remove();
+        }
     </script>
 @endsection
 @endsection
