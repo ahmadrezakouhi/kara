@@ -43,14 +43,6 @@
 	url('fonts/Vazir-Thin-FD-WOL.woff2') format('woff2'),
 	url('fonts/Vazir-Thin-FD-WOL.eot?#iefix') format('embedded-opentype');
 }
-@font-face {
-    font-family:'danstevis' ;
-    src: url('fonts/danstevis.otf');
-  }
-
-  .persian{
-    font-family: 'danstevis';
-  }
 
 html {
     position: relative;
@@ -74,10 +66,10 @@ body {
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-
+    
 	direction: rtl;
     text-align: right;
-
+	
 }
 /* input[type="tel"] , input[type="number"], input[type="email"]{
     text-align: left;
