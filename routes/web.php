@@ -11,6 +11,7 @@ use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\PhaseController;
 use App\Http\Controllers\SprintController;
 use App\Http\Controllers\TaskController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,7 +100,7 @@ require __DIR__ . '/auth.php';
 
 
 
-Route::prefix('projects')->group(function () {
+Route::prefix('projects')->middleware(['auth'])->group(function () {
 
     Route::get('/{id}/requirements', [RequirementController::class, 'index'])
         ->name('projects.requirements.index');
@@ -128,14 +129,14 @@ Route::prefix('projects')->group(function () {
 });
 
 
-Route::prefix('requirements')->group(function () {
+Route::prefix('requirements')->middleware(['auth'])->group(function () {
 
-    Route::post('/{id?}/phases',[RequirementController::class,'add_phase'])
-    ->name('requirements.phases.store');
+    Route::post('/{id?}/phases', [RequirementController::class, 'add_phase'])
+        ->name('requirements.phases.store');
 });
 
 
-Route::prefix('phases')->group(function () {
+Route::prefix('phases')->middleware(['auth'])->group(function () {
 
     Route::get('/{id}/sprints', [SprintController::class, 'index'])
         ->name('phases.sprints.index');
@@ -150,7 +151,7 @@ Route::prefix('phases')->group(function () {
         ->name('phases.sprints.edit');
 });
 
-Route::prefix('sprints')->group(function () {
+Route::prefix('sprints')->middleware(['auth'])->group(function () {
 
     Route::get('/{id}/tasks', [TaskController::class, 'index'])
         ->name('sprints.tasks.index');
@@ -163,4 +164,12 @@ Route::prefix('sprints')->group(function () {
 
     Route::get('/tasks/{id}', [TaskController::class, 'edit'])
         ->name('sprints.tasks.edit');
+});
+
+Route::prefix('tasks')->middleware(['auth'])->group(function () {
+    Route::get('task-board', [TaskController::class, 'taskBoard'])
+        ->name('tasks.task-board');
+
+    Route::post('/{id}/change-status', [TaskController::class, 'changeStatus'])
+        ->name('tasks.change-status');
 });

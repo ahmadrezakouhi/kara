@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -25,19 +26,20 @@ class UserController extends Controller
     {
         //
         return View::make('user.index')
-        ->with('user');
+            ->with('user');
     }
-    public function getAll(Request $request){
-        if ( Gate::allows('isManager') ){
+    public function getAll(Request $request)
+    {
+        if (Gate::allows('isManager')) {
             $user = User::get();
-        }else if ( Gate::allows('isAdmin') || Gate::allows('isUser')){
+        } else if (Gate::allows('isAdmin') || Gate::allows('isUser')) {
             $queryFiltered = DB::table('users');
             $user =  $queryFiltered->where('id', Auth::user()->id)->get();
         }
         return response()->json($user);
-
     }
-    public function getData(Request $request){
+    public function getData(Request $request)
+    {
         $columns = array(
             // 0 => 'id',
             0 => 'fname',
@@ -48,21 +50,21 @@ class UserController extends Controller
         );
         $queryFiltered = DB::table('users');
         // var_dump(Auth::user()->id);exit();
-        if ( Gate::allows('isAdmin') || Gate::allows('isUser') ){
+        if (Gate::allows('isAdmin') || Gate::allows('isUser')) {
             $queryFiltered =  $queryFiltered->where('id', Auth::user()->id);
         }
 
         $recordsTotal = $queryFiltered->count();
-        if (isset($request['sf'])){
-            if($request['sf']['search-mobile'] != '')
+        if (isset($request['sf'])) {
+            if ($request['sf']['search-mobile'] != '')
                 $queryFiltered =  $queryFiltered->where('mobile', $request['sf']['search-mobile']);
-            if($request['sf']['search-name'] != ''){
+            if ($request['sf']['search-name'] != '') {
                 $queryFiltered =  $queryFiltered->where('fname', 'like', '%' . $request['sf']['search-name'] . '%');
                 $queryFiltered =  $queryFiltered->where('lname', 'like', '%' .   $request['sf']['search-name'] . '%');
             }
         }
         $recordsFiltered = $queryFiltered->count();
-        $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+        $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']], $request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
 
         $json_data = array(
             "draw" => intval($_REQUEST['draw']),
@@ -74,7 +76,8 @@ class UserController extends Controller
         // echo json_encode($json_data);
     }
 
-    public function getDataForProject(Request $request){
+    public function getDataForProject(Request $request)
+    {
         $columns = array(
             0 => 'id',
             1 => 'fname',
@@ -135,24 +138,26 @@ class UserController extends Controller
             'lname'       => 'required',
             'email'       => 'required|email',
         );
-        
+
         $validator = Validator::make($request->all(), $rules);
 
         // process the login
         if ($validator->fails()) {
             return redirect('user/create')
-                        ->withErrors($validator)
-                        ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         } else {
             // store
             $user = new User;
-            $user->fname       = $request->fname; 
+            $user->fname       = $request->fname;
             $user->lname       = $request->lname;
-            $user->email       = $request->email; 
+            $user->email       = $request->email;
             $user->mobile      = $request->mobile;
             $user->phone      = $request->phone;
             $user->user_id     = Auth::user()->id;
             $user->role        = $request->role;
+            $user->background_color = $request->background_color;
+            $user->text_color = $request->text_color;
             $user->password    = Hash::make($request->password);
             $user->save();
 
@@ -170,7 +175,7 @@ class UserController extends Controller
             'lname'       => 'required',
             'email'       => 'required|email',
         );
-        
+
         $validator = Validator::make($request->all(), $rules);
 
         // process the login
@@ -179,9 +184,9 @@ class UserController extends Controller
         } else {
             // store
             $user = new User;
-            $user->fname       = $request->fname; 
+            $user->fname       = $request->fname;
             $user->lname       = $request->lname;
-            $user->email       = $request->email; 
+            $user->email       = $request->email;
             $user->mobile      = $request->mobile;
             $user->phone      = $request->phone;
             $user->user_id     = Auth::user()->id;
@@ -194,7 +199,7 @@ class UserController extends Controller
             return response()->json($user);
         }
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -206,7 +211,7 @@ class UserController extends Controller
         //
         $user = User::find($id);
         return View::make('user.show')
-        ->with('user', $user);
+            ->with('user', $user);
     }
 
     /**
@@ -220,7 +225,7 @@ class UserController extends Controller
         //
         $user = User::find($id);
         return View::make('user.edit')
-        ->with('user', $user);
+            ->with('user', $user);
     }
 
     /**
@@ -233,9 +238,9 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
-        if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('update',$user)) {
+        if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('update', $user)) {
             $rules = array(
-                'fname'    => 'required', 
+                'fname'    => 'required',
                 'lname'    => 'required',
                 'email'       => 'required|email',
             );
@@ -249,13 +254,15 @@ class UserController extends Controller
             } else {
                 // store
                 $user = User::find($user->id);
-                $user->fname       = $request->fname; 
+                $user->fname       = $request->fname;
                 $user->lname       = $request->lname;
-                $user->email       = $request->email; 
+                $user->email       = $request->email;
                 // $user->description = $request->description;
                 $user->mobile      = $request->mobile;
                 $user->phone       = $request->phone;
                 $user->role        = $request->role;
+                $user->background_color = $request->background_color;
+                $user->text_color = $request->text_color;
                 $user->password         =  Hash::make($request->password);
                 $user->save();
 
@@ -263,7 +270,7 @@ class UserController extends Controller
                 $request->session()->flash('message', 'کاربر با موفقیت بروز رسانی شد!');
                 return redirect('user');
             }
-        }else{
+        } else {
             $request->session()->flash('message', 'عدم دسترسی!');
             return redirect('user');
         }
@@ -275,21 +282,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy( Request $request,User $user)
+    public function destroy(Request $request, User $user)
     {
         //
-        if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('delete',$user)) {
+        if (Gate::allows('isManager') ||  Gate::allows('isAdmin')  || $request->user()->can('delete', $user)) {
             //
-                // delete
-                $user = user::find($user->id);
-                $user->delete();
-    
-                // redirect
-                $request->session()->flash('message', 'کاربر با موفقیت بروز رسانی شد!');
-                return true;
-            }else{
-                $request->session()->flash('message', 'عدم دسترسی برای حذف!');
-                abort(403);
-            }
+            // delete
+            $user = user::find($user->id);
+            $user->delete();
+
+            // redirect
+            $request->session()->flash('message', 'کاربر با موفقیت بروز رسانی شد!');
+            return true;
+        } else {
+            $request->session()->flash('message', 'عدم دسترسی برای حذف!');
+            abort(403);
+        }
     }
 }
