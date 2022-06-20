@@ -46,43 +46,43 @@ class ProjectController extends Controller
             if ( (!isset( $request['sf']['search-parent-id']) || ( isset( $request['sf']['search-parent-id']) && ($request['sf']['search-parent-id'] == "0" || $request['sf']['search-parent-id'] == "-1" )))
                  ){
                 if($request['sf']['search-title'] != '')
-                    $queryFiltered =  $queryFiltered->where('projects.title', 'like','%' .$request['sf']['search-title']. '%' );   
+                    $queryFiltered =  $queryFiltered->where('projects.title', 'like','%' .$request['sf']['search-title']. '%' );
                 if($request['sf']['search-start-date'] != ''){
-                        $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date'], true); 
+                        $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date'], true);
                         $start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
-                        $queryFiltered =  $queryFiltered->where('projects.start_date', '>=', $start_date); 
+                        $queryFiltered =  $queryFiltered->where('projects.start_date', '>=', $start_date);
                 }
                 if($request['sf']['search-start-date-to'] != ''){
-                    $todateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date-to'], true); 
+                    $todateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date-to'], true);
                     $start_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $todateString)->format('Y-m-d H:i:s');
-                    $queryFiltered =  $queryFiltered->where('projects.start_date', '<=', $start_date_to); 
+                    $queryFiltered =  $queryFiltered->where('projects.start_date', '<=', $start_date_to);
                 }
                 if($request['sf']['search-end-date'] != ''){
-                    $enddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date'], true); 
+                    $enddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date'], true);
                     $end_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateString)->format('Y-m-d H:i:s');
-                    $queryFiltered =  $queryFiltered->where('projects.end_date_pre', '>=', $end_date); 
-                }
-                
-                if($request['sf']['search-end-date-to'] != ''){
-                    $toenddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date-to'], true); 
-                    $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $toenddateString)->format('Y-m-d H:i:s');
-                    $queryFiltered =  $queryFiltered->where('projects.end_date_pre', '<=', $end_date_to); 
+                    $queryFiltered =  $queryFiltered->where('projects.end_date_pre', '>=', $end_date);
                 }
 
-                if ( Gate::allows('isAdmin')) { 
+                if($request['sf']['search-end-date-to'] != ''){
+                    $toenddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date-to'], true);
+                    $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $toenddateString)->format('Y-m-d H:i:s');
+                    $queryFiltered =  $queryFiltered->where('projects.end_date_pre', '<=', $end_date_to);
+                }
+
+                if ( Gate::allows('isAdmin')) {
                     $queryFiltered = $queryFiltered->whereIn('projects.id',function($query){
 
                         $query->select('project_id')->from('project_users')->where("userid",Auth::user()->id );
-        
-                    }); 
+
+                    });
                 }
                 $recordsFiltered = $queryFiltered->count();
-                if ( Gate::allows('isAdmin') || Gate::allows('isAUser')) {                   
+                if ( Gate::allows('isAdmin') || Gate::allows('isAUser')) {
                      $queryFiltered = $queryFiltered->where("project_users.userid",Auth::user()->id );
 
                      $queryFiltered = $queryFiltered->select("projects.*", "project_users.project_id","project_users.status")->leftJoin('project_users', 'projects.id', '=', 'project_users.project_id');
                 $data = $queryFiltered->orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
-    
+
                 }else{
                     $data = $queryFiltered->select("projects.*", "projects.user_id as status")->
                     orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
@@ -92,28 +92,28 @@ class ProjectController extends Controller
                 if( $request['sf']['search-title'] != '' )
                     $where .=  " AND s.title like '%" . $request['sf']['search-title'] . "%'";
                 if($request['sf']['search-start-date'] != ''){
-                    $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date'], true); 
+                    $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date'], true);
                     $start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
                     $where .=  " AND s.start_date >='" . $start_date . "'";
                 }
                 if($request['sf']['search-start-date-to'] != ''){
-                    $dateStringto = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date-to'], true); 
+                    $dateStringto = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-start-date-to'], true);
                     $start_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateStringto)->format('Y-m-d H:i:s');
                     $where .=  " AND s.start_date <='" . $start_date_to . "'";
                 }
 
                 if($request['sf']['search-end-date'] != ''){
-                    $enddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date'], true); 
+                    $enddateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date'], true);
                     $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateString)->format('Y-m-d H:i:s');
                     $where .=  " AND s.end_date_pre >='" . $end_date_to . "'";
                 }
-              
+
                 if($request['sf']['search-end-date-to'] != ''){
-                    $enddateStringto = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date-to'], true); 
+                    $enddateStringto = \Morilog\Jalali\CalendarUtils::convertNumbers($request['sf']['search-end-date-to'], true);
                     $end_date_to    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $enddateStringto)->format('Y-m-d H:i:s');
                     $where .=  " AND s.end_date_pre <='" . $end_date_to . "'";
-                }   
-                // if ( Gate::allows('isAdmin') || Gate::allows('isAUser')) {                   
+                }
+                // if ( Gate::allows('isAdmin') || Gate::allows('isAUser')) {
                     $where .=" AND project_users.userid = ' " . Auth::user()->id . "'";
                 // }
                 $where .= " AND s.id IN (SELECT project_id from project_users where userid = '" . Auth::user()->id ."')";
@@ -123,21 +123,21 @@ class ProjectController extends Controller
                 $recordsFiltered = count($data);
             }
         }   else{
-            // if ( Gate::allows('isAdmin') || Gate::allows('isAUser')) {                   
+            // if ( Gate::allows('isAdmin') || Gate::allows('isAUser')) {
                 $queryFiltered = $queryFiltered->where("project_users.userid",Auth::user()->id );
 
                 $queryFiltered = $queryFiltered->select("projects.*", "project_users.project_id","project_users.status")->leftJoin('project_users', 'projects.id', '=', 'project_users.project_id');
                 $data = $queryFiltered->orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
-    
+
         //    }else{
         //        $data = $queryFiltered->select("projects.*", "projects.user_id as status")->
         //        orderBy("projects." . $columns[$request['order'][0]['column']],$request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
         //    }
             $recordsFiltered = $queryFiltered->count();
-            
-          
-        } 
-            
+
+
+        }
+
         foreach ($data as $arr) {
             if ( $arr->status == "0" ) continue;
 
@@ -149,8 +149,8 @@ class ProjectController extends Controller
                     $manual_query .= " AND  s.id = '" . $var->parent_level_id . "'";
                     $parentdata= DB::select($manual_query);
                 }
-                
-                if(count($parentdata) == 0) { 
+
+                if(count($parentdata) == 0) {
                     break;
                 }
                 if($parentdata[0]->status == 0) {
@@ -165,10 +165,10 @@ class ProjectController extends Controller
                     break;
 
             }
-                
+
         }
-        
-      
+
+
         $json_data = array(
             "draw" => intval($_REQUEST['draw']),
             "recordsTotal" => intval($recordsTotal),
@@ -204,7 +204,7 @@ class ProjectController extends Controller
             // 'start_date'      => 'required',
             // 'end_date_pre'    => 'required',
         );
-        
+
         $validator = Validator::make($request->all(), $rules);
         // process the login
         if ($validator->fails()) {
@@ -214,13 +214,13 @@ class ProjectController extends Controller
         } else {
             // store
             $project = new Project;
-            $project->title         = $request->title; 
+            $project->title         = $request->title;
             $project->description   = $request->description;
-           
-            $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true); 
+
+            $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true);
             $project->start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
-            
-            $dateStringEnd_date_pre = \Morilog\Jalali\CalendarUtils::convertNumbers($request->end_date_pre, true); 
+
+            $dateStringEnd_date_pre = \Morilog\Jalali\CalendarUtils::convertNumbers($request->end_date_pre, true);
             $project->end_date_pre    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateStringEnd_date_pre)->format('Y-m-d H:i:s');
             // $project->description = $request->description;
             // $project->level         = $request->level;
@@ -228,12 +228,12 @@ class ProjectController extends Controller
             $project->user_id     = Auth::user()->id;
             $project->save();
 
-            if ( Gate::allows('isAdmin')) { 
+            if ( Gate::allows('isAdmin')) {
                 $parent_project = project::find($request->project_id);
                 $project->parent_level_id  = $request->project_id;
                 $project->parent_level_name  = $parent_project->title;
             }
-            if ( Gate::allows('isManager')) { 
+            if ( Gate::allows('isManager')) {
                 $project->parent_level_id  = $request->project_id;
                 if($request->project_id !=0){
                     $parent_project = project::find($request->project_id);
@@ -242,8 +242,8 @@ class ProjectController extends Controller
             }
             $personnel_users = new ProjectUser();
             $data_user = DB::table('users')->find(Auth::user()->id);
-            $personnel_users->userid       = Auth::user()->id; 
-            $personnel_users->fname       = $data_user->fname; 
+            $personnel_users->userid       = Auth::user()->id;
+            $personnel_users->fname       = $data_user->fname;
             $personnel_users->lname       = $data_user->lname;
             $personnel_users->project_id  = $request->project_id;
             $personnel_users->project_title  =  $request->title;
@@ -265,32 +265,32 @@ class ProjectController extends Controller
             // 'start_date'      => 'required',
             // 'end_date_pre'    => 'required',
         );
-        
+
         $validator = Validator::make($request->all(), $rules);
         // process the login
         if ($validator->fails()) {
             return -1;
         } else {
             // store
-            
+
             $project = new Project;
-            $project->title         = $request->title; 
+            $project->title         = $request->title;
             $project->description   = $request->description;
-           
-            $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true); 
+
+            $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true);
             $project->start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
-            
-            $dateStringEnd_date_pre = \Morilog\Jalali\CalendarUtils::convertNumbers($request->end_date_pre, true); 
+
+            $dateStringEnd_date_pre = \Morilog\Jalali\CalendarUtils::convertNumbers($request->end_date_pre, true);
             $project->end_date_pre    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateStringEnd_date_pre)->format('Y-m-d H:i:s');
             // $project->description = $request->description;
             // $project->level         = $request->level;
             // $project->parent_level  = $request->parent_level;
-            if ( Gate::allows('isAdmin')) { 
+            if ( Gate::allows('isAdmin')) {
                 $parent_project = project::find($request->project_id);
                 $project->parent_level_id  = $request->project_id;
                 $project->parent_level_name  = $parent_project->title;
             }
-            if ( Gate::allows('isManager')) { 
+            if ( Gate::allows('isManager')) {
                 $project->parent_level_id  = $request->project_id;
                 if($request->project_id !=0){
                     $parent_project = project::find($request->project_id);
@@ -302,8 +302,8 @@ class ProjectController extends Controller
 
             $personnel_users = new ProjectUser();
             $data_user = DB::table('users')->find(Auth::user()->id);
-            $personnel_users->userid       = Auth::user()->id; 
-            $personnel_users->fname       = $data_user->fname; 
+            $personnel_users->userid       = Auth::user()->id;
+            $personnel_users->fname       = $data_user->fname;
             $personnel_users->lname       = $data_user->lname;
             $personnel_users->project_id  = $project->id;
              $personnel_users->project_title  = $project->title;
@@ -312,7 +312,7 @@ class ProjectController extends Controller
             // echo '<pre>';
             // var_dump($personnel_users);exit();
             $personnel_users->save();
-            
+
             // redirect
             $request->session()->flash('message', 'پروژه با موفقیت ثبت شد!');
             return response()->json($project);
@@ -329,7 +329,7 @@ class ProjectController extends Controller
                     $project->parent_level_name  = $request->parent_level_name;
                     $project->user_id     = Auth::user()->id;
                     $project->save();
-    
+
                     // redirect
                     $request->session()->flash('message', 'مدیر پروژه با موفقیت بروز رسانی شد!');
                     return redirect('project');
@@ -337,7 +337,7 @@ class ProjectController extends Controller
                 $request->session()->flash('message', 'عدم دسترسی!');
                 return redirect('project');
             }
-    
+
     }
 
 
@@ -358,13 +358,13 @@ class ProjectController extends Controller
 
     public function getParentProjects(Request $request){
         $queryFiltered = DB::table('projects');
-       
+
         if (Gate::allows('isAdmin')  )
         {
             $projectuser_query= DB::table('project_users')->where('userid', Auth::user()->id)->where("status",0)->get();
             $project = [];
             for ($i=0; $i< count($projectuser_query); $i++) $project[] = $projectuser_query[$i]->project_id;
-            
+
             $queryFiltered->whereIn('id',$project);
         }
         $json_data =  $queryFiltered->orderBy('title', 'asc')->get();
@@ -377,15 +377,15 @@ class ProjectController extends Controller
      * @param  \App\Models\project  $project
      * @return \Illuminate\Http\Response
      */
-    
+
     public function show($id)
     {
         //
         $project = Project::find($id);
-        
+
         $queryFiltered = DB::table('project_users');
         $users =  $queryFiltered->where('project_id', $id)->get();
-        
+
         $querySubPoject = DB::table('projects');
         $subPoject =  $querySubPoject->where('parent_level_id', $id)->orderBy('parent_level_name', 'asc')->get();
 
@@ -438,12 +438,12 @@ class ProjectController extends Controller
             } else {
                 // store
                 $project = project::find($project->id);
-                $project->title         = $request->title; 
+                $project->title         = $request->title;
                 $project->description   = $request->description;
-                $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true); 
+                $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers($request->start_date, true);
                 $project->start_date    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateString)->format('Y-m-d H:i:s');
-            
-                $dateStringEnd_date_pre = \Morilog\Jalali\CalendarUtils::convertNumbers($request->end_date_pre, true); 
+
+                $dateStringEnd_date_pre = \Morilog\Jalali\CalendarUtils::convertNumbers($request->end_date_pre, true);
                 $project->end_date_pre    =   \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d', $dateStringEnd_date_pre)->format('Y-m-d H:i:s');
                 // $project->description = $request->description;
                 // $project->level         = $request->level;
@@ -475,7 +475,7 @@ class ProjectController extends Controller
                 // delete
                 $project = Project::find($project->id);
                 $project->delete();
-    
+
                 // redirect
                 $request->session()->flash('message', 'پروژه با موفقیت حذف شد!');
                 return true;
@@ -484,4 +484,7 @@ class ProjectController extends Controller
                 abort(403);
             }
     }
+
+
+
 }

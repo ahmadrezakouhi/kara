@@ -26,11 +26,13 @@ class User extends Authenticatable
     protected $fillable = [
         'fname',
         'lname',
-        'mobile', 
+        'mobile',
         'phone',
         'email',
         'user_id',
         'password',
+        'background_color',
+        'text_color'
     ];
 
     /**
@@ -51,4 +53,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function projects(){
+        return $this->hasMany(Project::class);
+    }
 }

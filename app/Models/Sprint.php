@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Sprint extends Model
 {
     use HasFactory;
-
     protected $guarded = ['id'];
 
     public function user()
@@ -16,12 +15,13 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function sprint()
+    public function phase()
     {
-        return $this->belongsTo(Sprint::class);
+        return $this->belongsTo(Phase::class);
     }
 
-    public function category(){
-        return $this->belongsTo(Category::class);
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }

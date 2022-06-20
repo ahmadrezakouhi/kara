@@ -3,30 +3,11 @@
 @section('content')
 
     <div class="container">
-        <div class="mt-3">
-            <nav aria-label="breadcrumb ">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('project.index') }}">پروژه ها</a></li>
-                    <li class="breadcrumb-item"><a
-                            href="{{ route('projects.phases.index', $sprint->phase->project->id) }}">پروژه
-                            {{ $sprint->phase->project->title }}</a></li>
-                    <li class="breadcrumb-item"><a
-                            href="{{ route('phases.sprints.index', $sprint->phase->id) }}">{{ $sprint->phase->title }}</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $sprint->title }}</li>
-                </ol>
-            </nav>
-        </div>
-        <div class="card shadow-sm mt-2 border">
-            <div class="card-header ">
-
-                <div class="d-flex justify-content-between">
-                    <h2>لیست تسک ها</h2>
-
-
-                    <button class="btn btn-success" id="create_button"> افزودن
-                        تسک</button>
-                </div>
+        <div class="card shadow-sm border mt-5">
+            <div class="card-header d-flex justify-content-between">
+                <h2>نیازمندی های پروژه {{ $project->title }}</h2>
+                <button class="btn btn-success" id="create_button"> افزودن
+                    نیازمندی</button>
             </div>
             <div class="card-body">
                 <div class="row pt-3">
@@ -65,11 +46,9 @@
                         <th></th>
                         <th>عنوان</th>
                         <th>توضیحات</th>
-                        <th>مدت زمان انجام</th>
-                        <th>دسته بندی</th>
-                        <th></th>
-                        {{-- <th>تاریخ ثبت</th>
-                        <th>مدیریت</th> --}}
+                        <th>فاز</th>
+                        <th>تاریخ ثبت</th>
+                        <th>مدیریت</th>
 
                     </thead>
                     <tbody>
@@ -82,76 +61,26 @@
     </div>
 
     <div class="modal fade" id="add_requirements">
-        <div class="modal-dialog ">
+        <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modal_title">افزودن تسک ها</h4>
+                    <h4 class="modal-title" id="modal_title">افزودن نیازمندی ها</h4>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" action="post" id="create_update">
-                    <input type="hidden" name="sprint_id" value="{{ $sprint->id }}">
+                    <input type="hidden" name="project_id" value="{{ $project->id }}">
                     <input type="hidden" name="requirement_id">
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="mb-3 mt-3">
                             <label for="title" class="form-label">عنوان</label>
-                            <input type="text" class="form-control" id="title" name="title">
-                        </div>
-                        <div class="mb-3 mt3">
-                            <label for="category" class="form-label">دسته بندی</label>
-                            <select class="form-select" id="category" aria-label="Default select example" name="category">
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-
-                            </select>
+                            <input type="title" class="form-control" id="title" name="title">
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="description" class="form-label">توضیحات</label>
                             <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
-                        </div>
-                        <div class="mb-3 mt-3">
-
-
-                            <label for="duration" class="form-label">مدت زمان انجام(به دقیقه)</label>
-                            <input type="text" class="form-control" id="duration" name="duration">
-
-                            @php
-                                $base = 60;
-                            @endphp
-                            @for ($j = 1; $j <= 2; $j++)
-                                @if ($j == 1)
-                                    @php
-                                        $start = 1;
-                                        $end = 4;
-                                    @endphp
-                                @else
-                                    @php
-                                        $start = 5;
-                                        $end = 8;
-                                    @endphp
-                                @endif
-                                <div class="d-flex justify-content-between mt-3">
-                                    @for ($i = $start; $i <= $end; $i++)
-                                        <div class="form-check">
-                                            <input type="radio" class="form-check-input" id="picker{{ $i }}"
-                                                name="duration_picker"
-                                                value="{{ $i * $base }}">{{ $i * $base }}دقیقه
-                                            <label class="form-check-label" for="picker{{ $i }}"></label>
-                                        </div>
-                                    @endfor
-
-
-                                </div>
-                            @endfor
-                            <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" id="confirm" name="confirm">
-                                <label class="form-check-label">تایید</label>
-                            </div>
-
-
                         </div>
                     </div>
 
@@ -164,7 +93,38 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="add_phase">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal_title">تعیین فاز نیازمندی ها</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="" action="post" id="add_requrements_phase">
+                    {{-- <input type="hidden" name="project_id" value="{{ $project->id }}"> --}}
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        @foreach ($phases as $phase)
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="phase{{ $phase->id }}" name="phase_id"
+                                    value="{{ $phase->id }}">{{ $phase->title }} : <span class="text-black-50">{{ $phase->description }}</span>
+                                <label class="form-check-label" for="phase{{ $phase->id }}"></label>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" id="submit-form" class="btn btn-success"
+                            data-bs-dismiss="modal">افزودن</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 @endsection
 @section('scripts')
@@ -177,13 +137,6 @@
 
     <script>
         $(document).ready(function() {
-            $("#start_date, #end_date").pDatepicker({
-                format: "YYYY/MM/DD",
-                autoClose: true,
-                onSelect: function() {}
-
-            });
-            $("#start_date, #end_date").val("");
             var clickButtonID;
             var columns = [{
                     title: 'ردیف',
@@ -196,12 +149,26 @@
                     data: 'description'
                 },
                 {
-                    data: 'duration'
+                    data: 'phase',
+                    "render": function(data, type, row) {
+                        if (data === null) {
+                            return '-';
+                        } else {
+                           return data['title'];
+                        }
+                    }
+
                 },
                 {
-                    data: 'category.name'
-                },
+                    data: null,
+                    render: function(data, type, row) {
+                        return moment(data["created_at"], 'YYYY-M-D HH:mm:ss').format(
+                            'jYYYY/jMM/jDD');
 
+                    },
+                    "visible": true,
+                    responsivePriority: 2,
+                },
                 {
                     responsivePriority: 0,
                     data: null,
@@ -217,36 +184,39 @@
                         '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">' +
                         '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>' +
                         '</svg>' +
+                        "</button>" +
+                        "<button class='btn btn-info add_phase'>" +
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">' +
+                        '<path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>' +
+                        '<path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>' +
+                        '</svg>' +
                         "</button>"
                 }
 
             ];
             var table =
                 datatable('#tbl_requirements',
-                    '{{ route('sprints.tasks.index', $sprint->id) }}',
+                    '{{ route('projects.requirements.index', $project->id) }}',
                     columns);
 
 
 
             $('#create_update').submit(function(event) {
                 event.preventDefault();
-                submit_form('#create_update', clickButtonID, '{{ route('sprints.tasks.store') }}',
+                submit_form(this, clickButtonID, '{{ route('projects.requirements.store') }}',
                         '#add_requirements', table)
                     .then(function(res) {
                         toastr['success'](res.message);
-                        table.ajax.reload();
                     }).catch(function(res) {
-
+                        console.log(res)
                     });
             })
 
 
             $(document).on('click', '.delete', function(event) {
                 var id = $(this).attr('data-id');
-                var url = "{{ route('sprints.tasks.store') }}" + '/' + id;
-                // ajaxfunc(url, 'DELETE', '').then(function(res) {
-                //     toastr['success'](res.message)
-                // })
+                var url = "{{ route('projects.requirements.store') }}" + '/' + id;
+
 
                 Swal.fire({
                     text: "می خواهید رکورد مورد نظر حذف شود ؟",
@@ -266,32 +236,36 @@
                         })
 
 
-
                     }
                 })
+
             })
 
 
             $(document).on('click', '.edit', function(event) {
                 clickButtonID = $(this).attr('data-id');
+                // $.ajax({
+                //     url: "{{ route('projects.requirements.store') }}" +"/"+ clickButtonID,
+                //     method: 'GET',
+                //     success: function(res,status) {
+                //         $('#title').val(res.title);
+                //         $('#description').val(res.description);
+                //         $('#add_requirements').modal('show');
 
 
+                //     },
 
-                ajaxfunc("{{ route('sprints.tasks.store') }}" + '/' + clickButtonID,
+                // })
+
+
+                ajaxfunc('{{ route('projects.requirements.store') }}' + '/' + clickButtonID,
                         'GET', '').then(function(res) {
                         if (res.message) {
                             toastr['success'](res.message)
                         }
-            
-                        $('#title').val(res['title']);
+                        console.log(res)
+                        $('#title').val(res.title);
                         $('#description').val(res.description);
-                        $('#duration').val(res.duration);
-                        $('#category').val(res.category_id);
-                        if(res.todo_date){
-                            $('#confirm').prop('checked',true);
-                        }else{
-                            $('#confirm').prop('checked',false);
-                        }
                         $('#add_requirements').modal('show');
                     })
                     .catch(function(res) {
@@ -300,7 +274,10 @@
                     })
 
 
-
+                // var res =
+                //  $('#title').val(res.title);
+                //     $('#description').val(res.description);
+                //     $('#add_requirements').modal('show');
 
             });
 
@@ -312,18 +289,22 @@
             })
 
 
-            $(document).on('click', '.sprints', (e) => {
-                let data_id = $(this).attr("data-id");
-                window.location = '/phases/' + data_id + '/sprints';
-                // console.log(data_id)
+            $(document).on('click', '.add_phase', function(e) {
+                clickButtonID = $(this).attr('data-id');
+                $('#add_phase').modal('show');
             })
 
-            $(document).on('change', 'input[type=radio][name=duration_picker]', function() {
-                $('#duration').val($(this).val())
+            $('#add_requrements_phase').submit(function(event) {
+                event.preventDefault();
+                submit_form(this, clickButtonID, "/requirements/" + clickButtonID + "/phases", '#add_phase',
+                        table, false)
+                    .then(function(res) {
+                        toastr['success'](res.message);
+                    }).catch(function(res) {
+                        console.log(res)
+                    });
+                // console.log(clickButtonID)
             })
-
-
-
         });
     </script>
 @endsection
