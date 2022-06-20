@@ -3,11 +3,30 @@
 @section('content')
 
     <div class="container">
-        <div class="card shadow-sm mt-5">
-            <div class="card-header d-flex justify-content-between">
-                <h2>تسک های اسپرینت {{ $sprint->title }}</h2>
-                <button class="btn btn-success" id="create_button"> افزودن
-                    تسک</button>
+        <div class="mt-3">
+            <nav aria-label="breadcrumb ">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('project.index') }}">پروژه ها</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="{{ route('projects.phases.index', $sprint->phase->project->id) }}">پروژه
+                            {{ $sprint->phase->project->title }}</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="{{ route('phases.sprints.index', $sprint->phase->id) }}">{{ $sprint->phase->title }}</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $sprint->title }}</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="card shadow-sm mt-2 border">
+            <div class="card-header ">
+
+                <div class="d-flex justify-content-between">
+                    <h2>لیست تسک ها</h2>
+
+
+                    <button class="btn btn-success" id="create_button"> افزودن
+                        تسک</button>
+                </div>
             </div>
             <div class="card-body">
                 <div class="row pt-3">
@@ -63,13 +82,14 @@
     </div>
 
     <div class="modal fade" id="add_requirements">
-        <div class="modal-dialog">
+        <div class="modal-dialog ">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title" id="modal_title">افزودن تسک ها</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" id="close_modal" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <form action="" action="post" id="create_update">
                     <input type="hidden" name="sprint_id" value="{{ $sprint->id }}">
@@ -84,10 +104,10 @@
                             <label for="category" class="form-label">دسته بندی</label>
                             <select class="form-select" id="category" aria-label="Default select example" name="category">
                                 @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
 
-                              </select>
+                            </select>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="description" class="form-label">توضیحات</label>
@@ -96,8 +116,41 @@
                         <div class="mb-3 mt-3">
 
 
-                                    <label for="duration" class="form-label">مدت زمان انجام</label>
-                                    <input type="text" class="form-control" id="duration" name="duration">
+                            <label for="duration" class="form-label">مدت زمان انجام(به دقیقه)</label>
+                            <input type="text" class="form-control" id="duration" name="duration">
+
+                            @php
+                                $base = 60;
+                            @endphp
+                            @for ($j = 1; $j <= 2; $j++)
+                                @if ($j == 1)
+                                    @php
+                                        $start = 1;
+                                        $end = 4;
+                                    @endphp
+                                @else
+                                    @php
+                                        $start = 5;
+                                        $end = 8;
+                                    @endphp
+                                @endif
+                                <div class="d-flex justify-content-between mt-3">
+                                    @for ($i = $start; $i <= $end; $i++)
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input" id="picker{{ $i }}"
+                                                name="duration_picker"
+                                                value="{{ $i * $base }}">{{ $i * $base }}دقیقه
+                                            <label class="form-check-label" for="picker{{ $i }}"></label>
+                                        </div>
+                                    @endfor
+
+
+                                </div>
+                            @endfor
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" id="confirm" name="confirm">
+                                <label class="form-check-label">تایید</label>
+                            </div>
 
 
                         </div>
@@ -171,14 +224,15 @@
             ];
             var table =
                 datatable('#tbl_requirements',
-                    '{{ route("sprints.tasks.index", $sprint->id) }}',
+                    '{{ route('sprints.tasks.index', $sprint->id) }}',
                     columns);
 
 
 
             $('#create_update').submit(function(event) {
                 event.preventDefault();
-                submit_form('#create_update', clickButtonID,'{{ route("sprints.tasks.store") }}', '#add_requirements', table)
+                submit_form('#create_update', clickButtonID, '{{ route('sprints.tasks.store') }}',
+                        '#add_requirements', table)
                     .then(function(res) {
                         toastr['success'](res.message);
                         table.ajax.reload();
@@ -260,6 +314,9 @@
                 // console.log(data_id)
             })
 
+            $(document).on('change', 'input[type=radio][name=duration_picker]', function() {
+                $('#duration').val($(this).val())
+            })
 
 
 

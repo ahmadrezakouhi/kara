@@ -3,11 +3,25 @@
 @section('content')
 
     <div class="container">
-        <div class="card shadow-sm mt-5">
-            <div class="card-header d-flex justify-content-between">
-                <h2>فازهای پروژه {{ $project->title }}</h2>
+        <div class="mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item " aria-current="page" ><a href="{{ route('project.index') }}">پروژه ها</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ $project->title }}</li>
+                </ol>
+              </nav>
+        </div>
+        <div class="card shadow-sm mt-3 border">
+            <div class="card-header ">
+
+                  <div class="d-flex justify-content-between">
+                <h2>لیست فاز ها</h2>
+
+
                 <button class="btn btn-success" id="create_button"> افزودن
                     فاز</button>
+                </div>
+
             </div>
             <div class="card-body">
                 <div class="row pt-3">

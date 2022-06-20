@@ -31,4 +31,13 @@ class TaskRequest extends FormRequest
 
         ];
     }
+
+
+    public function messages(){
+        return [
+            'title.required'=>'عنوان الزامی می باشد.',
+            'description.required'=>'توضیحات الزامی می باشد.',
+            'duration.required'=>'مدت زمان انجام الزامی می باشد.'
+        ];
+    }
 }
