@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="mobile" class="col-md-4 col-form-label text-md-end">{{ __('ایمیل') }}</label>
+                            <label for="mobile" class="col-md-4 col-form-label text-md-end">{{ __('موبایل') }}</label>
 
                             <div class="col-md-6">
                                 <input id="mobile" type="mobile" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" autofocus>
