@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <div class="card shadow-sm mt-5">
+        <div class="card shadow-sm border mt-5">
             <div class="card-header d-flex justify-content-between">
                 <h2>نیازمندی های پروژه {{ $project->title }}</h2>
                 <button class="btn btn-success" id="create_button"> افزودن
@@ -110,7 +110,7 @@
                         @foreach ($phases as $phase)
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="phase{{ $phase->id }}" name="phase_id"
-                                    value="{{ $phase->id }}">{{ $phase->title }}
+                                    value="{{ $phase->id }}">{{ $phase->title }} : <span class="text-black-50">{{ $phase->description }}</span>
                                 <label class="form-check-label" for="phase{{ $phase->id }}"></label>
                             </div>
                         @endforeach
