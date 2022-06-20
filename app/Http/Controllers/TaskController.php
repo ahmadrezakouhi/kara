@@ -68,6 +68,9 @@ class TaskController extends Controller
         $inputs['user_id'] = $user->id;
         $inputs['sprint_id'] = $request->sprint_id;
         $inputs['category_id'] = $request->category;
+        if($request->confirm){
+            $inputs['todo_date']= Carbon::now();
+        }
         Task::updateOrCreate(['id' => $task_id], $inputs);
         if ($task_id) {
             return response()->json(['message' => 'تسک مورد نظر به روز شد.']);
