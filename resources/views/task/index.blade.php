@@ -282,11 +282,16 @@
                         if (res.message) {
                             toastr['success'](res.message)
                         }
-                        // console.log(res)
+            
                         $('#title').val(res['title']);
                         $('#description').val(res.description);
                         $('#duration').val(res.duration);
                         $('#category').val(res.category_id);
+                        if(res.todo_date){
+                            $('#confirm').prop('checked',true);
+                        }else{
+                            $('#confirm').prop('checked',false);
+                        }
                         $('#add_requirements').modal('show');
                     })
                     .catch(function(res) {
