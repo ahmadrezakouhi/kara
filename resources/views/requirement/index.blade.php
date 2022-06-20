@@ -67,7 +67,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title" id="modal_title">افزودن نیازمندی ها</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" action="post" id="create_update">
                     <input type="hidden" name="project_id" value="{{ $project->id }}">
