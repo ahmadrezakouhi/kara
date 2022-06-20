@@ -88,8 +88,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title" id="modal_title">افزودن تسک ها</h4>
-                    <button type="button" id="close_modal" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" action="post" id="create_update">
                     <input type="hidden" name="sprint_id" value="{{ $sprint->id }}">

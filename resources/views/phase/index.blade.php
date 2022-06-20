@@ -6,20 +6,20 @@
         <div class="mt-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item " aria-current="page" ><a href="{{ route('project.index') }}">پروژه ها</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">{{ $project->title }}</li>
+                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('project.index') }}">پروژه ها</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $project->title }}</li>
                 </ol>
-              </nav>
+            </nav>
         </div>
         <div class="card shadow-sm mt-3 border">
             <div class="card-header ">
 
-                  <div class="d-flex justify-content-between">
-                <h2>لیست فاز ها</h2>
+                <div class="d-flex justify-content-between">
+                    <h2>لیست فاز ها</h2>
 
 
-                <button class="btn btn-success" id="create_button"> افزودن
-                    فاز</button>
+                    <button class="btn btn-success" id="create_button"> افزودن
+                        فاز</button>
                 </div>
 
             </div>
@@ -84,7 +84,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title" id="modal_title">افزودن فاز ها</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" action="post" id="create_update">
                     <input type="hidden" name="project_id" value="{{ $project->id }}">
@@ -296,7 +296,7 @@
             })
 
 
-            $(document).on('click', '.sprints', function(e){
+            $(document).on('click', '.sprints', function(e) {
                 let data_id = $(this).attr("data-id");
                 window.location = '/phases/' + data_id + '/sprints';
 
