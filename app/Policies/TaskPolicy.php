@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Sprint;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -17,9 +18,13 @@ class TaskPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user ,$sprint_id)
     {
-        //
+        $sprint = Sprint::find($sprint_id);
+        $project = $sprint->phase->project;
+        $project_user = $user->projects->find($project->id);
+        return ($project_user && $project_user->pivot->status != 0) ?
+        Response::allow() : Response::deny('مجوز مشاهده تسک ها را ندارید.');
     }
 
     /**
@@ -31,7 +36,7 @@ class TaskPolicy
      */
     public function view(User $user, Task $task)
     {
-        //
+        return Response::deny();
     }
 
     /**
@@ -40,9 +45,19 @@ class TaskPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user ,$sprint_id)
     {
-        //
+        $sprint = Sprint::find($sprint_id);
+        $project = $sprint->phase->project;
+        $project_user = $user->projects->find($project->id);
+        if($project_user && $project_user->pivot->status == 2){
+            return Response::allow();
+        }
+
+        return Response::deny('مجوز ایجاد تسک را ندارید.');
+
+
+
     }
 
     /**
@@ -55,7 +70,15 @@ class TaskPolicy
     public function update(User $user, Task $task)
     {
         //
-        return $user->id === $task->user_id;
+        if ($task) {
+            if ($user->id != $task->user_id) {
+                return Response::deny('مجوز برای به روز رسانی این تسک را ندارید.');
+            } else if ($task->todo_date != null) {
+                return Response::deny('تسک تایید شده را نمی توان به روز کرد.');
+            }
+        }
+
+        return Response::allow();
     }
 
     /**
@@ -68,7 +91,13 @@ class TaskPolicy
     public function delete(User $user, Task $task)
     {
         //
-        return $user->id === $task->user_id;
+        if ($user->id != $task->user_id) {
+            return Response::deny('مجوز برای حذف این تسک را ندارید.');
+        } else if ($task->todo_date != null) {
+            return Response::deny('تسک تایید شده را نمی توان حذف کرد.');
+        }
+
+        return Response::allow();
     }
 
     /**
