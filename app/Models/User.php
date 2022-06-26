@@ -56,6 +56,12 @@ class User extends Authenticatable
 
 
     public function projects(){
-        return $this->hasMany(Project::class);
+        return $this->belongsToMany(Project::class)->withPivot('status');
+    }
+
+
+
+    public function isAdmin(){
+        return $this->role == 'admin';
     }
 }
