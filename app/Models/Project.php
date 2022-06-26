@@ -15,6 +15,10 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function users(){
+        return $this->belongsToMany(User::class)->withPivot('status');
+    }
+
     public function project(){
         return $this->belongsTo(Project::class);
     }
@@ -25,6 +29,6 @@ class Project extends Model
     }
 
     public function phases(){
-        return $this->hasMany(Phase::class);
+        return $this->hasMany(Phase::class)->latest();
     }
 }
