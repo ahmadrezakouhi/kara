@@ -17,11 +17,10 @@ class RequirementPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user , $project_id)
     {
-        $project_id = request()->input('project_id');
         $project_user = $user->projects->find($project_id);
-        if($project_user && $project_user !=2){
+        if($project_user && $project_user->pivot->status !=2){
             return Response::allow();
         }
         return Response::deny('مجوز مشاهده نیازمندی ها وجود ندارد.');
@@ -45,9 +44,8 @@ class RequirementPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user , $project_id)
     {
-        $project_id = request()->input('project_id');
         $project_user = $user->projects->find($project_id);
         if($project_user && $project_user->pivot->status != 2){
             return Response::allow();
@@ -120,5 +118,14 @@ class RequirementPolicy
     public function forceDelete(User $user, Requirement $requirement)
     {
         //
+    }
+
+
+    public function add_phase(User $user , Requirement $requirement){
+       $project_user = $user->projects->find($requirement->project->id);
+       if($project_user && $project_user->pivot->status==1){
+        return Response::allow();
+       }
+       return Response::deny('مجوز  لینک دادن نیازمندی به فاز را ندارید.');
     }
 }
