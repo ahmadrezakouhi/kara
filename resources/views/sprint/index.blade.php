@@ -3,11 +3,11 @@
 @section('content')
 
     <div class="container">
-        <div class="mt-3">
+        <div class="mt-3 mt-3 shadow-sm border p-3 d-flex align-items-center rounded">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item " aria-current="page" ><a href="{{ route('project.index') }}">پروژه ها</a></li>
-                  <li class="breadcrumb-item"><a href="{{ route('projects.phases.index',$phase->project->id) }}">پروژه {{ $phase->project->title }}</a></li>
+                  <li class="breadcrumb-item"><a href="{{ route('projects.phases.index',$phase->project->id) }}"> {{ $phase->project->title }}</a></li>
                   <li class="breadcrumb-item active" aria-current="page">{{ $phase->title }}</li>
                 </ol>
               </nav>
@@ -18,44 +18,17 @@
                   <div class="d-flex justify-content-between">
                 <h2>لیست اسپرینت ها</h2>
 
-
+                    @can('create',[App\Models\Sprint::class ,$phase->id])
                 <button class="btn btn-success" id="create_button"> افزودن
                     اسپرینت</button>
+                    @endcan
                 </div>
 
 
             </div>
             <div class="card-body">
                 <div class="row pt-3">
-                    {{-- <div class="col-md-10">
-                        <form id='sf' action="getData" method="POST">
-                            @csrf
-                            <div class="row pt-3">
-                                <div class="col-md-5">
-                                    <div class="mb-3 row">
-                                        <label for="title" class="col-sm-4 col-form-label">عنوان</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="search-title" name="search-title">
-                                        </div>
-                                    </div>
 
-                                </div>
-
-                                <div class="col-md-4">
-                                    <button type="button" class="btn btn-primary mb-3" id="btn-filter">جستجو</button>
-                                </div>
-                            </div>
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        </form>
-                    </div> --}}
-                    {{-- <div class="col-md-2 pt-3 align-left">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#mdlAddUser">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                    </svg>
-                افزودن کاربر
-                </button>
-            </div> --}}
                 </div>
                 <table id="tbl_requirements" class="table table-bordered table-striped">
                     <thead>
@@ -132,7 +105,11 @@
 
 @endsection
 @section('scripts')
-
+    <script>
+        var auth_id = {{ Auth::id() }};
+        var user_role_project =
+        {{ Auth::user()->projects->find($phase->project->id)->pivot->status }};
+    </script>
     <script src="{{ asset('js/general/functions.js') }}"></script>
 
     <script src="{{ asset('js/general/toastr_option.js') }}"></script>
@@ -187,7 +164,7 @@
                     data: null,
                     title: "مدیریت",
                     className: "center",
-                    defaultContent: "<button class='btn btn-danger delete'>" +
+                    defaultContent: "<div class='btn-group'><button class='btn btn-danger delete'>" +
                         '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
                         '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>' +
                         '<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>' +
@@ -204,7 +181,7 @@
                         '<path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>' +
                         '<path d="M2.242 2.194a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.256-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53z"/>' +
                         '</svg>' +
-                        "</button>"
+                        "</button></div>"
                 }
 
             ];
@@ -218,12 +195,13 @@
             $('#create_update').submit(function(event) {
                 event.preventDefault();
                 submit_form('#create_update', clickButtonID,
-                        '{{ route("phases.sprints.store") }}', '#add_requirements', table)
+                        '{{ route("phases.sprints.store") }}')
                     .then(function(res) {
                         toastr['success'](res.message);
+                        $('#add_requirements').modal('hide');
                         table.ajax.reload();
                     }).catch(function(res) {
-
+                        showErrors(res.responseJSON.errors);
                     });
             })
 
@@ -247,7 +225,7 @@
                             toastr['warning'](res.message);
                             table.ajax.reload();
                         }).catch(function(res) {
-                            toastr['warning']('خطایی رخ داده است')
+                            toastr['error'](res.responseJSON.message);
                         })
 
 
@@ -276,7 +254,7 @@
                         $('#add_requirements').modal('show');
                     })
                     .catch(function(res) {
-
+                        toastr['error'](res.responseJSON.message);
 
                     })
 
