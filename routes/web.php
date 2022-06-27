@@ -135,8 +135,8 @@ Route::prefix('projects')->middleware(['auth'])->group(function () {
 
 Route::prefix('requirements')->middleware(['auth'])->group(function () {
 
-    Route::post('/{id}/phases', [RequirementController::class, 'add_phase'])
-        ->name('requirements.phases.store');
+    Route::post('/{requirement}/phases', [RequirementController::class, 'add_phase'])
+        ->name('requirements.phases.store')->can('add_phase','requirement');
 });
 
 
