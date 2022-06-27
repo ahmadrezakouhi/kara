@@ -7,6 +7,7 @@ use App\Models\Sprint;
 use App\Models\Phase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class SprintController extends Controller
 {
@@ -48,19 +49,30 @@ class SprintController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SprintRequest $request, $sprint_id=null)
+    public function store(SprintRequest $request, $sprint_id = null)
     {
+        if ($sprint_id) {
+            $sprint = Sprint::findOrFail($sprint_id);
+            $response = Gate::inspect('update', $sprint);
+        } else {
+            $response = Gate::inspect('create', [Sprint::class, $request->phase_id]);
+        }
+
+        if (!$response->allowed()) {
+            return response()->json(['errors' => ['message' => $response->message()]], 403);
+        }
+
         $user = Auth::user();
         $inputs = $request->all();
-        $inputs['user_id']=$user->id;
-        $inputs['phase_id']=$request->phase_id;
+        $inputs['user_id'] = $user->id;
+        $inputs['phase_id'] = $request->phase_id;
         $inputs['start_date'] = convertJalaliToGeorgian($request->start_date);
         $inputs['end_date'] = convertJalaliToGeorgian($request->end_date);
-        Sprint::updateOrCreate(['id'=>$sprint_id],$inputs);
-        if($sprint_id){
-            return response()->json(['message'=>'اسپرینت مورد نظر آپدیت شد.']);
+        Sprint::updateOrCreate(['id' => $sprint_id], $inputs);
+        if ($sprint_id) {
+            return response()->json(['message' => 'اسپرینت مورد نظر آپدیت شد.']);
         }
-        return response()->json(['message'=>'اسپرینت مورد نظر اضافه شد.']);
+        return response()->json(['message' => 'اسپرینت مورد نظر اضافه شد.']);
     }
 
     /**
@@ -80,9 +92,8 @@ class SprintController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sprint $sprint)
     {
-        $sprint = Sprint::findOrFail($id);
         return response()->json($sprint);
     }
 
@@ -104,9 +115,9 @@ class SprintController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sprint $sprint)
     {
-        Sprint::destroy($id);
-        return response()->json(['message', 'اسپرینت مورد نظر حذف شد.']);
+        $sprint->delete();
+        return response()->json(['message' => 'اسپرینت مورد نظر حذف شد.']);
     }
 }

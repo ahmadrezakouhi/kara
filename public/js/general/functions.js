@@ -8,45 +8,26 @@ function ajaxfunc(url, method, data) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-   return new Promise(function(resolve,reject){
-    $.ajax(
-        {
-            url: url,
-            method: method,
-            data: data,
-            // async: true,
-            // succuss: function (res) {
-            //     resolve(res);
-            //     // toastr["success"](res.message);
-            //     // toastr["success"]('جذف شد');
-            //     // response = res;
-            //     // table.ajax.reload();
-            //     // console.log(res.title)
-            //     // toastr["success"]('slkdfalk');
+    return new Promise(function (resolve, reject) {
+        $.ajax(
+            {
+                url: url,
+                method: method,
+                data: data,
 
-            // },
-            // error: function (res) {
-            //     // var error = eval("(" + res.responseText + ")")
-            //     // $.each(error.errors, function (index, value) {
-            //     //     toastr["error"](value);
-            //     // })
-            //     reject(res)
-
-            // }
-
-        }
-    ).done(resolve)
-    .fail(reject)
-   })
+            }
+        ).done(resolve)
+            .fail(reject)
+    })
 
 
-    // return response;
+
 }
 
 
 
-function datatable(table_id, url,columns){
-    var table = $(table_id).on('preXhr.dt', function(e, settings, json, xhr) {}).DataTable({
+function datatable(table_id, url, columns,removeButtons=true) {
+    var table = $(table_id).on('preXhr.dt', function (e, settings, json, xhr) { }).DataTable({
         ajax: {
             url: url,
 
@@ -78,60 +59,58 @@ function datatable(table_id, url,columns){
             }
         },
 
-        createdRow: function(row, data, dataIndex) {
-            $(row).find('button').attr("data-id", data['id']);
+        createdRow: function (row, data, dataIndex) {
 
+            $(row).find('button').attr("data-id", data['id']);
+            if (removeButtons) {
+                if (auth_id != data.user_id) {
+                    $(row).find('.edit,.delete').remove();
+                }
+                if(user_role_project==0){
+                    $(row).find('.add_phase,.sprints').remove();
+
+                }
+            }
         }
 
 
     }
 
 
-);
-table.on('draw', function() {
+    );
+    table.on('draw', function () {
 
-    table.column(0, {
-        search: 'applied',
-        order: 'applied'
-    }).nodes().each(function(cell, i) {
+        table.column(0, {
+            search: 'applied',
+            order: 'applied'
+        }).nodes().each(function (cell, i) {
 
-        cell.innerHTML = table.page.len() * table.page() + i + 1;
-    });
-}).draw();
+            cell.innerHTML = table.page.len() * table.page() + i + 1;
+        });
+    }).draw();
 
 
-return table;
+    return table;
 }
 
 
-function submit_form(form_id,id,url,modal_id,table,check_id=true){
+function submit_form(form_id, id, url, check_id = true) {
 
 
-        if ( check_id && id ) {
-            url += ('/'+id)
-        }
-        ajaxfunc(url, "POST", $(form_id).serialize())
-        .then(function(res){
-            toastr["success"](res.message);
-            $(modal_id).modal('hide');
-            table.ajax.reload();
-        })
-        .catch(function(res){
-             var error = eval("(" + res.responseText + ")")
-                $.each(error.errors, function (index, value) {
-                    toastr["error"](value);
-                })
-        })
-        ;
+    if (check_id && id) {
+        url += ('/' + id)
+    }
+    return ajaxfunc(url, "POST", $(form_id).serialize())
+
 
 
 }
 
 
 
-function getIDs(form_id){
+function getIDs(form_id) {
     var ids = [];
-    $(form_id).find('.form-control').each(function(index, element) {
+    $(form_id).find('.form-control').each(function (index, element) {
 
         ids.push(element.id);
 
@@ -140,17 +119,22 @@ function getIDs(form_id){
 }
 
 
-function removeIDValues(form_id){
+function removeIDValues(form_id) {
     getIDs(form_id).forEach(element => {
         $('#' + element).val("")
     });
 }
 
 
-function covertJalaliToGregorian(date){
-    if(date == null){
+function covertJalaliToGregorian(date) {
+    if (date == null) {
         return '-';
     }
     return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD');
 }
 
+function showErrors(errors) {
+    $.each(errors, function (index, value) {
+        toastr['error'](value);
+    })
+}

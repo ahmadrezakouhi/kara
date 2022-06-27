@@ -31,7 +31,10 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project)
     {
-        //
+        $project_user = $user->projects->find($project->id);
+        return $project_user ?
+         Response::allow():Response::deny('امکان مشاهده پروژه مورد نظر وجود ندارد.');
+
     }
 
     /**

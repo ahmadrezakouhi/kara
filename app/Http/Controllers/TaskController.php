@@ -9,6 +9,7 @@ use App\Models\Sprint;
 use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
@@ -19,6 +20,7 @@ class TaskController extends Controller
      */
     public function index(Request $request, $sprint_id)
     {
+        // Gate::inspect('viewAll')
         $sprint = Sprint::with('tasks.category')->findOrFail($sprint_id);
         $categories = Category::all();
         if ($request->ajax()) {
@@ -63,13 +65,25 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request, $task_id = null)
     {
+        $sprint = Sprint::find($request->sprint_id);
+        if ($task_id) {
+            $task = Task::findOrFail($task_id);
+            $response = Gate::inspect('update', $task);
+        } else {
+            $response = Gate::inspect('create', [Task::class, $sprint->id]);
+        }
+
+        if (!$response->allowed()) {
+            return response()->json(['errors' => ['message' => $response->message()]], 403);
+        }
+
         $user = Auth::user();
         $inputs = $request->all();
         $inputs['user_id'] = $user->id;
         $inputs['sprint_id'] = $request->sprint_id;
         $inputs['category_id'] = $request->category;
-        if($request->confirm){
-            $inputs['todo_date']= Carbon::now();
+        if ($request->confirm) {
+            $inputs['todo_date'] = Carbon::now();
         }
         Task::updateOrCreate(['id' => $task_id], $inputs);
         if ($task_id) {
@@ -94,9 +108,10 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
-        $task = Task::findOrFail($id);
+
+
         return response()->json($task);
     }
 
@@ -117,21 +132,15 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($task_id);
 
-        // if ($task->status >= 0 && $task->status <2) {
-
-            if($task->status == 0){
-                $task->status = 1;
-                $task->indo_date = Carbon::now();
-            }else if($task->status == 1) {
-                $task->status =2;
-                $task->done_date = Carbon::now();
-            }
-            $task->save();
-            return response()->json($task);
-            // return response()->json(['message' => 'وضعیت تغییر کرد.']);
-        // }
-
-        // return response()->json(['message' => 'امکان تغییر وضعیت وجود ندارد.']);
+        if ($task->status == 0) {
+            $task->status = 1;
+            $task->indo_date = Carbon::now();
+        } else if ($task->status == 1) {
+            $task->status = 2;
+            $task->done_date = Carbon::now();
+        }
+        $task->save();
+        return response()->json($task);
     }
 
     /**
@@ -140,9 +149,10 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        Task::destroy($id);
+
+        $task->delete();
         return response()->json(['message' => 'تسک مورد نظر حذف شد.']);
     }
 }

@@ -15,6 +15,6 @@ class Phase extends Model
     }
 
     public function sprints(){
-        return $this->hasMany(Sprint::class);
+        return $this->hasMany(Sprint::class)->latest();
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PhaseRequest;
 use App\Models\Phase;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class PhaseController extends Controller
 {
@@ -39,18 +41,30 @@ class PhaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $phase_id=null)
+    public function store(PhaseRequest $request, $phase_id = null)
     {
+
+        if ($phase_id) {
+            $phase = Phase::findOrFail($phase_id);
+            $response = Gate::inspect('update', $phase);
+        } else {
+            $response = Gate::inspect('create', Phase::class);
+        }
+
+        if (!$response->allowed()) {
+            return response()->json(['errors' => ['message' => $response->message()]], 403);
+        }
+
         $user = Auth::user();
         $project = Project::findOrFail($request->project_id);
         $inputs = $request->all();
         $inputs['user_id'] = $user->id;
         $inputs['start_date'] = convertJalaliToGeorgian($request->start_date);
-        $inputs['end_date']   = convertJalaliToGeorgian($request->end_date); 
-        $inputs['priority']=($project->phases->count()+1);
+        $inputs['end_date']   = convertJalaliToGeorgian($request->end_date);
+        $inputs['priority'] = ($project->phases->count() + 1);
         Phase::updateOrCreate(['id' => $phase_id], $inputs);
-        if($phase_id){
-            return response()->json(['message'=>'فاز مورد نظر تغییر پیدا کرد.']);
+        if ($phase_id) {
+            return response()->json(['message' => 'فاز مورد نظر تغییر پیدا کرد.']);
         }
         return response()->json(['message' => 'فاز جدید افزوده شد.']);
     }
@@ -63,9 +77,8 @@ class PhaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Phase $phase)
     {
-        $phase = Phase::findOrFail($id);
         return response()->json($phase);
     }
 
@@ -84,9 +97,9 @@ class PhaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Phase $phase)
     {
-        Phase::destroy($id);
+        $phase->delete();
         return response()->json(['message' => 'فاز مورد نظر حذف شد.']);
     }
 }
