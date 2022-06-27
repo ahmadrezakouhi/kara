@@ -54,13 +54,13 @@
                         'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
                         'class="bi bi-plus-square-fill" viewBox="0 0 16 16"> ' +
                         '<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" /> ' +
-                        '</svg></a> ' + ((element.status != 2)? (
-                        '<a class="text-white next_level" style="text-decoration: none ;cursor: pointer ;"><svg ' +
-                        'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
-                        'class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16"> ' +
-                        '<path '  +
-                        'd="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z" /> ' +
-                        '</svg></a> ') : '') +
+                        '</svg></a> ' + ((element.status != 2) ? (
+                            '<a class="text-white next_level" style="text-decoration: none ;cursor: pointer ;"><svg ' +
+                            'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
+                            'class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16"> ' +
+                            '<path ' +
+                            'd="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z" /> ' +
+                            '</svg></a> ') : '') +
                         '</div> ' +
                         '</div> ' +
 
@@ -104,9 +104,13 @@
                         '</div>' +
 
 
+
                         '</div>' +
 
-
+                        '<div class="d-flex justify-content-center align-items-center mt-4">' +
+                        '<button class="btn shadow btn-white round" type="button" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
+                        '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
+                        '</svg></button></div>' +
 
 
                         '</div>' +
@@ -143,7 +147,7 @@
                     var targetID = $target.attr('id');
                     if (canMove(parentID, targetID)) {
 
-                        changeStatus($item,$target);
+                        changeStatus($item, $target);
 
                     }
 
@@ -194,8 +198,8 @@
                         } else if (parentID == 'indo') {
                             targetID = 'done';
                         }
-                        $target = $('#'+targetID);
-                        changeStatus($item,$target);
+                        $target = $('#' + targetID);
+                        changeStatus($item, $target);
                     }
 
 
@@ -215,31 +219,31 @@
 
         function changeStatus($item, $target) {
             var task_id = $item.attr('data-id');
-                        ajaxfunc('/tasks/' + task_id + '/change-status', 'POST', '').then(function(
-                        res) {
-                            $item.detach();
-                            $item.css({
-                                'position': '',
-                                'left': '',
-                                'top': '',
-                                'z-index': ''
-                            });
-                            $item.find('.indo_date').text(covertJalaliToGregorian(res
-                                .indo_date));
-                            $item.find('.done_date').text(covertJalaliToGregorian(res
-                                .done_date));
-                                if($target.attr('id')=='done'){
-                                    removeNextLevelButton($item);
+            ajaxfunc('/tasks/' + task_id + '/change-status', 'POST', '').then(function(
+                res) {
+                $item.detach();
+                $item.css({
+                    'position': '',
+                    'left': '',
+                    'top': '',
+                    'z-index': ''
+                });
+                $item.find('.indo_date').text(covertJalaliToGregorian(res
+                    .indo_date));
+                $item.find('.done_date').text(covertJalaliToGregorian(res
+                    .done_date));
+                if ($target.attr('id') == 'done') {
+                    removeNextLevelButton($item);
 
-                                }
-                            $target.append($item[0].outerHTML);
-                        }).catch(function(res) {
+                }
+                $target.append($item[0].outerHTML);
+            }).catch(function(res) {
 
-                        });
+            });
         }
 
 
-        function removeNextLevelButton($item){
+        function removeNextLevelButton($item) {
             $item.find('.next_level').remove();
         }
     </script>
