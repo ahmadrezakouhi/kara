@@ -24,4 +24,9 @@ class Task extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+
+
+    public function times(){
+        return $this->hasMany(Time::class);
+    }
 }
