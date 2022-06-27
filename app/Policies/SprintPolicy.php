@@ -18,12 +18,12 @@ class SprintPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user , $phase_id)
     {
-        $phase = Phase::find(request()->input('phase_id'));
+        $phase = Phase::find($phase_id);
         $project = $phase->project;
         $project_user = $user->projects->find($project->id);
-        return ($project_user && $project_user->pivot->status != 1) ?
+        return ($project_user && $project_user->pivot->status != 0) ?
             Response::allow() : Response::deny('مجوز مشاهده اسپرینت وجود ندارد.');
     }
 
