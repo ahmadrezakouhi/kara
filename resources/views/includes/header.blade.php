@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-themed">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-themed shadow p-3">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">کارا - مدیریت بهره وری پروژه ها</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-      <ul class="navbar-nav mb-2 mb-lg-0">
+      <ul class="navbar-nav mb-2 mb-lg-0 ">
       <!-- @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -46,12 +46,12 @@
           </ul>
         </li>
         @endif
-        @if(Gate::check('isManager') )
+        {{-- @if(Gate::check('isManager') )
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="{{ URL::to('taskTitle') }}">دسته بندی فعالیت</a>
         </li>
-        @endif
-        <li class="nav-item dropdown">
+        @endif --}}
+        {{-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           فعالیت ها
           </a>
@@ -60,7 +60,7 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item"  href="{{ URL::to('task/create') }}">ایجاد</a></li>
           </ul>
-        </li>
+        </li> --}}
         <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           کارمندان
@@ -76,7 +76,7 @@
           <a class="nav-link" href="{{ URL::to('personnel') }}" >کارمند</a>
         </li>
         @endif
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown ">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{ Auth::user()->fname . ' ' . Auth::user()->lname }}
           </a>
