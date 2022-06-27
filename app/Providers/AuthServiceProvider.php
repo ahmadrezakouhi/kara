@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Requirement;
+use App\Models\Phase;
+use App\Models\Task;
 use App\Models\TaskTitle;
 use App\Personnel;
 use App\Policies\PersonnelPolicy;
@@ -47,12 +50,12 @@ class AuthServiceProvider extends ServiceProvider
 
          // check for user
          Gate::define('isAdmin' , function($user){
-            return $user->role == 'admin';
+            return $user->isAdmin();
         });
 
         // check for user
         Gate::define('isUser' , function($user){
-            return $user->role == 'user';
+            return $user->isUser();
         });
 
         // Gate::define('update-pesonnel', function ($user, $personnel) {
