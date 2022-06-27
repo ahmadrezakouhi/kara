@@ -25,7 +25,7 @@ class Project extends Model
 
 
     public function requirements(){
-        return $this->hasMany(Requirement::class);
+        return $this->hasMany(Requirement::class)->latest();
     }
 
     public function phases(){
