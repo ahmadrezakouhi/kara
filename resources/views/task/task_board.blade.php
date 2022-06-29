@@ -45,8 +45,9 @@
                 res.forEach(element => {
 
                     var $li =
-                        '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   text-white rounded " data-id="' +
-                        element.id + '" '+ ' data-background-color="'+element.user.background_color+'"'+'style="width:100%;height: 80px; background-color:'+element.user.background_color+'">' +
+                        '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   rounded " data-id="' +
+                        element.id + '" '+ ' data-background-color="'+element.user.background_color+'"'+'style="width:100%;height: 80px; background-color:'+element.user.background_color+
+                        ';color:'+element.user.text_color+'">' +
 
                         '<div class="d-flex justify-content-between"> ' +
                         '<h4 class="persian">' + element.title + '</h4> ' +
