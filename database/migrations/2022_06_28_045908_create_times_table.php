@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('task_id');
             $table->foreign('task_id')->references('id')->on('tasks');
             $table->timestamp('start');
-            $table->timestamp('stop');
+            $table->timestamp('stop')->nullable();
             $table->timestamps();
         });
     }
