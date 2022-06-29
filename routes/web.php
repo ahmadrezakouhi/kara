@@ -32,7 +32,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth','role:manager')->group(function () {
 
     Route::resource('/personnel', PersonnelController::class);
     // Route::delete('/personnel/{personnel}', [PersonnelController::class, "destroy"]);
@@ -104,7 +104,7 @@ require __DIR__ . '/auth.php';
 
 
 
-Route::prefix('projects')->middleware(['auth'])->group(function () {
+Route::prefix('projects')->middleware('auth')->group(function () {
 
     Route::get('/{id}/requirements', [RequirementController::class, 'index'])
         ->name('projects.requirements.index')->can('viewAny', [Requirement::class, 'id']);
@@ -133,14 +133,14 @@ Route::prefix('projects')->middleware(['auth'])->group(function () {
 });
 
 
-Route::prefix('requirements')->middleware(['auth'])->group(function () {
+Route::prefix('requirements')->middleware('auth')->group(function () {
 
     Route::post('/{requirement}/phases', [RequirementController::class, 'add_phase'])
         ->name('requirements.phases.store')->can('add_phase', 'requirement');
 });
 
 
-Route::prefix('phases')->middleware(['auth'])->group(function () {
+Route::prefix('phases')->middleware('auth')->group(function () {
 
     Route::get('/{id}/sprints', [SprintController::class, 'index'])
         ->name('phases.sprints.index')->can('viewAny', [Sprint::class, 'id']);
@@ -155,7 +155,7 @@ Route::prefix('phases')->middleware(['auth'])->group(function () {
         ->name('phases.sprints.edit')->can('update', 'sprint');
 });
 
-Route::prefix('sprints')->middleware(['auth'])->group(function () {
+Route::prefix('sprints')->middleware('auth')->group(function () {
 
     Route::get('/{id}/tasks', [TaskController::class, 'index'])
         ->name('sprints.tasks.index')->can('viewAny', [Task::class, 'id']);
@@ -170,7 +170,7 @@ Route::prefix('sprints')->middleware(['auth'])->group(function () {
         ->name('sprints.tasks.edit')->can('update', 'task');
 });
 
-Route::prefix('tasks')->middleware(['auth'])->group(function () {
+Route::prefix('tasks')->middleware('auth')->group(function () {
     Route::get('task-board', [TaskController::class, 'taskBoard'])
         ->name('tasks.task-board');
 
