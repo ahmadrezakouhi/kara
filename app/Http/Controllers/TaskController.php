@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Sprint;
 use App\Models\Task;
+use App\Models\Time;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -20,7 +21,7 @@ class TaskController extends Controller
      */
     public function index(Request $request, $sprint_id)
     {
-        // Gate::inspect('viewAll')
+
         $sprint = Sprint::with('tasks.category')->findOrFail($sprint_id);
         $categories = Category::all();
         if ($request->ajax()) {
@@ -40,8 +41,19 @@ class TaskController extends Controller
 
     public function taskBoard(Request $request)
     {
+        $user = Auth::user();
         if ($request->ajax()) {
-            $tasks = Task::all();
+            $tasks=[];
+            foreach($user->projects as $project){
+                foreach($project->phases as $phase){
+                    foreach($phase->sprints as $sprint){
+                       foreach($sprint->tasks as $task){
+                        $tasks[]=$task;
+                       }
+                    }
+                }
+            }
+           
             return response()->json($tasks);
         }
         return view('task.task_board');
@@ -128,19 +140,44 @@ class TaskController extends Controller
     }
 
 
-    public function changeStatus($task_id)
+    public function changeStatus(Task $task)
     {
-        $task = Task::findOrFail($task_id);
 
         if ($task->status == 0) {
             $task->status = 1;
             $task->indo_date = Carbon::now();
+
         } else if ($task->status == 1) {
             $task->status = 2;
             $task->done_date = Carbon::now();
         }
         $task->save();
         return response()->json($task);
+    }
+
+
+
+    public function playPause(Task $task){
+        if($task->times->count()==0){
+            Time::create([
+                'task_id'=>$task->id,
+                'start'=>Carbon::now()
+            ]);
+        }else{
+            $time = $task->times()->latest()->first();
+            if($time->stop){
+                Time::create([
+                    'task_id'=>$task->id,
+                    'start'=>Carbon::now()
+                ]);
+
+            }else{
+                $time->stop = Carbon::now();
+                $time->save();
+            }
+
+        }
+        return response()->json();
     }
 
     /**

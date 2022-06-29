@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Pivot;
-class ProjectUser extends Pivot
+
+class Time extends Model
 {
     use HasFactory;
-    protected $guarded=['id'];
+    protected $guarded = ['id'];
+
+    public function task(){
+        return $this->belongsTo(Task::class);
+    }
 }

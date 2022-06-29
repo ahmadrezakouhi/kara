@@ -69,4 +69,8 @@ class User extends Authenticatable
     public function isUser(){
         return $this->role == 'user';
     }
+
+    public function tasks(){
+        return $this->belongsTo(Task::class);
+    }
 }

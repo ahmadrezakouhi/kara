@@ -32,7 +32,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth','role:manager')->group(function () {
 
     Route::resource('/personnel', PersonnelController::class);
     // Route::delete('/personnel/{personnel}', [PersonnelController::class, "destroy"]);
@@ -104,76 +104,79 @@ require __DIR__ . '/auth.php';
 
 
 
-Route::prefix('projects')->middleware(['auth'])->group(function () {
+Route::prefix('projects')->middleware('auth')->group(function () {
 
     Route::get('/{id}/requirements', [RequirementController::class, 'index'])
-        ->name('projects.requirements.index')->can('viewAny',[Requirement::class,'id']);
+        ->name('projects.requirements.index')->can('viewAny', [Requirement::class, 'id']);
 
     Route::post('/requirements/{id?}', [RequirementController::class, 'store'])
         ->name('projects.requirements.store');
 
     Route::delete('/requirements/{requirement}', [RequirementController::class, 'destroy'])
-        ->name('projects.requirements.destroy')->can('delete','requirement');;
+        ->name('projects.requirements.destroy')->can('delete', 'requirement');;
 
     Route::get('/requirements/{requirement}', [RequirementController::class, 'edit'])
-        ->name('projects.requirements.edit')->can('update','requirement');
+        ->name('projects.requirements.edit')->can('update', 'requirement');
 
 
     Route::get('/{id}/phases', [PhaseController::class, 'index'])
-        ->name('projects.phases.index')->can('viewAny',[Phase::class,'id']);
+        ->name('projects.phases.index')->can('viewAny', [Phase::class, 'id']);
 
     Route::post('/phases/{id?}', [PhaseController::class, 'store'])
         ->name('projects.phases.store');
 
     Route::delete('/phases/{phase}', [PhaseController::class, 'destroy'])
-        ->name('projects.phases.destroy')->can('delete','phase');
+        ->name('projects.phases.destroy')->can('delete', 'phase');
 
     Route::get('/phases/{phase}', [PhaseController::class, 'edit'])
-        ->name('projects.phases.edit')->can('update','phase');
+        ->name('projects.phases.edit')->can('update', 'phase');
 });
 
 
-Route::prefix('requirements')->middleware(['auth'])->group(function () {
+Route::prefix('requirements')->middleware('auth')->group(function () {
 
     Route::post('/{requirement}/phases', [RequirementController::class, 'add_phase'])
-        ->name('requirements.phases.store')->can('add_phase','requirement');
+        ->name('requirements.phases.store')->can('add_phase', 'requirement');
 });
 
 
-Route::prefix('phases')->middleware(['auth'])->group(function () {
+Route::prefix('phases')->middleware('auth')->group(function () {
 
     Route::get('/{id}/sprints', [SprintController::class, 'index'])
-        ->name('phases.sprints.index')->can('viewAny',[Sprint::class,'id']);
+        ->name('phases.sprints.index')->can('viewAny', [Sprint::class, 'id']);
 
     Route::post('/sprints/{id?}', [SprintController::class, 'store'])
         ->name('phases.sprints.store');
 
     Route::delete('/sprints/{sprint}', [SprintController::class, 'destroy'])
-        ->name('phases.sprints.destroy')->can('delete','sprint');
+        ->name('phases.sprints.destroy')->can('delete', 'sprint');
 
     Route::get('/sprints/{sprint}', [SprintController::class, 'edit'])
-        ->name('phases.sprints.edit')->can('update','sprint');
+        ->name('phases.sprints.edit')->can('update', 'sprint');
 });
 
-Route::prefix('sprints')->middleware(['auth'])->group(function () {
+Route::prefix('sprints')->middleware('auth')->group(function () {
 
     Route::get('/{id}/tasks', [TaskController::class, 'index'])
-        ->name('sprints.tasks.index')->can('viewAny',[Task::class,'id']);
+        ->name('sprints.tasks.index')->can('viewAny', [Task::class, 'id']);
 
     Route::post('/tasks/{task?}', [TaskController::class, 'store'])
         ->name('sprints.tasks.store');
 
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])
-        ->name('sprints.tasks.destroy')->can('delete','task');
+        ->name('sprints.tasks.destroy')->can('delete', 'task');
 
     Route::get('/tasks/{task}', [TaskController::class, 'edit'])
-        ->name('sprints.tasks.edit')->can('update','task');
+        ->name('sprints.tasks.edit')->can('update', 'task');
 });
 
-Route::prefix('tasks')->middleware(['auth'])->group(function () {
+Route::prefix('tasks')->middleware('auth')->group(function () {
     Route::get('task-board', [TaskController::class, 'taskBoard'])
         ->name('tasks.task-board');
 
-    Route::post('/{id}/change-status', [TaskController::class, 'changeStatus'])
-        ->name('tasks.change-status');
+    Route::post('/{task}/change-status', [TaskController::class, 'changeStatus'])
+        ->name('tasks.change-status')->can('changeStatus','task');
+
+    Route::post('/{task}/play-pause', [TaskController::class, 'playPause'])
+        ->name('tasks.play-pause')->can('playPause','task');
 });

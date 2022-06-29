@@ -19,7 +19,7 @@
                                 <input type="text" class="form-control" id="search-name" name="search-name">
                             </div>
                         </div>
-        
+
                     </div>
                     <div class="col-md-3">
                         <div class="mb-3 row">
@@ -58,7 +58,7 @@
             </tr>
         </thead>
         <tbody>
-       
+
         </tbody>
     </table>
 
@@ -99,7 +99,25 @@
                                 <div class="col-md-9">
                                     <x-input id="lname" class="form-control" type="text" name="lname" required />
                                 </div>
-                            </div>    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <x-label class="col-sm-3 col-form-label" for="background_color" :value="__('رنگ پس زمینه')" />
+                                <div class="col-md-9">
+                                    <x-input id="background_color" class="form-control" type="text" name="background_color" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <x-label class="col-sm-3 col-form-label"  for="text_color" :value="__('رنگ متن')" />
+                                <div class="col-md-9">
+                                    <x-input id="text_color" class="form-control" type="text" name="text_color" required />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row p-2">
@@ -140,7 +158,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row p-2">
                         <div class="col-md-6">
@@ -164,7 +182,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row p-2">
                         <div class="col-md-12">
@@ -176,7 +194,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                 </form>
 
             </div>
