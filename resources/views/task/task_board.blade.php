@@ -6,8 +6,8 @@
     <div class="container border mt-5">
         <div class="row card-group">
             <!-- <div class="card-group"> -->
-            <div class="col-lg-2 p-0 card" style="min-height:100vh ;">
-                <div class="card-header persian">
+            <div class="col-lg-2 p-0 card border" style="min-height:100vh ;">
+                <div class="card-header persian text-center">
                     در صف انتظار
                 </div>
                 <div class="card-body" style="">
@@ -17,16 +17,16 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-2 p-0 card">
-                <div class="card-header persian">در حال انجام</div>
+            <div class="col-lg-2 p-0 card border">
+                <div class="card-header persian text-center">در حال انجام</div>
                 <div class="card-body" style="">
                     <ul class="list-group  sortable droppable p-0 " id="indo" style="width:100%;height:100%;">
 
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-2 p-0 card">
-                <div class="card-header persian">انجام شده</div>
+            <div class="col-lg-2 p-0 card border">
+                <div class="card-header persian text-center">انجام شده</div>
                 <div class="card-body" style="">
                     <ul class="list-group  sortable droppable p-0" id="done" style="width:100%;height:100%;">
 
@@ -131,9 +131,10 @@
                     }
                     $(target).append($li);
 
-                    if(target != '#indo'){
+                    if(target != '#indo' || element.user_id != {{ Auth::id() }}){
                         var $paly_pause_button = $(target).find('.play-pause');
                         $paly_pause_button.remove();
+                        console.log(element.user_id +" : "+{{ Auth::id() }})
                     }
                 });
             }).catch(function(res) {

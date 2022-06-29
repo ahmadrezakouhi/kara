@@ -1,6 +1,7 @@
 let tt_project;
 var _users = [];
 var _manage = [];
+var _owner = [];
 var _parent = 0;
 var _alluser = [];
 function funcDelete(e) {
@@ -82,7 +83,12 @@ function funcSetUser(e) {
         $(_result).each(function (index, element) {
             _users.push({ id: element.userid })
             if (element.status == 0) {
-                _manage.push({ id: element.userid })
+
+                _owner.push({ id: element.userid });
+            }
+
+            if(element.status == 1){
+                _manage.push({ id: element.userid });
             }
         });
         // console.log(_users)
@@ -207,6 +213,14 @@ $(document).ready(function () {
                             if (_idtr == _idchecked) {
                                 $(element).prop('checked', true).click();
                             }
+                        });
+                        $.each($(".radio-owner"), function (index, element) {
+                            var _idtr = $(element).parents("tr").attr("data-id");
+                            var _idchecked = _owner[0].id;
+
+                            if (_idtr == _idchecked) {
+                                $(element).prop('checked', true).click();
+                            }
                         })
                     });
                 },
@@ -243,7 +257,22 @@ $(document).ready(function () {
                         ,
                         "defaultContent":
                             '<div class="form-check">' +
-                            '<input class="form-check-input radio-user" type="radio" name="check-manage" value="" >' +
+                            '<input class="form-check-input radio-user" type="radio" name="check-manager" value="" >' +
+                            '<label class="form-check-label" for="flexCheckDefault">' +
+                            '</label>' +
+                            '</div>'
+                        ,
+                    },
+                    {
+                        responsivePriority: 0,
+                        // "className": 'details-control',
+                        "orderable": false,
+                        title:
+                            'مالک'
+                        ,
+                        "defaultContent":
+                            '<div class="form-check">' +
+                            '<input class="form-check-input radio-owner" type="radio" name="check-owner" value="" >' +
                             '<label class="form-check-label" for="flexCheckDefault">' +
                             '</label>' +
                             '</div>'
@@ -531,6 +560,15 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on("click", ".radio-owner", function () {
+        $(this).prop('checked', this.checked);
+        var check = this.checked;
+        if (check) {
+            _owner = [];
+            _owner.push({ id: $(this).parents("tr").attr("data-id") });
+        }
+    });
+
     $("#btnAddUser").click(function () {
         if (_manage.length != 0 && _users.length != 0) {
             let _ids = "";
@@ -546,6 +584,7 @@ $(document).ready(function () {
                 {
                     _token: $("input[name=_token]").val(),
                     manage: _manage[0].id,
+                    owner:_owner[0].id,
                     users: _ids,
                     project_id: $("#btnAddUser").attr("data-id")
                 }, function (res) {
