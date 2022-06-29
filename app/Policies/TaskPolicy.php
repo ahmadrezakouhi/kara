@@ -18,13 +18,13 @@ class TaskPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user ,$sprint_id)
+    public function viewAny(User $user, $sprint_id)
     {
         $sprint = Sprint::find($sprint_id);
         $project = $sprint->phase->project;
         $project_user = $user->projects->find($project->id);
         return ($project_user && $project_user->pivot->status != 0) ?
-        Response::allow() : Response::deny('مجوز مشاهده تسک ها را ندارید.');
+            Response::allow() : Response::deny('مجوز مشاهده تسک ها را ندارید.');
     }
 
     /**
@@ -45,19 +45,16 @@ class TaskPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user ,$sprint_id)
+    public function create(User $user, $sprint_id)
     {
         $sprint = Sprint::find($sprint_id);
         $project = $sprint->phase->project;
         $project_user = $user->projects->find($project->id);
-        if($project_user && $project_user->pivot->status == 2){
+        if ($project_user && $project_user->pivot->status == 2) {
             return Response::allow();
         }
 
         return Response::deny('مجوز ایجاد تسک را ندارید.');
-
-
-
     }
 
     /**
@@ -122,5 +119,17 @@ class TaskPolicy
     public function forceDelete(User $user, Task $task)
     {
         //
+    }
+
+
+    public function changeStatus(User $user, Task $task)
+    {
+        return $user->id == $task->user_id;
+    }
+
+    public function playPause(User $user, Task $task)
+    {
+
+        return ($user->id == $task->user_id) && ($task->status == 1);
     }
 }
