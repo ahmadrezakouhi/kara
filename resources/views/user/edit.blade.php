@@ -28,9 +28,30 @@
                         <div class="col-md-9">
                             {{ Form::text('lname', null, array('class' => 'form-control')) }}
                         </div>
-                    </div>    
+                    </div>
                 </div>
-            
+
+            </div>
+
+            <div class="row p-2">
+                <div class="col-md-3">
+                    <div class="row">
+                        <x-label class="col-sm-3 col-form-label" for="background_color" :value="__('رنگ پس زمینه')" />
+                        <div class="col-md-9">
+                            {{ Form::text('background_color', null, array('class' => 'form-control')) }}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <x-label class="col-sm-3 col-form-label"  for="text_color" :value="__('رنگ متن')" />
+                        <div class="col-md-9">
+                            {{ Form::text('text_color', null, array('class' => 'form-control')) }}
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="row p-2">
                 <div class="col-md-3">
@@ -68,7 +89,7 @@
                         </div>
                     </div>
                 </div>
-            
+
             </div>
             @endif
             <div class="row p-2">

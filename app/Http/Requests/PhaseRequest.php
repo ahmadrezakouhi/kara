@@ -24,12 +24,23 @@ class PhaseRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
+            'title'=>'required',
             'duration'=>'required',
             'start_date'=>'required',
             'end_date'=>'required',
             'description'=>'required',
-            
+
+        ];
+    }
+
+
+    public function messages(){
+        return [
+            'title.required'=>'عنوان الزامی می باشد.',
+            'description.required'=>'توضیحات الزامی می باشد.',
+            'duration.required'=>'مدت زمان انجام الزامی می باشد .',
+            'start_date.required'=>'تاریخ شروع الزامی می باشد.',
+            'end_date.required'=>'تاریخ پایان الزامی می باشد.'
         ];
     }
 }

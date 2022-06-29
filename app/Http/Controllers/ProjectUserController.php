@@ -32,10 +32,10 @@ class ProjectUserController extends Controller
     }
 
     public function getAllWithID($id){
-       
+
         $queryFiltered = DB::table('project_users');
         if (isset($id)){
-            $queryFiltered =  $queryFiltered->where('project_id', $id);            
+            $queryFiltered =  $queryFiltered->where('project_id', $id);
             $data = $queryFiltered->get();
             return response()->json($data);
         }else
@@ -68,7 +68,7 @@ class ProjectUserController extends Controller
             'lname'       => 'required',
             'project_id'  => 'required',
         );
-        
+
         $validator = Validator::make($request->all(), $rules);
 
         // process the login
@@ -79,10 +79,10 @@ class ProjectUserController extends Controller
         } else {
             // store
             $personnel_users = new PersonnelUser;
-            $personnel_users->fname       = $request->fname; 
+            $personnel_users->fname       = $request->fname;
             $personnel_users->lname       = $request->lname;
             $personnel_users->project_id  = $request->project_id;
-            $personnel_users->title       = $request->title; 
+            $personnel_users->title       = $request->title;
             $personnel_users->status      = $request->status;
             $personnel_users->user_id     = Auth::user()->id;
             $personnel_users->save();
@@ -96,55 +96,79 @@ class ProjectUserController extends Controller
     public function add(StoreProjectUserRequest $request)
     {
         //
-     
+
             // store
 
-            $users= explode(",",$request->users );
-            $user = new User;
-            $queryFilteredTask = DB::table('tasks');
-
-            $projectuser_query= DB::table('project_users')->where('project_id', $request->project_id);
-            $projectuser_data= $projectuser_query->get();
-            // echo "<pre>";
-            // var_dump($projectuser_data);exit();
-            $oldUser = [];
-            for ($i=0; $i< count($projectuser_data); $i++) $oldUser[] = $projectuser_data[$i]->id;
-            // $oldUser[] = (int)$request->manage;
-            
-            $projectuser_query->delete();
-            // echo "<pre>";
-            // var_dump($oldUser);exit();
-            for($i=0; $i< count($users); $i++){
-                if($users[$i]!= $request->manage){
-                    $data = DB::table('users')->find($users[$i]);
-                    $personnel_users = new ProjectUser;
-                    $personnel_users->userid       = $users[$i]; 
-                    $personnel_users->fname       = $data->fname; 
-                    $personnel_users->lname       = $data->lname;
-                    $personnel_users->project_id  = $request->project_id;
-                    $project = Project::find($request->project_id);
-                    $personnel_users->project_title  = $project->title;
-
-                    $personnel_users->status       = 1;  //member
-                    $personnel_users->user_id     = Auth::user()->id;
-                    $personnel_users->save();
-                    
-                    DB::table('tasks')->where('project_id', $request->project_id)->whereIn('userid', $oldUser)->where("username", "'".$data->fname . ' ' . $data->lname. "'")->update(['userid' => $personnel_users->id]);
-                }
+            $user_ids= explode(",",$request->users );
+            $project_user = [];
+            foreach($user_ids as $user_id){
+                $project_user[] = ['user_id'=>$user_id,'project_id'=>$request->project_id,'status'=>2];
             }
-            $personnel_users = new ProjectUser;
-            $data = DB::table('users')->find($request->manage);
-            $personnel_users->userid      = $request->manage; 
-            $personnel_users->fname       = $data->fname; 
-            $personnel_users->lname       = $data->lname;
-            $personnel_users->project_id  = $request->project_id;
-            $project = Project::find($request->project_id);
-            $personnel_users->project_title  = $project->title;
 
-            $personnel_users->status       = 0;  //admin
-            $personnel_users->user_id     = Auth::user()->id;
-            $personnel_users->save();
-            DB::table('tasks')->where('project_id', $request->project_id)->whereIn('userid', $oldUser)->where("username", $data->fname . ' ' . $data->lname)->update(['userid' => $personnel_users->id]);
+            if($request->manage){
+                $project_user[] = ['user_id'=>$request->manage,'project_id'=>$request->project_id,'status'=>1];
+            }
+
+            if($request->owner){
+                $project_user[] = ['user_id'=>$request->owner,'project_id'=>$request->project_id,'status'=>0];
+
+            }
+            foreach($project_user as $record){
+                $project = ProjectUser::where('user_id',$record['user_id'])
+                ->where('project_id',$record['project_id'])->where('status',$record['status'])->get();
+                if($project->count()==0){
+                    ProjectUser::create($record);
+                }
+
+
+            }
+
+
+            // $user = new User;
+            // $queryFilteredTask = DB::table('tasks');
+
+            // $projectuser_query= DB::table('project_users')->where('project_id', $request->project_id);
+            // $projectuser_data= $projectuser_query->get();
+            // // echo "<pre>";
+            // // var_dump($projectuser_data);exit();
+            // $oldUser = [];
+            // for ($i=0; $i< count($projectuser_data); $i++) $oldUser[] = $projectuser_data[$i]->id;
+            // // $oldUser[] = (int)$request->manage;
+
+            // $projectuser_query->delete();
+            // // echo "<pre>";
+            // // var_dump($oldUser);exit();
+            // for($i=0; $i< count($users); $i++){
+            //     if($users[$i]!= $request->manage){
+            //         $data = DB::table('users')->find($users[$i]);
+            //         $personnel_users = new ProjectUser;
+            //         $personnel_users->userid       = $users[$i];
+            //         $personnel_users->fname       = $data->fname;
+            //         $personnel_users->lname       = $data->lname;
+            //         $personnel_users->project_id  = $request->project_id;
+            //         $project = Project::find($request->project_id);
+            //         $personnel_users->project_title  = $project->title;
+
+            //         $personnel_users->status       = 1;  //member
+            //         $personnel_users->user_id     = Auth::user()->id;
+            //         $personnel_users->save();
+
+            //         DB::table('tasks')->where('project_id', $request->project_id)->whereIn('userid', $oldUser)->where("username", "'".$data->fname . ' ' . $data->lname. "'")->update(['userid' => $personnel_users->id]);
+            //     }
+            // }
+            // $personnel_users = new ProjectUser;
+            // $data = DB::table('users')->find($request->manage);
+            // $personnel_users->userid      = $request->manage;
+            // $personnel_users->fname       = $data->fname;
+            // $personnel_users->lname       = $data->lname;
+            // $personnel_users->project_id  = $request->project_id;
+            // $project = Project::find($request->project_id);
+            // $personnel_users->project_title  = $project->title;
+
+            // $personnel_users->status       = 0;  //admin
+            // $personnel_users->user_id     = Auth::user()->id;
+            // $personnel_users->save();
+            // DB::table('tasks')->where('project_id', $request->project_id)->whereIn('userid', $oldUser)->where("username", $data->fname . ' ' . $data->lname)->update(['userid' => $personnel_users->id]);
 
             // redirect
             $request->session()->flash('message', 'کاربران پروژه با موفقیت ثبت شدند!');
@@ -171,10 +195,10 @@ class ProjectUserController extends Controller
 
         $recordsTotal = DB::table('project_users')->count();
         $queryFiltered = DB::table('project_users');
-        
+
         if (isset($request->_parent)){
             $queryFiltered =  $queryFiltered->where('project_id', $request->_parent);
-        
+
         }
         $recordsFiltered = $queryFiltered->count();
         $data = $queryFiltered->get();
@@ -246,10 +270,10 @@ class ProjectUserController extends Controller
             } else {
                 // store
                 $personnel_users = project::find($projectUser->id);
-                $personnel_users->fname       = $request->fname; 
+                $personnel_users->fname       = $request->fname;
                 $personnel_users->lname       = $request->lname;
                 $personnel_users->project_id  = $request->project_id;
-                $personnel_users->title       = $request->title; 
+                $personnel_users->title       = $request->title;
                 $personnel_users->status      = $request->status;
                 $personnel_users->user_id     = Auth::user()->id;
                 $personnel_users->save();

@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
@@ -17,7 +18,8 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isAdmin() ?
+        Response::allow() : Response::deny('امکان نمایش کاربر ها وجود ندارد.');
     }
 
     /**
@@ -29,7 +31,8 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        //
+        return $user->isAdmin() ?
+        Response::allow() : Response::deny('امکان نمایش کاربر مورد نظر وجود ندارد.');
     }
 
     /**
@@ -40,7 +43,8 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdmin() ?
+         Response::allow() : Response::deny('امکان اینجا کاربر برای شما وجود ندارد.');
     }
 
     /**
@@ -53,7 +57,8 @@ class UserPolicy
     public function update(User $user, User $model)
     {
         //
-        return $user->id === $model->user_id;
+        return ($user->isAdmin() && $user->id === $model->user_id)?
+        Response::allow() : Response::deny('امکان ادیت کاربر وجود ندارد.');
     }
 
     /**
@@ -66,7 +71,8 @@ class UserPolicy
     public function delete(User $user, User $model)
     {
         //
-        return $user->id === $model->user_id;
+        return ($user->isAdmin() && $user->id === $model->user_id) ?
+         Response::allow() : Response::deny('امکان حذف کاربر وجود ندارد.');
     }
 
     /**
