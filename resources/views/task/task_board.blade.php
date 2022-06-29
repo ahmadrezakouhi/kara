@@ -3,7 +3,7 @@
 @section('content')
 
 
-    <div class="container">
+    <div class="container border mt-5">
         <div class="row card-group">
             <!-- <div class="card-group"> -->
             <div class="col-lg-2 p-0 card" style="min-height:100vh ;">
@@ -43,9 +43,10 @@
             var url = '/tasks/task-board'
             ajaxfunc(url, 'GET', '').then(function(res) {
                 res.forEach(element => {
+
                     var $li =
-                        '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2 bg-danger  text-white rounded "style="width:100%;height: 80px;" data-id="' +
-                        element.id + '">' +
+                        '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   text-white rounded " data-id="' +
+                        element.id + '" '+ ' data-background-color="'+element.user.background_color+'"'+'style="width:100%;height: 80px; background-color:'+element.user.background_color+'">' +
 
                         '<div class="d-flex justify-content-between"> ' +
                         '<h4 class="persian">' + element.title + '</h4> ' +
@@ -106,12 +107,12 @@
 
                         '</div>' +
 
-                        '<div class="d-flex justify-content-center">' +
-                        '<div data-play="1" class="mt-1 play_pause" style="cursor:pointer">' +
+                        '<div class="d-flex justify-content-center container-play-pause">' +
+                        '<div data-play="1" class="mt-1 play-pause" style="cursor:pointer">' +
                         '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
                         '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
                         '</svg>' +
-                        '</div>' +
+                        '</div>'+
                         '</div>' +
 
 
@@ -122,12 +123,17 @@
                         target = '#todo';
                     } else if (element.status == 1) {
                         target = '#indo';
+
                     } else {
                         target = '#done';
-                        // removeNextLevelButton($li)
+
                     }
                     $(target).append($li);
 
+                    if(target != '#indo'){
+                        var $paly_pause_button = $(target).find('.play-pause');
+                        $paly_pause_button.remove();
+                    }
                 });
             }).catch(function(res) {
 
@@ -158,7 +164,9 @@
             });
 
 
-            $(document).on('click', '.play_pause', function() {
+            $(document).on('click', '.play-pause', function() {
+                var background_color = $(this).parents('li').attr('data-background-color');
+
                 var palyIcon =
                     '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
                     '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>' +
@@ -172,12 +180,24 @@
                     $(this).empty();
                     $(this).append(palyIcon);
                     $(this).attr('data-play','0');
-                    $(this).addClass('animate__animated animate__rotateIn');
+                    $(this).parents('li')
+                    .css('background','repeating-linear-gradient(45deg,'+background_color+' 0px,'+background_color+' 20px,#a3a3a3ab 20px,#a3a3a3ab 40px)')
                 }else{
                     $(this).empty();
                     $(this).append(pauseIcon);
                     $(this).attr('data-play','1');
+                    $(this).parents('li')
+                    .css('background','').css('background-color',background_color);
                 }
+                var task_id = $(this).parents('li').attr('data-id');
+                ajaxfunc('/tasks/'+task_id+'/play-pause','POST','')
+                .then(function(res){
+
+                })
+                .catch(function(res){
+
+                })
+
 
             })
 
@@ -263,6 +283,15 @@
                     .done_date));
                 if ($target.attr('id') == 'done') {
                     removeNextLevelButton($item);
+                    $item.find('.play-pause').remove();
+                }
+                if ($target.attr('id') == 'indo') {
+
+                    $item.find('.container-play-pause').append('<div data-play="1" class="mt-1 play-pause" style="cursor:pointer">' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
+                        '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
+                        '</svg>' +
+                        '</div>');
 
                 }
                 $target.append($item[0].outerHTML);
