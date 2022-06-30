@@ -137,7 +137,6 @@
             </div>
         </div>
     </div>
-    app/Http/Controllers/RequirementController.php
 
 @endsection
 @section('scripts')
