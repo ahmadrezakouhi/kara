@@ -100,7 +100,7 @@ $(document).ready(function () {
 			"fnInitComplete": function (oSettings, json) {},
 			"initComplete": function(settings, json) {},
 			order: [[0, "desc"]],
-			"pageLength": 5,
+			"pageLength": 20,
 			"searchDelay": 1000,
 			"columns": [
 
