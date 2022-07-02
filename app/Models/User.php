@@ -56,7 +56,7 @@ class User extends Authenticatable
 
 
     public function projects(){
-        return $this->belongsToMany(Project::class)->withPivot('status');
+        return $this->belongsToMany(Project::class)->withPivot('owner','admin','developer');
     }
 
 
