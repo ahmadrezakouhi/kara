@@ -19,7 +19,9 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->tinyInteger('status')->unsigned();
+            $table->tinyInteger('owner')->unsigned()->default(0);
+            $table->tinyInteger('admin')->unsigned()->default(0);
+            $table->tinyInteger('developer')->unsigned()->default(0);
             $table->timestamps();
         });
     }
