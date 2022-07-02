@@ -46,7 +46,7 @@ class PhasePolicy
     {
 
         $project_user = $user->projects->find($project_id);
-        if($project_user && $project_user->pivot->status == 1 ){
+        if($project_user && $project_user->pivot->admin ){
             return Response::allow();
         }
 
