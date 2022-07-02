@@ -4,7 +4,7 @@
 
 <meta name="Saquib" content="Blade">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<title>max</title>
+<title>کارا سامانه مدیریت پروژه</title>
 
 <!-- load bootstrap from a cdn -->
 
