@@ -39,7 +39,7 @@ class ProjectController extends Controller
             3 => 'level',
             4 => 'parentlevel',
         );
-        $queryFiltered = DB::table('projects');
+        $queryFiltered = DB::table('projects')->orderBy('created_at', 'desc');
         $recordsTotal = $queryFiltered->count();
         $manual_query="";
         if (isset($request['sf'])){
