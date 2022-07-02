@@ -22,8 +22,8 @@ class TaskPolicy
     {
         $sprint = Sprint::find($sprint_id);
         $project = $sprint->phase->project;
-        $project_user = $user->projects->find($project->id);
-        return ($project_user && $project_user->pivot->status != 0) ?
+        $project_user = $user->projects->find($project->id); //$user->projects->find($project->id);
+        return ($project_user && ($project_user->pivot->admin || $project_user->pivot->developer)) ?
             Response::allow() : Response::deny('مجوز مشاهده تسک ها را ندارید.');
     }
 
@@ -49,8 +49,8 @@ class TaskPolicy
     {
         $sprint = Sprint::find($sprint_id);
         $project = $sprint->phase->project;
-        $project_user = $user->projects->find($project->id);
-        if ($project_user && $project_user->pivot->status == 2) {
+        $project_user = $user->projects->find($project->id); //$user->projects->find($project->id);
+        if ($project_user && ($project_user->pivot->admin || $project_user->pivot->developer) ) {
             return Response::allow();
         }
 
