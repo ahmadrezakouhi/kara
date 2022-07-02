@@ -1,15 +1,18 @@
 @extends('layouts.default')
 @section('content')
 
-<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+<nav class="shadow-sm border my-3 p-3 d-flex justify-content-between" >
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/user">کاربران</a></li>
     <li class="breadcrumb-item active" aria-current="page">ویرایش</li>
   </ol>
+  <a href="{{ route('user.index') }}"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+    <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+  </svg></a>
 </nav>
 
     <!-- if there are creation errors, they will show here -->
-    <div class="border border-1 rounded-1 p-3">
+    <div class="border border-1 rounded-1 p-3 shadow-sm">
         {{ Form::model($user, array('route' => array('user.update', $user->id), 'method' => 'PUT')) }}
             @if( Auth::user()->role == "manager")
             <div class="row p-2">
@@ -103,7 +106,14 @@
                     </div>
                 </div>
                 @endif
-                <div class="col-md-3">
+                <div class="row">
+                    <div class="form-check my-3">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" name="changePassword"> تغییر رمز
+                        </label>
+                      </div>
+                </div>
+                <div class="col-md-3 password">
                     <div class="row">
                         <x-label class="col-sm-3 col-form-label"  for="password" :value="__('رمز ورود')" />
                         <div class="col-md-9">
@@ -114,6 +124,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-3">
                     <div class="row">
                         <x-label class="col-sm-3 col-form-label"  for="password_confirmation" :value="__('تکرار رمز ')" />
