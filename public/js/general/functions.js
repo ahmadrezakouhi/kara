@@ -66,7 +66,7 @@ function datatable(table_id, url, columns,removeButtons=true) {
                 if (auth_id != data.user_id) {
                     $(row).find('.edit,.delete').remove();
                 }
-                if(user_role_project==0){
+                if(!isAdmin && isOwner){
                     $(row).find('.add_phase,.sprints').remove();
 
                 }
@@ -100,7 +100,7 @@ function submit_form(form_id, id, url, check_id = true) {
     if (check_id && id) {
         url += ('/' + id)
     }
-    return ajaxfunc(url, "POST", $(form_id).serialize())
+    return ajaxfunc(url, "POST", $(form_id).serialize());
 
 
 
@@ -121,7 +121,7 @@ function getIDs(form_id) {
 
 function removeIDValues(form_id) {
     getIDs(form_id).forEach(element => {
-        $('#' + element).val("")
+        $('#' + element).val("");
     });
 }
 
@@ -136,5 +136,5 @@ function covertJalaliToGregorian(date) {
 function showErrors(errors) {
     $.each(errors, function (index, value) {
         toastr['error'](value);
-    })
+    });
 }
