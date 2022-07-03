@@ -50,7 +50,7 @@ class SprintPolicy
         $phase = Phase::find($phase_id);
         $project = $phase->project;
         $project_user = $user->projects->find($project->id);
-        if ($project_user && $project_user->pivot->status == 1) {
+        if ($project_user && $project_user->pivot->admin ) {
             return Response::allow();
         }
 
