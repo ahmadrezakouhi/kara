@@ -62,7 +62,7 @@ class User extends Authenticatable
 
 
     public function isAdmin(){
-        return $this->role == 'admin';
+        return $this->role == 'manager';
     }
 
 
@@ -71,6 +71,16 @@ class User extends Authenticatable
     }
 
     public function tasks(){
-        return $this->belongsTo(Task::class);
+        return $this->hasMany(Task::class);
+    }
+
+
+    public function sprints(){
+        return $this->hasMany(Sprint::class);
+    }
+
+
+    public function phases(){
+        return $this->hasMany(Phase::class);
     }
 }
