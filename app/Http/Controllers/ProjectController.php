@@ -39,7 +39,7 @@ class ProjectController extends Controller
             3 => 'level',
             4 => 'parentlevel',
         );
-        $queryFiltered = DB::table('projects');//->orderBy('created_at', 'desc');
+        $queryFiltered = DB::table('projects')->orderBy('created_at', 'desc');
         $recordsTotal = $queryFiltered->count();
         $manual_query="";
         if (isset($request['sf'])){
@@ -300,18 +300,18 @@ class ProjectController extends Controller
             $project->user_id     = Auth::user()->id;
             $project->save();
 
-            // $personnel_users = new ProjectUser();
-            // $data_user = DB::table('users')->find(Auth::user()->id);
-            // $personnel_users->userid       = Auth::user()->id;
-            // $personnel_users->fname       = $data_user->fname;
-            // $personnel_users->lname       = $data_user->lname;
-            // $personnel_users->project_id  = $project->id;
-            // $personnel_users->project_title  = $project->title;
-            // $personnel_users->status       = 0;  //admin
-            // $personnel_users->user_id     = Auth::user()->id;
+            $personnel_users = new ProjectUser();
+            $data_user = DB::table('users')->find(Auth::user()->id);
+            $personnel_users->userid       = Auth::user()->id;
+            $personnel_users->fname       = $data_user->fname;
+            $personnel_users->lname       = $data_user->lname;
+            $personnel_users->project_id  = $project->id;
+             $personnel_users->project_title  = $project->title;
+            $personnel_users->status       = 0;  //admin
+            $personnel_users->user_id     = Auth::user()->id;
             // echo '<pre>';
             // var_dump($personnel_users);exit();
-            // $personnel_users->save();
+            $personnel_users->save();
 
             // redirect
             $request->session()->flash('message', 'پروژه با موفقیت ثبت شد!');
