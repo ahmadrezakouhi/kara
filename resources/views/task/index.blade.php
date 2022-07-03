@@ -142,8 +142,12 @@
 @section('scripts')
     <script>
         var auth_id = {{ Auth::id() }};
-        var user_role_project =
-        {{ Auth::user()->projects->find($sprint->phase->project->id)->pivot->status }};
+        var isAdmin =
+            {{ Auth::user()->projects->find($sprint->phase->project->id)->pivot->admin }};
+        var isOwner =
+            {{ Auth::user()->projects->find($sprint->phase->project->id)->pivot->owner }};
+        var isDeveloper =
+            {{ Auth::user()->projects->find($sprint->phase->project->id)->pivot->developer }};
     </script>
     <script src="{{ asset('js/general/functions.js') }}"></script>
 
