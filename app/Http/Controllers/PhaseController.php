@@ -33,6 +33,36 @@ class PhaseController extends Controller
         return view('phase.index', compact('project'));
     }
 
+    public function owner(Request $request){
+        $user = Auth::user();
+        if($request->ajax()){
+            if($user->isAdmin()){
+                $phases = Phase::select('id','title','description','project_id','start_date','end_date')
+                ->with(['project:id,title','project.users'=>function($query){
+                    return $query->where('admin','1')->select('fname','lname');
+                }])
+                ->get();
+            }else{
+                $phases = $user->phases()->
+                select('id','title','description','project_id','start_date','end_date')
+                ->with(['project:id,title','project.users'=>function($query){
+                    return $query->where('admin','1')->select('fname','lname');
+                }]);
+            }
+
+
+            $recordTotal = $phases->count();
+            $data = array(
+                "draw" => intval($request['draw']),
+                "recordsTotal" => intval($recordTotal),
+                "recordsFiltered" => intval(2),
+                "data" => $phases
+            );
+            return response()->json($data);
+        }
+        return view('phase.owner');
+    }
+
 
 
     /**

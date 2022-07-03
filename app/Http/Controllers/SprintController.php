@@ -33,6 +33,35 @@ class SprintController extends Controller
         return view('sprint.index', compact('phase'));
     }
 
+
+    public function owner(Request $request)
+    {
+        $user = Auth::user();
+        // if ($request->ajax()) {
+            if ($user->isAdmin()) {
+                $sprints = Sprint::select('title', 'description', 'status', 'start_date', 'end_date', 'phase_id')->with(
+
+                    ['phase:id,title,project_id', 'phase.project:id,title', 'phase.project.users' => function ($query) {
+                        $query->where('admin', '1');
+                    }]
+                )->get();
+            } else {
+                $sprints = $user->projects()->with('phases','phases.sprints')->get();
+            }
+
+            $recordTotal = $sprints->count();
+            $data = array(
+                "draw" => intval($request['draw']),
+                "recordsTotal" => intval($recordTotal),
+                "recordsFiltered" => intval(2),
+                "data" => $sprints
+            );
+            return response()->json($sprints);
+        // }
+
+        return view('sprint.owner');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
