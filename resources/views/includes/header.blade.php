@@ -25,25 +25,21 @@
         </li>
         @if(Gate::check('isAdmin') || Gate::check('isManager')  || Gate::check('isUser'))
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link " aria-current="page" href="{{ route('user.index') }}">
           کاربران
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{{ URL::to('user') }}" >همه</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item"  href="{{ URL::to('user/create') }}">ایجاد</a></li>
-          </ul>
+
         </li>
         @if(Gate::check('isAdmin') || Gate::check('isManager') )
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item ">
+          <a class="nav-link " aria-current="page" href="{{ route('project.index') }}">
           پروژه ها
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {{-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{{ URL::to('project') }}" >همه</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item"  href="{{ URL::to('project/create') }}">ایجاد</a></li>
-          </ul>
+          </ul> --}}
         </li>
         @endif
         {{-- @if(Gate::check('isManager') )
@@ -97,6 +93,20 @@
         </li> -->
         {{-- @can('isUser') --}}
         <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="{{ route('phases.owner') }}">فازها</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="{{ route("sprints.owner") }}">اسپرینت ها</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="{{ route('tasks.owner') }}"> کارها</a>
+          </li>
+
+
+
+        <li class="nav-item">
             <a class="nav-link " aria-current="page" href="{{ route('tasks.task-board') }}">تسک بورد</a>
           </li>
           {{-- @endcan --}}
@@ -107,6 +117,11 @@
       @if(Auth::check())
 
       <ul class="navbar-nav ms-auto">
+<li class="nav-item mt-1">
+    <div class="ms-auto mt-2 rounded" style="width:24px;height:24px;background: {{ Auth::user()->background_color }}">
+
+    </div>
+</li>
     <li class="nav-item dropdown " >
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       <img src="{{ asset('images/img_avatar.png') }}" class="rounded-circle" alt="" width="30px">
