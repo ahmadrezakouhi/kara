@@ -39,6 +39,32 @@ class TaskController extends Controller
     }
 
 
+
+    public function owner(Request $request){
+        $user = Auth::user();
+        if($request->ajax()){
+            if($user->isAdmin()){
+                $tasks = Task::with(['category:id,name','sprint:id,title,phase_id','sprint.phase:id,title,project_id','sprint.phase.project:id,title','user:id,fname,lname'])
+                ->get();
+            }else{
+                $tasks = $user->tasks()->with(['category:id,name','sprint:id,title,phase_id','sprint.phase:id,title,project_id','sprint.phase.project:id,title','user:id,fname,lname'])
+                ->get();
+            }
+
+            $recordTotal = $tasks->count();
+            $data = array(
+                "draw" => intval($request['draw']),
+                "recordsTotal" => intval($recordTotal),
+                "recordsFiltered" => intval(2),
+                "data" => $tasks
+            );
+
+            return response()->json($data);
+        }
+        return view('task.owner');
+    }
+
+
     public function taskBoard(Request $request)
     {
         $user = Auth::user();
@@ -53,7 +79,7 @@ class TaskController extends Controller
                     }
                 }
             }
-           
+
             return response()->json($tasks);
         }
         return view('task.task_board');
