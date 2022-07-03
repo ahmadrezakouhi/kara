@@ -37,11 +37,11 @@
             </div>
 
             <div class="row p-2">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="row">
                         <x-label class="col-sm-3 col-form-label" for="background_color" :value="__('رنگ پس زمینه')" />
                         <div class="col-md-9">
-                            {{ Form::text('background_color', null, array('class' => 'form-control')) }}
+                            {{ Form::text('background_color', null, array('class' => 'form-control','id'=>'background_color')) }}
 
                         </div>
                     </div>
@@ -50,9 +50,14 @@
                     <div class="row">
                         <x-label class="col-sm-3 col-form-label"  for="text_color" :value="__('رنگ متن')" />
                         <div class="col-md-9">
-                            {{ Form::text('text_color', null, array('class' => 'form-control')) }}
+                            {{ Form::text('text_color', null, array('class' => 'form-control','id'=>'text_color')) }}
                         </div>
                     </div>
+                </div>
+
+                <div id="preview" class="d-flex justify-content-center align-items-center rounded"
+                style="font-size: 20px;width:30px;height:30px;background:{{ Auth::user()->background_color }};color:{{ Auth::user()->text_color }}">
+                    A
                 </div>
 
             </div>
@@ -147,4 +152,16 @@
 
 @section('scripts')
    <script src="{{ asset('/js/pages/user.js') }}"></script>
+   <script>
+    $(document).ready(function(){
+        $('#text_color').keyup(function(){
+            $('#preview').css('color',$(this).val())
+            console.log($(this).val())
+        });
+        $('#background_color').keyup(function(){
+            $('#preview').css('background',$(this).val())
+            console.log($(this).val())
+        });
+    })
+   </script>
 @endsection
