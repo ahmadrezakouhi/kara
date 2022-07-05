@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date_pre')->nullable();
-            // $table->tinyInteger('level')->default(0); 
-            $table->bigInteger('parent_level_id')->default(0);
-            $table->text('parent_level_name')->nullable();
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('project_id')->nullable();
+            $table->foreign('project_id')->references('id')->on('projects');
+            $table->string('title');
+            $table->text('description');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
             $table->tinyInteger('progress')->default(0);
             $table->timestamps();
         });

@@ -32,7 +32,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::middleware('auth','role:manager')->group(function () {
+Route::middleware('auth', 'role:manager')->group(function () {
 
     Route::resource('/personnel', PersonnelController::class);
     // Route::delete('/personnel/{personnel}', [PersonnelController::class, "destroy"]);
@@ -45,13 +45,38 @@ Route::middleware('auth','role:manager')->group(function () {
     Route::post('/user/getDataForProject', [UserController::class, "getDataForProject"]);
     Route::post('/user/addUser', [UserController::class, "addUser"]);
 
-    Route::resource('/project', ProjectController::class);
-    Route::delete('/project/{id}', [ProjectController::class, "destroy"]);
-    Route::post('/project/getData', [ProjectController::class, "getData"]);
-    Route::post('/project/getProjects', [ProjectController::class, "getProjects"]);
-    Route::post('/project/getParentProjects', [ProjectController::class, "getParentProjects"]);
-    Route::post('/project/addParent', [ProjectController::class, "addParent"]);
-    Route::post('/project/addProject', [ProjectController::class, "addProject"]);
+    // Route::resource('/project', ProjectController::class);
+    // Route::delete('/project/{id}', [ProjectController::class, "destroy"]);
+    // Route::post('/project/getData', [ProjectController::class, "getData"]);
+    // Route::post('/project/getProjects', [ProjectController::class, "getProjects"]);
+    // Route::post('/project/getParentProjects', [ProjectController::class, "getParentProjects"]);
+    // Route::post('/project/addParent', [ProjectController::class, "addParent"]);
+    // Route::post('/project/addProject', [ProjectController::class, "addProject"]);
+
+    Route::prefix('projects')->group(function () {
+
+        Route::get('/', [ProjectController::class, 'index'])
+            ->name('projects.index');
+
+        Route::get('getProjects', [ProjectController::class, 'getProjects'])
+            ->name('projects.getAll');
+
+        Route::get('getUsers', [ProjectController::class, 'getUsers'])
+            ->name('projects.getUsers');
+
+        Route::post('{project?}', [ProjectController::class, 'store'])
+            ->name('projects.store');
+
+        Route::post('{project}/add-users', [ProjectController::class, 'addUsers'])
+            ->name('projects.addUsers');
+
+        Route::get('{project}', [ProjectController::class, 'edit'])
+            ->name('projects.edit');
+
+        Route::delete('{project}', [ProjectController::class, 'destroy'])
+            ->name('projects.destroy')->can('delete', 'project');
+    });
+
 
 
     Route::resource('/projectUser', ProjectUserController::class);
@@ -63,21 +88,6 @@ Route::middleware('auth','role:manager')->group(function () {
         Route::post('getUserByParentProject', [ProjectUserController::class, "getUserByParentProject"]);
         Route::post('getUserProjects', [ProjectUserController::class, "getUserProjects"]);
     });
-
-
-    Route::resource('/task', TaskController::class);
-    Route::delete('/task/{id}', [TaskController::class, "destroy"]);
-    Route::post('/task/getData', [TaskController::class, "getData"]);
-    Route::post('/task/addTask', [TaskController::class, "addTask"]);
-    Route::post('/task/setDoneTask', [TaskController::class, "setDoneTask"]);
-
-    Route::resource('/taskTitle', TaskTitleController::class);
-    Route::delete('/taskTitle/{id}', [TaskTitleController::class, "destroy"]);
-    Route::post('/taskTitle/getData', [TaskTitleController::class, "getData"]);
-    Route::post('/taskTitle/addTaskTitle', [TaskTitleController::class, "addTaskTitle"]);
-    Route::post('/taskTitle/getTaskTitles', [TaskTitleController::class, "getTaskTitles"]);
-
-    Route::resource('/mig', MigController::class);
 });
 
 // Route::get('/project', function () {
@@ -172,23 +182,23 @@ Route::prefix('sprints')->middleware('auth')->group(function () {
 
 Route::prefix('tasks')->group(function () {
 
-    Route::get('/',[TaskController::class,'owner'])->name('tasks.owner');
+    Route::get('/', [TaskController::class, 'owner'])->name('tasks.owner');
 
     Route::get('task-board', [TaskController::class, 'taskBoard'])
         ->name('tasks.task-board');
 
     Route::post('/{task}/change-status', [TaskController::class, 'changeStatus'])
-        ->name('tasks.change-status')->can('changeStatus','task');
+        ->name('tasks.change-status')->can('changeStatus', 'task');
 
     Route::post('/{task}/play-pause', [TaskController::class, 'playPause'])
-        ->name('tasks.play-pause')->can('playPause','task');
+        ->name('tasks.play-pause')->can('playPause', 'task');
 });
 
 
-Route::prefix('sprints')->group(function(){
-    Route::get('/',[SprintController::class,'owner'])->name('sprints.owner');
+Route::prefix('sprints')->group(function () {
+    Route::get('/', [SprintController::class, 'owner'])->name('sprints.owner');
 });
 
-Route::prefix('phases')->group(function(){
-    Route::get('/',[PhaseController::class,'owner'])->name('phases.owner');
+Route::prefix('phases')->group(function () {
+    Route::get('/', [PhaseController::class, 'owner'])->name('phases.owner');
 });

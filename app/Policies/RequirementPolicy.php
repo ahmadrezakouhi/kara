@@ -20,7 +20,7 @@ class RequirementPolicy
     public function viewAny(User $user , $project_id)
     {
         $project_user = $user->projects->find($project_id);
-        if($project_user && ($project_user->pivot->owner || $project_user->pivote->admin )){
+        if($project_user && ($project_user->pivot->owner || $project_user->pivot->admin )){
             return Response::allow();
         }
         return Response::deny('مجوز مشاهده نیازمندی ها وجود ندارد.');

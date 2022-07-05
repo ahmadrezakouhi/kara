@@ -6,7 +6,7 @@
         <div class="mt-3 shadow-sm border p-3 d-flex align-items-center rounded">
             <nav aria-label="breadcrumb ">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('project.index') }}">پروژه ها</a></li>
+                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('projects.index') }}">پروژه ها</a></li>
                     <li class="breadcrumb-item active " aria-current="page">{{ $project->title }}</li>
                 </ol>
             </nav>

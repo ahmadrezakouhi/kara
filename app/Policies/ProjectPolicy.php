@@ -70,8 +70,17 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project)
     {
-        //
-        return $user->id === $project->user_id;
+
+
+        if($user->id != $project->user_id){
+            return Response::deny('امکان حذف پروژه وجود ندارد.');
+        }
+
+        if($project->child()->count() != 0){
+            return Response::deny('پروژه زیر پروژه دارد.');
+        }
+        return Response::allow();
+
     }
 
     /**

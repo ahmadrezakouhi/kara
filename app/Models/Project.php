@@ -11,6 +11,8 @@ class Project extends Model
 
     protected $guarded = ['id'];
 
+    protected $with = ['parent'];
+
     public function user(){
         return $this->belongsTo(User::class);
     }
@@ -19,8 +21,12 @@ class Project extends Model
         return $this->belongsToMany(User::class)->withPivot('owner','admin','developer');
     }
 
-    public function project(){
-        return $this->belongsTo(Project::class);
+    public function parent(){
+        return $this->hasOne(Project::class,'id','project_id');
+    }
+
+    public function child(){
+        return $this->hasMany(Project::class,'project_id','id');
     }
 
 

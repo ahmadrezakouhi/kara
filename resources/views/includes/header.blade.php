@@ -32,7 +32,7 @@
         </li>
         @if(Gate::check('isAdmin') || Gate::check('isManager') )
         <li class="nav-item ">
-          <a class="nav-link " aria-current="page" href="{{ route('project.index') }}">
+          <a class="nav-link " aria-current="page" href="{{ route('projects.index') }}">
           پروژه ها
           </a>
           {{-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

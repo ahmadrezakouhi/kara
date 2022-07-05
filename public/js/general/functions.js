@@ -61,7 +61,7 @@ function datatable(table_id, url, columns,removeButtons=true) {
 
         createdRow: function (row, data, dataIndex) {
 
-            $(row).find('button').attr("data-id", data['id']);
+            $(row).find('button,.dropdown-item').attr("data-id", data['id']);
             if (removeButtons) {
                 if (auth_id != data.user_id) {
                     $(row).find('.edit,.delete').remove();
@@ -126,7 +126,7 @@ function removeIDValues(form_id) {
 }
 
 
-function covertJalaliToGregorian(date) {
+function covertGregorianToJalali(date) {
     if (date == null) {
         return '-';
     }

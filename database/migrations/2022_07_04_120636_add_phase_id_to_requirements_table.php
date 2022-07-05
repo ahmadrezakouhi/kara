@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('priorities', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->timestamps();
+        Schema::table('requirements', function (Blueprint $table) {
+            $table->unsignedBigInteger('phase_id')->after('project_id');
+            $table->foreign('phase_id')->references('id')->on('phases');
         });
     }
 
@@ -27,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('priorities');
+        Schema::table('requirements', function (Blueprint $table) {
+            $table->dropForeign('requirements_phase_id_foreign');
+            $table->dropColumn('phase_id');
+        });
     }
 };

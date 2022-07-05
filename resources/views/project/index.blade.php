@@ -1,316 +1,408 @@
 @extends('layouts.default')
+@section('title', 'نیازمندی های پروژه')
 @section('content')
 
-    <!-- <h1>All the personnel</h1> -->
+    <div class="container">
+        <div class="mt-3 mt-3 shadow-sm border p-3 d-flex align-items-center rounded">
+            <nav aria-label="breadcrumb">
 
-    <!-- will be used to show any messages -->
-    @if (Session::has('message'))
-        <div class="alert alert-info">{{ Session::get('message') }}</div>
-    @endif
-
-    <div class="row pt-3">
-        <div class="col-md-10">
-            <form id='sf' action="getData" method = "POST">
-                @csrf
-                <div class="row pt-3">
-                    <div class="col-md-5">
-                        <div class="mb-3 row">
-                            <label for="title" class="col-sm-4 col-form-label">زمان شروع از:</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="search-start-date" name="search-start-date">
-                            </div>
-                            <label  class="col-sm-1 col-form-label">تا</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="search-start-date-to" name="search-start-date-to">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-5">
-                        <div class="mb-3 row">
-                            <label for="title" class="col-sm-5 col-form-label">تخمین زمان پایان از:</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="search-end-date" name="search-end-date">
-                            </div>
-                            <label  class="col-sm-1 col-form-label">تا</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="search-end-date-to" name="search-end-date-to">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row pt-3">
-                    <div class="col-md-6">
-                        <div class="mb-3 row">
-                            <label for="title" class="col-sm-2 col-form-label">عنوان:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="search-title" name="search-title">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3 row">
-                            <label class="col-sm-4 col-form-label" for="title" >پروژه ارشد</label>
-                            <div class="col-md-8">
-                                <select class="selectpicker"  data-live-search="true" id="search-parent-id" name="search-parent-id">
-
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-primary mb-3" id="btn-filter">جستجو</button>
-                    </div>
-                </div>
-                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-            </form>
+            </nav>
         </div>
-        <div class="col-md-2 pt-3 align-left">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#mdlAddProject">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                </svg>
-            افزودن پروژه
-            </button>
+        <div class="card shadow-sm mt-3 border">
+            <div class="card-header ">
+
+                <div class="d-flex justify-content-between">
+                    <h2>لیست پروژه ها</h2>
+
+
+                    <button class="btn btn-success" id="create_button"> افزودن
+                        پروژه</button>
+
+                </div>
+
+
+            </div>
+            <div class="card-body">
+                <div class="row pt-3">
+
+                </div>
+                <table id="tbl_projects" class="table table-bordered table-striped">
+                    <thead>
+                        <th></th>
+                        <th>عنوان</th>
+                        <th>توضیحات</th>
+                        <th>والد</th>
+                        <th>تاریخ شروع</th>
+                        <th>تاریخ پایان</th>
+                        <th>
+                        </th>
+                        {{-- <th>تاریخ ثبت</th>
+                        <th>مدیریت</th> --}}
+
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+            </div>
         </div>
     </div>
-    <table id="tbl-project" class="table table-striped table-bordered">
-        <thead>
-            <!-- <tr> -->
-                <!-- <th>شناسه</th> -->
-                <!-- <th>عنوان</th>
-                <th>زمان شروع</th>
-                <th>پیش بینی زمان پایان</th> -->
-                <!-- <th>سطح</th> -->
-                <!-- <th>سرگروه</th>
-                <th>توضیحات</th> -->
-            <!-- </tr> -->
-        </thead>
-        <tbody>
 
-        </tbody>
-    </table>
-
-    <div class="modal fade" tabindex="-1" aria-labelledby="mdlAddProjectModalLabel" aria-hidden="true" id="mdlAddProject">
-        <div class="modal-dialog modal-md">
+    <div class="modal fade" id="add_projects">
+        <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">افزودن پروژه </h5>
-                <button type="button" class="btn-close close-mdl" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                    <form method="POST" id="frmProject">
-                    @csrf
-                    <div class="row p-2">
-                        <x-label class="col-sm-2 col-form-label" for="title" :value="__('عنوان')" />
-                        <div class="col-md-10">
-                            <x-input id="titleProject" class="form-control" type="text" name="titleProject"  />
-                        </div>
-                    </div>
-                    <div class="row p-2">
-                        <x-label class="col-sm-2 col-form-label" for="title" :value="__('پروژه ارشد')" />
-                        <div class="col-md-10">
 
-                         <select class="selectpicker"  data-live-search="true" id="project_id" name="project_id">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal_title">افزودن پروژه </h4>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" action="post" id="create_update">
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 mt-3">
+                            <label for="title" class="form-label">عنوان</label>
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="description" class="form-label">توضیحات</label>
+                            <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="project_id" class="form-label">والد</label>
+
+                            <select class="form-select" id="project_id" name="project_id">
+
                             </select>
                         </div>
-                    </div>
-                    <div class="row p-2">
-                        <div class="col-md-6">
+                        <div class="mb-3 mt-3">
                             <div class="row">
-                                <x-label class="col-sm-5 col-form-label"  for="start_date" :value="__('زمان شروع')" />
-                                <div class="col-md-7">
-                                    <x-input id="start_date" class="form-control" type="text" name="start_date"  />
+
+                                <div class="col-md-6">
+                                    <label for="start_date" class="form-label">زمان شروع</label>
+                                    <input type="text" class="form-control" id="start_date" name="start_date">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <x-label class="col-sm-5 col-form-label"  for="end_date_pre" :value="__('تخمین پایان')" />
-                                <div class="col-md-7">
-                                    <x-input id="end_date_pre" class="form-control" type="text" name="end_date_pre" max-length="10"  />
+                                <div class="col-md-6">
+                                    <label for="end_date" class="form-label">زمان پایان</label>
+                                    <input type="text" class="form-control" id="end_date" name="end_date">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <x-label class="col-sm-2 col-form-label" for="description" :value="__('توضیحات')" />
-                        <div class="col-md-10">
-                            <x-input id="descriptionProject" class="form-control" type="text" name="descriptionProject" />
-                        </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" id="submit-form" class="btn btn-success"
+                            data-bs-dismiss="modal">افزودن</button>
                     </div>
-
-
                 </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnAddProject" data-id="">ثبت</button>
-                <button type="button" class="btn btn-secondary close-mdl" data-bs-dismiss="modal">انصراف</button>
-            </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" tabindex="-1" aria-labelledby="mdlAddUsersModalLabel" aria-hidden="true" id="mdlAddUsers">
+
+    <div class="modal fade" id="add_users">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">افزودن اعضا <span class="title-project"  style="font-size: 1.25rem; color: var(--mdb-teal); font-weight:900"></span></h5>
-                <button type="button" class="btn-close close-mdl" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="{{ route('register') }}">
-                        @csrf
 
-                        <div class="row">
-                            <div class="col-md-10">
-                                <table id="tbl-user" class="table table-striped table-bordered" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>شناسه</th>
-                                            <th>مدیر</th>
-                                            <th>مالک</th>
-                                            <th>اعضا</th>
-                                            <!-- <th>سمت</th> -->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal_title">افزودن کاربرها </h4>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" action="post" id="add_users_form">
 
-                                    </tbody>
-                                </table>
-                            </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table id="tbl_users" class="table table-bordered table-striped" style="width: 100%">
+                                <thead>
+                                    <th></th>
+                                    <th>مالک</th>
+                                    <th>مدیر</th>
+                                    <th>اعضا </th>
+                                    <th>نام و نام خانوادگی</th>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
 
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" id="submit-form" class="btn btn-success"
+                            data-bs-dismiss="modal">افزودن</button>
+                    </div>
                 </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnAddUser" data-id="">ثبت</button>
-                <button type="button" class="btn btn-secondary close-mdl" data-bs-dismiss="modal">انصراف</button>
-            </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" tabindex="-1" aria-labelledby="mdlAddParentProjectModalLabel" aria-hidden="true" id="mdlAddParentProject">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">افزودن پروژه ارشد</h5>
-                <button type="button" class="btn-close close-mdl" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="POST">
-                        @csrf
-
-                        <div class="row">
-                            <div class="col-md-10">
-                                <select class="selectpicker" data-live-search="true" id="parent-level"> </select>
-
-                            </div>
-                        </div>
-
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnAddParentProject" data-id="">ثبت</button>
-                <button type="button" class="btn btn-secondary close-mdl" data-bs-dismiss="modal">انصراف</button>
-            </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" tabindex="-1" aria-labelledby="mdlAddTaskProjectModalLabel" aria-hidden="true" id="mdlAddTaskProject">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">افزودن فعالیت کاربران پروژه <span class="title-project" style="font-size: 1.25rem; color: var(--mdb-teal); font-weight:900"></span></h5>
-                <button type="button" class="btn-close close-mdl" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" id="frmTaskProject">
-                    @csrf
 
-                    <div class="row p-2">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <x-label class="col-sm-2 col-form-label" for="title" :value="__('عنوان')" />
-                                <div class="col-md-10">
-                                    <x-input id="title_task" class="form-control" type="text" name="title_task"  />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row p-2">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <x-label class="col-sm-4 col-form-label"  for="start_date" :value="__('شروع')" />
-                                <div class="col-md-7">
-                                    <x-input id="start_date_task" class="form-control" type="text" name="start_date_task"  />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <x-label class="col-sm-5 col-form-label"  for="end_date" :value="__('تخمین پایان')" />
-                                <div class="col-md-7">
-                                    <x-input id="end_date_task" class="form-control" type="text" name="end_date_task" max-length="10"  />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row p-2">
-
-                        <div class="col-md-8">
-                            <div class="row">
-                                <x-label class="col-sm-3 col-form-label" for="project_id" :value="__('کاربر')" />
-                                <div class="col-md-9">
-                                    <select class="selectpicker" data-live-search="true"  name="userid_task"  id="userid_task">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row p-2">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <x-label class="col-sm-2 col-form-label" for="description" :value="__('توضیحات')" />
-                                <div class="col-md-10">
-                                    <x-input id="description_task" class="form-control" type="text" name="description_task" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnAddTaskProject" data-id="">ثبت</button>
-                <button type="button" class="btn btn-secondary close-mdl" data-bs-dismiss="modal">انصراف</button>
-            </div>
-            </div>
-        </div>
-    </div>
-@stop
-
-@section('scripts')
-    <script> var _role = "<?php
-
-        use Illuminate\Support\Facades\Auth;
-
-        echo Auth::user()->role; ?>" ;
-    </script>
-    <script>
-        var myModalUser = new bootstrap.Modal(document.getElementById('mdlAddUsers'), {});
-        var myModalParentProject = new bootstrap.Modal(document.getElementById('mdlAddParentProject'), {});
-        var myModalTaskProject = new bootstrap.Modal(document.getElementById('mdlAddTaskProject'), {});
-        var myModalProject = new bootstrap.Modal(document.getElementById('mdlAddProject'), {});
-    </script>
-   <script src="{{ asset('/js/pages/project.js') }}"></script>
 @endsection
+@section('scripts')
+    <script>
+        var auth_id = {{ Auth::id() }};
+    </script>
+    <script src="{{ asset('js/general/functions.js') }}"></script>
 
+    <script src="{{ asset('js/general/toastr_option.js') }}"></script>
+
+
+
+    <script>
+        $(document).ready(function() {
+            $("#start_date, #end_date").pDatepicker({
+                format: "YYYY/MM/DD",
+                autoClose: true,
+                onSelect: function() {}
+
+            });
+            $("#start_date, #end_date").val("");
+            var clickButtonID;
+            var columns = [{
+                    title: 'ردیف',
+                    "defaultContent": "-",
+                },
+                {
+                    data: 'title'
+                },
+                {
+                    data: 'description'
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return data['parent'] ? data['parent']['title'] : '-';
+
+                    }
+
+                },
+
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return covertGregorianToJalali(data['start_date']);
+
+                    },
+
+                    "visible": true,
+                    responsivePriority: 2,
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return covertGregorianToJalali(data['end_date']);
+
+                    },
+                    "visible": true,
+                    responsivePriority: 2,
+                },
+                {
+                    responsivePriority: 0,
+                    data: null,
+                    title: "تنظیمات",
+                    className: "center",
+                    defaultContent: '<div class="dropdown dropstart">' +
+                        '<button type="button" class="btn btn-link text-black-50 " data-bs-toggle="dropdown" style="content: none;">' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">' +
+                        '<path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>' +
+                        '</svg>' +
+                        '</button>' +
+                        '<ul class="dropdown-menu border">' +
+                        '<li><a class="dropdown-item delete" style="cursor:pointer">حذف</a></li>' +
+                        '<li><a class="dropdown-item edit"  style="cursor:pointer">ویرایش</a></li>' +
+                        '<li><a class="dropdown-item users" style="cursor:pointer">کاربر ها</a></li>' +
+                        '<li><a class="dropdown-item requirements" style="cursor:pointer">نیازمندی ها</a></li>' +
+                        '<li><a class="dropdown-item phases" style="cursor:pointer">فاز ها</a></li>' +
+
+                        '</ul>' +
+                        '</div>'
+                }
+
+            ];
+
+
+
+            var userColumns = [{
+                    title: 'ردیف',
+                    "defaultContent": "-",
+                },
+                {
+                    data: null,
+                    render:function(data,type,row){
+                        return '<input type="radio" class="form-check-input" id="owner'+data['id']+'" name="owner" value="'
+                        +data['id']+'" >';
+                    }
+                },
+                {
+                    data: null,
+                    render:function(data,type,row){
+                        return '<input type="radio" class="form-check-input" id="admin'+data['id']+'" name="admin" value="'
+                        +data['id']+'" >';
+                    }
+                },
+                {
+                    data: null,
+                    render:function(data,type,row){
+                        return '<input type="checkbox" class="form-check-input" id="developer'+data['id']+'" name="developer[]" value="'
+                        +data['id']+'" >';
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return data['fname'] + ' ' + data['lname'];
+                    }
+                },
+
+
+            ];
+
+
+
+
+            var table =
+                datatable('#tbl_projects',
+                    '{{ route('projects.index') }}',
+                    columns, false);
+
+
+
+            $('#create_update').submit(function(event) {
+                event.preventDefault();
+                submit_form('#create_update', clickButtonID,
+                        '{{ route('projects.store') }}')
+                    .then(function(res) {
+                        toastr['success'](res.message);
+                        $('#add_projects').modal('hide');
+                        table.ajax.reload();
+                    }).catch(function(res) {
+                        showErrors(res.responseJSON.errors);
+                    });
+            });
+
+
+
+
+            $('#add_users_form').submit(function(event) {
+                event.preventDefault();
+console.log(clickButtonID)
+                ajaxfunc('/projects/'+clickButtonID+'/add-users','POST',$(this).serialize());
+
+                console.log($('#add_users_form').serialize())
+            });
+
+
+            $(document).on('click', '.delete', function(event) {
+                var id = $(this).attr('data-id');
+                var url = "{{ route('projects.store') }}" + '/' + id;
+                Swal.fire({
+                    text: "می خواهید رکورد مورد نظر حذف شود ؟",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله می خواهم'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        ajaxfunc(url, 'DELETE', '').then(function(res) {
+                            toastr['warning'](res.message);
+                            table.ajax.reload();
+                        }).catch(function(res) {
+                            toastr['error'](res.responseJSON.message);
+                        })
+
+
+
+                    }
+                })
+            })
+
+
+            $(document).on('click', '.edit', function(event) {
+                clickButtonID = $(this).attr('data-id');
+                ajaxfunc('{{ route('projects.store') }}' + '/' + clickButtonID,
+                        'GET', '').then(function(res) {
+                        if (res.message) {
+                            toastr['success'](res.message)
+                        }
+                        $('#title').val(res.title);
+                        $('#description').val(res.description);
+                        $('#start_date').val(covertGregorianToJalali(res.start_date));
+                        getProjectForParentSelect();
+                        $('#end_date').val(covertGregorianToJalali(res.end_date));
+                        $('#add_projects').modal('show');
+                    })
+                    .catch(function(res) {
+                        // toastr['error'](res.responseJSON.message);
+
+                    })
+
+
+
+
+            });
+
+            $('#create_button').click(function() {
+                clickButtonID = undefined;
+                removeIDValues('#create_update');
+                getProjectForParentSelect();
+
+                $('#add_projects').modal('show');
+
+            })
+
+
+            $(document).on('click', '.tasks', function(e) {
+                let data_id = $(this).attr("data-id");
+                window.location = '/sprints/' + data_id + '/tasks';
+            })
+
+            $(document).on('click', '.phases', function(e) {
+                let data_id = $(this).attr("data-id");
+                window.location = '/projects/' + data_id + '/phases';
+
+            });
+
+            $(document).on('click', '.requirements', function(e) {
+                let data_id = $(this).attr("data-id");
+                window.location = '/projects/' + data_id + '/requirements';
+
+            });
+
+
+            $(document).on('click', '.users', function() {
+                clickButtonID = $(this).attr("data-id");
+                datatable('#tbl_users',
+                    '{{ route('projects.getUsers') }}',
+                    userColumns, false);
+                $('#add_users').modal('show')
+            })
+
+
+
+            function getProjectForParentSelect() {
+                ajaxfunc("{{ route('projects.getAll') }}", "GET", "")
+                    .then(function(res) {
+                        options = '<option value="0">اصلی</option>';
+                        res.forEach(project => {
+                            options += '<option value="' + project.id + '">' + project.title +
+                                '</option>'
+                        });
+                        $('#project_id').empty();
+                        $('#project_id').append(options);
+                    }).catch(function(res) {
+
+                    })
+            }
+
+
+        });
+    </script>
+@endsection
