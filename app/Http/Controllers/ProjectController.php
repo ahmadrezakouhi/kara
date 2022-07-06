@@ -39,6 +39,15 @@ class ProjectController extends Controller
         return response()->json($projects);
     }
 
+
+    public function getProjectUsers(Project $project){
+
+        return response()->json($project->users);
+
+
+
+    }
+
     public function getUsers(Request $request)
     {
         $users = User::select('id', 'fname', 'lname')->get();
@@ -84,6 +93,8 @@ class ProjectController extends Controller
 
         $project->users()->wherePivot('owner', 0)
             ->wherePivot('admin', 0)->wherePivot('developer', 0)->detach();
+
+            return response()->json(['message'=>'کاربرهابه این پروژه افزوده شد.']);
     }
 
 

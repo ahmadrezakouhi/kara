@@ -163,7 +163,7 @@
 
             });
             $("#start_date, #end_date").val("");
-            var clickButtonID;
+            var clickButtonID, projectUsers, userTable;
             var columns = [{
                     title: 'ردیف',
                     "defaultContent": "-",
@@ -234,23 +234,48 @@
                 },
                 {
                     data: null,
-                    render:function(data,type,row){
-                        return '<input type="radio" class="form-check-input" id="owner'+data['id']+'" name="owner" value="'
-                        +data['id']+'" >';
+                    render: function(data, type, row) {
+                      var project_user = projectUsers.find(function (element) {
+                            return element.id == data['id']
+                        })
+                        var checked = '';
+                        if(project_user && project_user.id== data['id'] && project_user.pivot.owner){
+                            checked = 'checked';
+                        }
+                        return '<input type="radio" class="form-check-input" id="owner' + data['id'] +
+                            '" name="owner" value="' +
+                            data['id'] + '"'+checked+'>';
+
                     }
                 },
                 {
                     data: null,
-                    render:function(data,type,row){
-                        return '<input type="radio" class="form-check-input" id="admin'+data['id']+'" name="admin" value="'
-                        +data['id']+'" >';
+                    render: function(data, type, row) {
+                        var project_user = projectUsers.find(function (element) {
+                            return element.id == data['id']
+                        })
+                        var checked = '';
+                        if(project_user && project_user.id== data['id'] && project_user.pivot.admin){
+                            checked = 'checked';
+                        }
+                        return '<input type="radio" class="form-check-input" id="admin' + data['id'] +
+                            '" name="admin" value="' +
+                            data['id'] + '" '+checked+'>';
                     }
                 },
                 {
                     data: null,
-                    render:function(data,type,row){
-                        return '<input type="checkbox" class="form-check-input" id="developer'+data['id']+'" name="developer[]" value="'
-                        +data['id']+'" >';
+                    render: function(data, type, row) {
+                        var project_user = projectUsers.find(function (element) {
+                            return element.id == data['id']
+                        })
+                        var checked = '';
+                        if(project_user && project_user.id== data['id'] && project_user.pivot.developer){
+                            checked = 'checked';
+                        }
+                        return '<input type="checkbox" class="form-check-input" id="developer' + data[
+                            'id'] + '" name="developer[]" value="' +
+                            data['id'] + '"'+checked+'>';
                     }
                 },
                 {
@@ -291,10 +316,18 @@
 
             $('#add_users_form').submit(function(event) {
                 event.preventDefault();
-console.log(clickButtonID)
-                ajaxfunc('/projects/'+clickButtonID+'/add-users','POST',$(this).serialize());
 
-                console.log($('#add_users_form').serialize())
+                ajaxfunc('/projects/' + clickButtonID + '/add-users', 'POST', $(this).serialize())
+                .then(function(res){
+                    toastr['success'](res.message);
+                })
+                .catch(function(res){
+
+                });
+                $('#add_users').modal('hide');
+
+
+
             });
 
 
@@ -379,9 +412,21 @@ console.log(clickButtonID)
 
             $(document).on('click', '.users', function() {
                 clickButtonID = $(this).attr("data-id");
-                datatable('#tbl_users',
+                if (userTable) {
+                    userTable.destroy();
+                }
+                ajaxfunc("projects/" + clickButtonID + '/getProjectUsers', 'GET', '')
+                    .then(function(res) {
+                        projectUsers = res;
+
+                    })
+                    .catch();
+                    $("input").prop("checked", true)
+                userTable = datatable('#tbl_users',
                     '{{ route('projects.getUsers') }}',
                     userColumns, false);
+                    // $('input[type="checkbox"]').prop('checked',true)
+
                 $('#add_users').modal('show')
             })
 
