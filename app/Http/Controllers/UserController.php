@@ -48,29 +48,31 @@ class UserController extends Controller
             3 => 'email',
             4 => 'status',
         );
-        $queryFiltered = DB::table('users');
-        // var_dump(Auth::user()->id);exit();
-        if (Gate::allows('isAdmin') || Gate::allows('isUser')) {
-            $queryFiltered =  $queryFiltered->where('id', Auth::user()->id);
-        }
+        // $queryFiltered = DB::table('users');
+        // // var_dump(Auth::user()->id);exit();
+        // if (Gate::allows('isAdmin') || Gate::allows('isUser')) {
+        //     $queryFiltered =  $queryFiltered->where('id', Auth::user()->id);
+        // }
 
-        $recordsTotal = $queryFiltered->count();
-        if (isset($request['sf'])) {
-            if ($request['sf']['search-mobile'] != '')
-                $queryFiltered =  $queryFiltered->where('mobile', $request['sf']['search-mobile']);
-            if ($request['sf']['search-name'] != '') {
-                $queryFiltered =  $queryFiltered->where('fname', 'like', '%' . $request['sf']['search-name'] . '%');
-                $queryFiltered =  $queryFiltered->where('lname', 'like', '%' .   $request['sf']['search-name'] . '%');
-            }
-        }
-        $recordsFiltered = $queryFiltered->count();
-        $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']], $request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+        // $recordsTotal = $queryFiltered->count();
+        // if (isset($request['sf'])) {
+        //     if ($request['sf']['search-mobile'] != '')
+        //         $queryFiltered =  $queryFiltered->where('mobile', $request['sf']['search-mobile']);
+        //     if ($request['sf']['search-name'] != '') {
+        //         $queryFiltered =  $queryFiltered->where('fname', 'like', '%' . $request['sf']['search-name'] . '%');
+        //         $queryFiltered =  $queryFiltered->where('lname', 'like', '%' .   $request['sf']['search-name'] . '%');
+        //     }
+        // }
+        // $recordsFiltered = $queryFiltered->count();
+        // $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']], $request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
+            $users = User::all();
+            $recordsTotal = $users->count();
 
         $json_data = array(
             "draw" => intval($_REQUEST['draw']),
             "recordsTotal" => intval($recordsTotal),
-            "recordsFiltered" => intval($recordsFiltered),
-            "data" => $data
+            "recordsFiltered" => intval(2),
+            "data" => $users
         );
         return response()->json($json_data);
         // echo json_encode($json_data);

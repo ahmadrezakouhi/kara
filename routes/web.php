@@ -61,6 +61,9 @@ Route::middleware('auth', 'role:manager')->group(function () {
         Route::get('getProjects', [ProjectController::class, 'getProjects'])
             ->name('projects.getAll');
 
+        Route::get('{project}/getProjectUsers', [ProjectController::class, 'getProjectUsers'])
+            ->name('projects.getProjectUsers');
+
         Route::get('getUsers', [ProjectController::class, 'getUsers'])
             ->name('projects.getUsers');
 
