@@ -45,7 +45,8 @@ class ProjectPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdmin() ?
+        Response::allow():Response::deny('مجوز ایجاد پروژه برای شما وجود ندارد');
     }
 
     /**
@@ -55,10 +56,11 @@ class ProjectPolicy
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Project $project)
+    public function update(User $user)
     {
         //
-        return $user->id === $project->user_id;
+        return $user->isAdmin() ?
+        Response::allow() : Response::deny('دسترسی ادیت پروژه وجود ندارد.');
     }
 
     /**
@@ -72,7 +74,7 @@ class ProjectPolicy
     {
 
 
-        if($user->id != $project->user_id){
+        if(!$user->isAdmin()){
             return Response::deny('امکان حذف پروژه وجود ندارد.');
         }
 
@@ -105,5 +107,10 @@ class ProjectPolicy
     public function forceDelete(User $user, Project $project)
     {
         //
+    }
+
+    public function addUser($user){
+        return $user->isAdmin() ?
+        Response::allow() : Response::deny('دسترسی افزودن کاربر برای پروژه را ندارید.');
     }
 }
