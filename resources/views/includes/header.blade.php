@@ -20,78 +20,32 @@
                                 </li>
                             @endif
         @else -->
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">خانه</a>
-        </li>
-        @if(Gate::check('isAdmin') || Gate::check('isManager')  || Gate::check('isUser'))
+
+        @can('isAdmin')
         <li class="nav-item dropdown">
           <a class="nav-link " aria-current="page" href="{{ route('user.index') }}">
           کاربران
           </a>
 
         </li>
-        @if(Gate::check('isAdmin') || Gate::check('isManager') )
+        @endcan
+        @if(Auth::check())
         <li class="nav-item ">
           <a class="nav-link " aria-current="page" href="{{ route('projects.index') }}">
           پروژه ها
           </a>
-          {{-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{{ URL::to('project') }}" >همه</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item"  href="{{ URL::to('project/create') }}">ایجاد</a></li>
-          </ul> --}}
-        </li>
-        @endif
-        {{-- @if(Gate::check('isManager') )
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{{ URL::to('taskTitle') }}">دسته بندی فعالیت</a>
-        </li>
-        @endif --}}
-        {{-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          فعالیت ها
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{{ URL::to('task') }}" >همه</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item"  href="{{ URL::to('task/create') }}">ایجاد</a></li>
-          </ul>
-        </li> --}}
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          کارمندان
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{{ URL::to('personnel') }}" >همه</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item"  href="{{ URL::to('personnel/create') }}">ایجاد</a></li>
-          </ul>
-        </li> -->
-        @else(Gate::check('isUser'))
-        <li class="nav-item">
-          <a class="nav-link" href="{{ URL::to('personnel') }}" >کارمند</a>
+
         </li>
         @endif
 
-        <!-- @endguest -->
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li> -->
-        {{-- @can('isUser') --}}
+
+
+
+         @endguest
+
+        @if(Auth::check())
+
+
         <li class="nav-item">
             <a class="nav-link " aria-current="page" href="{{ route('phases.owner') }}">فازها</a>
           </li>
@@ -107,8 +61,10 @@
 
 
         <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="{{ route('tasks.task-board') }}">تسک بورد</a>
+            <a class="nav-link " aria-current="page" href="{{ route('tasks.task-board') }}">کارتاپل</a>
           </li>
+
+          @endif
           {{-- @endcan --}}
 
 
@@ -135,11 +91,11 @@
         <li class="dropdown-item">
           <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <x-responsive-nav-link class="dropdown-item text-right" :href="route('logout')"
+            <li class="dropdown-item " :href="route('logout')"
                     onclick="event.preventDefault();
                                 this.closest('form').submit();">
                 خروج
-            </x-responsive-nav-link>
+          </li>
           </form>
         </li>
 
