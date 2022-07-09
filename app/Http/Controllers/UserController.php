@@ -265,7 +265,9 @@ class UserController extends Controller
                 $user->role        = $request->role;
                 $user->background_color = $request->background_color;
                 $user->text_color = $request->text_color;
+                if($request->changePassword){
                 $user->password         =  Hash::make($request->password);
+                }
                 $user->save();
 
                 // redirect
