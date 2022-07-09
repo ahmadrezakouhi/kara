@@ -18,10 +18,12 @@
                 <table id="tbl_sprints" class="table table-bordered table-striped">
                     <thead>
                         <th></th>
+                        <th>پروژه</th>
+                        <th>فاز</th>
                         <th>عنوان</th>
                         <th>توضیحات</th>
-                        <th>عنوان فاز</th>
-                        <th>عنوان پروژه</th>
+
+
 
                         <th>مدیر پروژه</th>
                         <th>وضعیت</th>
@@ -61,16 +63,16 @@
                     "defaultContent": "-",
                 },
                 {
-                    data: 'title'
-                },
-                {
-                    data: 'description'
+                    data: 'phase.project.title'
                 },
                 {
                     data: 'phase.title'
                 },
                 {
-                    data: 'phase.project.title'
+                    data: 'title'
+                },
+                {
+                    data: 'description'
                 },
 
                 {
@@ -105,7 +107,7 @@
                 {
                     data: null,
                     render: function(data, type, row) {
-                        return covertJalaliToGregorian(data['start_date']);
+                        return covertGregorianToJalali(data['start_date']);
 
                     },
                     "visible": true,
@@ -114,7 +116,7 @@
                 {
                     data: null,
                     render: function(data, type, row) {
-                        return covertJalaliToGregorian(data['end_date']);
+                        return covertGregorianToJalali(data['end_date']);
 
                     },
                     "visible": true,
