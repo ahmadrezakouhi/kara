@@ -42,6 +42,7 @@
         $(document).ready(function() {
             var url = '/tasks/task-board'
             ajaxfunc(url, 'GET', '').then(function(res) {
+
                 res.forEach(element => {
 
                     var $li =
@@ -80,18 +81,18 @@
                         '<div class="content" style="display:none ;">' +
                         '<div class="d-flex justify-content-between">' +
                         '<p class="persian">زمان ورود به صف انتظار</p>' +
-                        '<p class="persian text-center todo_date">' + covertJalaliToGregorian(
+                        '<p class="persian text-center todo_date">' + covertGregorianToJalali(
                             element
                             .todo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
                         '<p class="persian">زمان ورود به صف در حال انجام</p>' +
-                        '<p class="persian text-center indo_date">' + covertJalaliToGregorian(
+                        '<p class="persian text-center indo_date">' + covertGregorianToJalali(
                             element.indo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
                         '<p class="persian">زمان پایان</p>' +
-                        '<p class="persian text-center done_date">' + covertJalaliToGregorian(
+                        '<p class="persian text-center done_date">' + covertGregorianToJalali(
                             element.done_date) + '</p>' +
                         '</div>' +
                         '<hr>' +
@@ -118,8 +119,8 @@
 
 
                         '</div>' +
-                        '</li>'
-                    var target = ''
+                        '</li>';
+                    var target = '';
                     if (element.status == 0) {
                         target = '#todo';
                     } else if (element.status == 1) {
@@ -131,6 +132,7 @@
                     }
                     $(target).append($li);
 
+
                     if(target != '#indo' || element.user_id != {{ Auth::id() }}){
                         var $paly_pause_button = $(target).find('.play-pause');
                         $paly_pause_button.remove();
@@ -139,7 +141,7 @@
                 });
             }).catch(function(res) {
 
-            })
+            });
             $('.sortable').sortable({
                 start: function(event, ui) {
 
@@ -279,9 +281,9 @@
                     'top': '',
                     'z-index': ''
                 });
-                $item.find('.indo_date').text(covertJalaliToGregorian(res
+                $item.find('.indo_date').text(covertGregorianToJalali(res
                     .indo_date));
-                $item.find('.done_date').text(covertJalaliToGregorian(res
+                $item.find('.done_date').text(covertGregorianToJalali(res
                     .done_date));
                 if ($target.attr('id') == 'done') {
                     removeNextLevelButton($item);

@@ -43,11 +43,13 @@ class PhaseController extends Controller
                 }])
                 ->get();
             }else{
-                $phases = $user->phases()->
-                select('id','title','description','project_id','start_date','end_date')
-                ->with(['project:id,title','project.users'=>function($query){
-                    return $query->where('admin','1')->select('fname','lname');
-                }]);
+                $phases = [];
+                foreach($user->projects as $project){
+                    $phases[]=$project->phases()->with(['project:id,title','project.users'=>function($query){
+                        return $query->where('admin','1')->select('fname','lname');
+                    }])->get();
+                }
+                $phases = collect($phases)->collapse();
             }
 
 
@@ -73,12 +75,12 @@ class PhaseController extends Controller
      */
     public function store(PhaseRequest $request, $phase_id = null)
     {
-
         if ($phase_id) {
             $phase = Phase::findOrFail($phase_id);
+
             $response = Gate::inspect('update', $phase);
         } else {
-            $response = Gate::inspect('create', Phase::class);
+            $response = Gate::inspect('create', [Phase::class,$request->project_id]);
         }
 
         if (!$response->allowed()) {

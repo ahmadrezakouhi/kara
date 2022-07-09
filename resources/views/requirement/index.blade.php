@@ -146,8 +146,7 @@
                 {
                     data: null,
                     render: function(data, type, row) {
-                        return moment(data["created_at"], 'YYYY-M-D HH:mm:ss').format(
-                            'jYYYY/jMM/jDD');
+                        return covertGregorianToJalali(data['created_at']);
 
                     },
                     "visible": true,
@@ -187,7 +186,9 @@
 
             $('#create_update').submit(function(event) {
                 event.preventDefault();
-                submit_form(this, clickButtonID, '{{ route('projects.requirements.store') }}', )
+                console.log('hi')
+                submit_form('#create_update', clickButtonID,
+                '{{ route("projects.requirements.store") }}')
                     .then(function(res) {
                         $('#add_requirements').modal('hide');
                         toastr['success'](res.message);
@@ -195,6 +196,8 @@
                     }).catch(function(res) {
                         showErrors(res.responseJSON.errors);
                     });
+
+
             })
 
 

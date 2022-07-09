@@ -56,7 +56,7 @@
                 </div>
 
                 <div id="preview" class="d-flex justify-content-center align-items-center rounded"
-                style="font-size: 20px;width:30px;height:30px;background:{{ Auth::user()->background_color }};color:{{ Auth::user()->text_color }}">
+                style="font-size: 20px;width:30px;height:30px;background:{{ $user->background_color }};color:{{ $user->text_color }}">
                     A
                 </div>
 
@@ -113,9 +113,10 @@
                 @endif
                 <div class="row">
                     <div class="form-check my-3">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" name="changePassword"> تغییر رمز
-                        </label>
+
+                          <input class="form-check-input" type="checkbox"
+                          name="changePassword" id="changePassword" checked>
+                          <label class="form-check-label">تغییر رمز</label>
                       </div>
                 </div>
                 <div class="col-md-3 password">
@@ -125,12 +126,12 @@
                             <x-input id="password" class="form-control"
                                         type="password"
                                         name="password"
-                                        required autocomplete="new-password" />
+                                         autocomplete="new-password" />
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 password">
                     <div class="row">
                         <x-label class="col-sm-3 col-form-label"  for="password_confirmation" :value="__('تکرار رمز ')" />
                         <div class="col-md-9">
@@ -161,6 +162,15 @@
         $('#background_color').keyup(function(){
             $('#preview').css('background',$(this).val())
             console.log($(this).val())
+        });
+
+        $('#changePassword').change(function(){
+            if(this.checked){
+                $('.password').css('display','block');
+            }else{
+                $('.password').css('display','none');
+
+            }
         });
     })
    </script>

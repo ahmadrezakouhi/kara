@@ -59,7 +59,8 @@
                     "defaultContent": "-",
                 },
                 {
-                    data: 'project.title'
+                    data: 'project.title',
+
                 },
                 {
                     data: 'title'
@@ -84,7 +85,7 @@
                 {
                     data: null,
                     render: function(data, type, row) {
-                        return covertJalaliToGregorian(data['start_date']);
+                        return covertGregorianToJalali(data['start_date']);
 
                     },
                     "visible": true,
@@ -93,7 +94,7 @@
                 {
                     data: null,
                     render: function(data, type, row) {
-                        return covertJalaliToGregorian(data['end_date']);
+                        return covertGregorianToJalali(data['end_date']);
 
                     },
                     "visible": true,

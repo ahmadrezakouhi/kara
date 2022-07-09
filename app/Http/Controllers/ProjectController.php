@@ -18,8 +18,13 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
         if ($request->ajax()) {
-            $projects = Project::select('id', 'project_id', 'title', 'description', 'start_date', 'end_date')->with('parent:id,title')->get();
+            if ($user->isAdmin()) {
+                $projects = Project::select('id', 'project_id', 'title', 'description', 'start_date', 'end_date')->with('parent:id,title')->get();
+            } else {
+                $projects = $user->projects()->with('parent:id,title')->without('pivot')->get();
+            }
             $recordTotal = $projects->count();
             $data = array(
                 "draw" => intval($request['draw']),
@@ -40,12 +45,10 @@ class ProjectController extends Controller
     }
 
 
-    public function getProjectUsers(Project $project){
+    public function getProjectUsers(Project $project)
+    {
 
         return response()->json($project->users);
-
-
-
     }
 
     public function getUsers(Request $request)
@@ -94,7 +97,7 @@ class ProjectController extends Controller
         $project->users()->wherePivot('owner', 0)
             ->wherePivot('admin', 0)->wherePivot('developer', 0)->detach();
 
-            return response()->json(['message'=>'کاربرهابه این پروژه افزوده شد.']);
+        return response()->json(['message' => 'کاربرهابه این پروژه افزوده شد.']);
     }
 
 

@@ -6,7 +6,7 @@
         <div class="mt-3 mt-3 shadow-sm border p-3 d-flex align-items-center rounded">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item " aria-current="page" ><a href="{{ route('project.index') }}">پروژه ها</a></li>
+                    <li class="breadcrumb-item " aria-current="page" ><a href="{{ route('projects.index') }}">پروژه ها</a></li>
                   <li class="breadcrumb-item"><a href="{{ route('projects.phases.index',$phase->project->id) }}"> {{ $phase->project->title }}</a></li>
                   <li class="breadcrumb-item active" aria-current="page">{{ $phase->title }}</li>
                 </ol>
@@ -146,8 +146,7 @@
                 {
                     data: null,
                     render: function(data, type, row) {
-                        return moment(data["start_date"], 'YYYY-M-D HH:mm:ss').format(
-                            'jYYYY/jMM/jDD');
+                        return covertGregorianToJalali(data['start_date']);
 
                     },
                     "visible": true,
@@ -156,8 +155,7 @@
                 {
                     data: null,
                     render: function(data, type, row) {
-                        return moment(data["end_date"], 'YYYY-M-D HH:mm:ss').format(
-                            'jYYYY/jMM/jDD');
+                        return covertGregorianToJalali(data['end_date']);
 
                     },
                     "visible": true,
@@ -213,8 +211,7 @@
             $(document).on('click', '.delete', function(event) {
                 var id = $(this).attr('data-id');
                 var url = "{{ route('phases.sprints.store') }}" + '/' + id;
-                // ajaxfunc(url, 'DELETE', '').then(function(res) {
-                //     toastr['success'](res.message)1
+
                 Swal.fire({
                     text: "می خواهید رکورد مورد نظر حذف شود ؟",
                     icon: 'warning',
@@ -253,8 +250,8 @@
                         $('#title').val(res['title']);
                         $('#description').val(res.description);
                         $('#duration').val(res.duration);
-                        $('#start_date').val(covertJalaliToGregorian(res.start_date));
-                        $('#end_date').val(covertJalaliToGregorian(res.end_date));
+                        $('#start_date').val(covertGregorianToJalali(res.start_date));
+                        $('#end_date').val(covertGregorianToJalali(res.end_date));
                         $('#add_requirements').modal('show');
                     })
                     .catch(function(res) {

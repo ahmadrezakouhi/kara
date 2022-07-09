@@ -14,10 +14,10 @@
                 <div class="d-flex justify-content-between">
                     <h2>لیست پروژه ها</h2>
 
-
-                    <button class="btn btn-success" id="create_button"> افزودن
-                        پروژه</button>
-
+                    @can('create',\App\Models\Project::class)
+                        <button class="btn btn-success" id="create_button"> افزودن
+                            پروژه</button>
+                    @endcan
                 </div>
 
 
@@ -214,12 +214,17 @@
                         '</svg>' +
                         '</button>' +
                         '<ul class="dropdown-menu border">' +
+
+
+                        @can('isAdmin')
                         '<li><a class="dropdown-item delete" style="cursor:pointer">حذف</a></li>' +
                         '<li><a class="dropdown-item edit"  style="cursor:pointer">ویرایش</a></li>' +
                         '<li><a class="dropdown-item users" style="cursor:pointer">کاربر ها</a></li>' +
+                        @endcan
+                        @can('isUser')
                         '<li><a class="dropdown-item requirements" style="cursor:pointer">نیازمندی ها</a></li>' +
                         '<li><a class="dropdown-item phases" style="cursor:pointer">فاز ها</a></li>' +
-
+                        @endcan
                         '</ul>' +
                         '</div>'
                 }
@@ -235,47 +240,47 @@
                 {
                     data: null,
                     render: function(data, type, row) {
-                      var project_user = projectUsers.find(function (element) {
+                        var project_user = projectUsers.find(function(element) {
                             return element.id == data['id']
                         })
                         var checked = '';
-                        if(project_user && project_user.id== data['id'] && project_user.pivot.owner){
+                        if (project_user && project_user.id == data['id'] && project_user.pivot.owner) {
                             checked = 'checked';
                         }
                         return '<input type="radio" class="form-check-input" id="owner' + data['id'] +
                             '" name="owner" value="' +
-                            data['id'] + '"'+checked+'>';
+                            data['id'] + '"' + checked + '>';
 
                     }
                 },
                 {
                     data: null,
                     render: function(data, type, row) {
-                        var project_user = projectUsers.find(function (element) {
+                        var project_user = projectUsers.find(function(element) {
                             return element.id == data['id']
                         })
                         var checked = '';
-                        if(project_user && project_user.id== data['id'] && project_user.pivot.admin){
+                        if (project_user && project_user.id == data['id'] && project_user.pivot.admin) {
                             checked = 'checked';
                         }
                         return '<input type="radio" class="form-check-input" id="admin' + data['id'] +
                             '" name="admin" value="' +
-                            data['id'] + '" '+checked+'>';
+                            data['id'] + '" ' + checked + '>';
                     }
                 },
                 {
                     data: null,
                     render: function(data, type, row) {
-                        var project_user = projectUsers.find(function (element) {
+                        var project_user = projectUsers.find(function(element) {
                             return element.id == data['id']
                         })
                         var checked = '';
-                        if(project_user && project_user.id== data['id'] && project_user.pivot.developer){
+                        if (project_user && project_user.id == data['id'] && project_user.pivot.developer) {
                             checked = 'checked';
                         }
                         return '<input type="checkbox" class="form-check-input" id="developer' + data[
-                            'id'] + '" name="developer[]" value="' +
-                            data['id'] + '"'+checked+'>';
+                                'id'] + '" name="developer[]" value="' +
+                            data['id'] + '"' + checked + '>';
                     }
                 },
                 {
@@ -318,12 +323,12 @@
                 event.preventDefault();
 
                 ajaxfunc('/projects/' + clickButtonID + '/add-users', 'POST', $(this).serialize())
-                .then(function(res){
-                    toastr['success'](res.message);
-                })
-                .catch(function(res){
+                    .then(function(res) {
+                        toastr['success'](res.message);
+                    })
+                    .catch(function(res) {
 
-                });
+                    });
                 $('#add_users').modal('hide');
 
 
@@ -415,17 +420,17 @@
                 if (userTable) {
                     userTable.destroy();
                 }
-                ajaxfunc("projects/" + clickButtonID + '/getProjectUsers', 'GET', '')
+                ajaxfunc("project/" + clickButtonID + '/getProjectUsers', 'GET', '')
                     .then(function(res) {
                         projectUsers = res;
 
                     })
                     .catch();
-                    $("input").prop("checked", true)
+                $("input").prop("checked", true)
                 userTable = datatable('#tbl_users',
                     '{{ route('projects.getUsers') }}',
                     userColumns, false);
-                    // $('input[type="checkbox"]').prop('checked',true)
+                // $('input[type="checkbox"]').prop('checked',true)
 
                 $('#add_users').modal('show')
             })

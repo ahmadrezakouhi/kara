@@ -29,8 +29,10 @@ use GuzzleHttp\Middleware;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect('login');
 });
+
+
 
 Route::middleware('auth', 'role:manager')->group(function () {
 
@@ -53,32 +55,7 @@ Route::middleware('auth', 'role:manager')->group(function () {
     // Route::post('/project/addParent', [ProjectController::class, "addParent"]);
     // Route::post('/project/addProject', [ProjectController::class, "addProject"]);
 
-    Route::prefix('projects')->group(function () {
 
-        Route::get('/', [ProjectController::class, 'index'])
-            ->name('projects.index');
-
-        Route::get('getProjects', [ProjectController::class, 'getProjects'])
-            ->name('projects.getAll');
-
-        Route::get('{project}/getProjectUsers', [ProjectController::class, 'getProjectUsers'])
-            ->name('projects.getProjectUsers');
-
-        Route::get('getUsers', [ProjectController::class, 'getUsers'])
-            ->name('projects.getUsers');
-
-        Route::post('{project?}', [ProjectController::class, 'store'])
-            ->name('projects.store');
-
-        Route::post('{project}/add-users', [ProjectController::class, 'addUsers'])
-            ->name('projects.addUsers');
-
-        Route::get('{project}', [ProjectController::class, 'edit'])
-            ->name('projects.edit');
-
-        Route::delete('{project}', [ProjectController::class, 'destroy'])
-            ->name('projects.destroy')->can('delete', 'project');
-    });
 
 
 
@@ -91,6 +68,30 @@ Route::middleware('auth', 'role:manager')->group(function () {
         Route::post('getUserByParentProject', [ProjectUserController::class, "getUserByParentProject"]);
         Route::post('getUserProjects', [ProjectUserController::class, "getUserProjects"]);
     });
+});
+
+
+
+
+Route::prefix('project')->group(function () {
+
+    Route::get('/', [ProjectController::class, 'index'])
+        ->name('projects.index');
+
+    Route::post('{project?}', [ProjectController::class, 'store'])
+        ->name('projects.store');
+
+    Route::get('getUsers',[ProjectController::class,'getUsers'])
+        ->name('projects.getUsers');
+
+    Route::get('getAll',[ProjectController::class,'getAll'])
+        ->name('projects.getAll');
+
+    Route::get('{project}/getProjectUsers',[ProjectController::class,'getProjectUsers'])
+        ->name('projects.getProjectUsers');
+
+    Route::get('{project}',[ProjectController::class,'edit'])
+        ->name('projects.edit');
 });
 
 // Route::get('/project', function () {
@@ -119,6 +120,14 @@ require __DIR__ . '/auth.php';
 
 Route::prefix('projects')->middleware('auth')->group(function () {
 
+
+
+
+
+
+
+
+
     Route::get('/{id}/requirements', [RequirementController::class, 'index'])
         ->name('projects.requirements.index')->can('viewAny', [Requirement::class, 'id']);
 
@@ -130,6 +139,8 @@ Route::prefix('projects')->middleware('auth')->group(function () {
 
     Route::get('/requirements/{requirement}', [RequirementController::class, 'edit'])
         ->name('projects.requirements.edit')->can('update', 'requirement');
+
+
 
 
     Route::get('/{id}/phases', [PhaseController::class, 'index'])
