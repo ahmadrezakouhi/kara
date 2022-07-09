@@ -13,6 +13,8 @@ class Project extends Model
 
     protected $with = ['parent'];
 
+    protected $hidden = ['pivot'];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

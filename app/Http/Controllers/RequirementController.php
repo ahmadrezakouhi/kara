@@ -49,9 +49,10 @@ class RequirementController extends Controller
         $inputs['project_id'] = $request->project_id;
         Requirement::updateOrCreate(['id' => $requirement_id], $inputs);
         if ($requirement_id) {
-            response()->json(['message' => 'نیازمندی مورد نظر ']);
+            response()->json(['message' => ' نیازمندی مورد نظر به روز شد.']);
         }
         return response()->json(['message' => 'نیازمندی جدید افزوده شد.']);
+
     }
 
     public function edit(Requirement $requirement)

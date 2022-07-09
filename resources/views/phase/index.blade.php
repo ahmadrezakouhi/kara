@@ -250,8 +250,9 @@
 
 
 
-                ajaxfunc('{{ route('projects.phases.store') }}' + '/' + clickButtonID,
+                ajaxfunc('{{ route("projects.phases.store") }}' + '/' + clickButtonID,
                         'GET', '').then(function(res) {
+
                         if (res.message) {
                             toastr['success'](res.message)
                         }
@@ -259,8 +260,8 @@
                         $('#title').val(res.title);
                         $('#description').val(res.description);
                         $('#duration').val(res.duration);
-                        $('#start_date').val(covertJalaliToGregorian(res.start_date));
-                        $('#end_date').val(covertJalaliToGregorian(res.end_date));
+                        $('#start_date').val(covertGregorianToJalali(res.start_date));
+                        $('#end_date').val(covertGregorianToJalali(res.end_date));
                         $('#add_requirements').modal('show');
                     })
                     .catch(function(res) {

@@ -6,7 +6,7 @@
         <div class="mt-3 mt-3 shadow-sm border p-3 d-flex align-items-center rounded">
             <nav aria-label="breadcrumb ">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('project.index') }}">پروژه ها</a></li>
+                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('projects.index') }}">پروژه ها</a></li>
                     <li class="breadcrumb-item"><a
                             href="{{ route('projects.phases.index', $sprint->phase->project->id) }}">پروژه
                             {{ $sprint->phase->project->title }}</a></li>
@@ -218,15 +218,12 @@
                         $('#add_requirements').modal('hide');
                         table.ajax.reload();
                     }).catch(function(res) {
-                        console.log(res)
-                        // if(res.responseJSON.message){
-                        //     toastr['error'](res.responseJSON.message);
-                        // }else{
+
                         var error = eval("(" + res.responseText + ")")
                         $.each(res.responseJSON.errors, function(index, value) {
                             toastr["error"](value);
                         })
-                    // }
+
                     });
             })
 
@@ -313,7 +310,7 @@
             $(document).on('click', '.sprints', (e) => {
                 let data_id = $(this).attr("data-id");
                 window.location = '/phases/' + data_id + '/sprints';
-                // console.log(data_id)
+                
             })
 
             $(document).on('change', 'input[type=radio][name=duration_picker]', function() {

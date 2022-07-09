@@ -74,7 +74,9 @@ class TaskController extends Controller
                 foreach($project->phases as $phase){
                     foreach($phase->sprints as $sprint){
                        foreach($sprint->tasks as $task){
+                        if($task->indo_date){
                         $tasks[]=$task;
+                        }
                        }
                     }
                 }
