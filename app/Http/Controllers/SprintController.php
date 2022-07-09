@@ -37,7 +37,7 @@ class SprintController extends Controller
     public function owner(Request $request)
     {
         $user = Auth::user();
-        // if ($request->ajax()) {
+        if ($request->ajax()) {
             if ($user->isAdmin()) {
                 $sprints = Sprint::select('title', 'description', 'start_date', 'end_date', 'phase_id')->with(
 
@@ -46,7 +46,18 @@ class SprintController extends Controller
                     }]
                 )->get();
             } else {
-                $sprints = $user->projects()->with('phases','phases.sprints')->get();
+                $sprints = [];
+                foreach ($user->projects as $project) {
+                    foreach ($project->phases as $phase) {
+                        $sprints[]=$phase->sprints()
+                        ->with(['phase.project:id,title',
+                        'phase.project.users'=>function($query){
+                            $query->where('admin',1);
+                        }])->get();
+                    }
+                }
+                $sprints = collect($sprints)->collapse();
+
             }
 
             $recordTotal = $sprints->count();
@@ -56,8 +67,8 @@ class SprintController extends Controller
                 "recordsFiltered" => intval(2),
                 "data" => $sprints
             );
-            return response()->json($sprints);
-        // }
+            return response()->json($data);
+        }
 
         return view('sprint.owner');
     }
