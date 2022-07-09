@@ -30,4 +30,14 @@ class ProjectRequest extends FormRequest
             'end_date'=>['required']
         ];
     }
+
+
+    public function messages(){
+        return [
+            'title.required'=>'فیلد عنوان الزامی می باشد.',
+            'description.required'=>'فیلد توضیحات الزامی می باشد.',
+            'start_date.required'=>'فیلد زمان شروع الزامی می باشد.',
+            'end_date.required'=>'فیلد زمان پایان الزامی می باشد.'
+        ];
+    }
 }
