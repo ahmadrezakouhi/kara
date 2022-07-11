@@ -81,20 +81,24 @@ Route::prefix('project')->group(function () {
     Route::post('{project?}', [ProjectController::class, 'store'])
         ->name('projects.store');
 
-    Route::get('getUsers',[ProjectController::class,'getUsers'])
+    Route::get('getUsers', [ProjectController::class, 'getUsers'])
         ->name('projects.getUsers');
 
-    Route::get('getAll',[ProjectController::class,'getAll'])
+
+    Route::get('getAll', [ProjectController::class, 'getAll'])
         ->name('projects.getAll');
 
-    Route::get('{project}/getProjectUsers',[ProjectController::class,'getProjectUsers'])
+    Route::get('{project}/getProjectUsers', [ProjectController::class, 'getProjectUsers'])
         ->name('projects.getProjectUsers');
 
-    Route::get('{project}',[ProjectController::class,'edit'])
+    Route::post('{project}/add-users', [ProjectController::class, 'addUsers'])
+        ->name('projects.addUsers');
+
+    Route::get('{project}', [ProjectController::class, 'edit'])
         ->name('projects.edit');
 
-    Route::delete('{project}',[ProjectController::class,'destroy'])
-        ->name('projects.destroy')->can('delete','project');
+    Route::delete('{project}', [ProjectController::class, 'destroy'])
+        ->name('projects.destroy')->can('delete', 'project');
 });
 
 // Route::get('/project', function () {

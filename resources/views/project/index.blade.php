@@ -10,7 +10,7 @@
                 <div class="d-flex justify-content-between">
                     <h2>لیست پروژه ها</h2>
 
-                    @can('create',\App\Models\Project::class)
+                    @can('create', \App\Models\Project::class)
                         <button class="btn btn-success" id="create_button"> افزودن
                             پروژه</button>
                     @endcan
@@ -32,8 +32,7 @@
                         <th>تاریخ پایان</th>
                         <th>
                         </th>
-                        {{-- <th>تاریخ ثبت</th>
-                        <th>مدیریت</th> --}}
+
 
                     </thead>
                     <tbody>
@@ -213,16 +212,16 @@
 
 
                         @can('isAdmin')
-                        '<li><a class="dropdown-item delete" style="cursor:pointer">حذف</a></li>' +
-                        '<li><a class="dropdown-item edit"  style="cursor:pointer">ویرایش</a></li>' +
-                        '<li><a class="dropdown-item users" style="cursor:pointer">کاربر ها</a></li>' +
+                            '<li><a class="dropdown-item delete" style="cursor:pointer">حذف</a></li>' +
+                            '<li><a class="dropdown-item edit"  style="cursor:pointer">ویرایش</a></li>' +
+                            '<li><a class="dropdown-item users" style="cursor:pointer">کاربر ها</a></li>' +
                         @endcan
-                        @can('isUser')
+                    @can('isUser')
                         '<li><a class="dropdown-item requirements" style="cursor:pointer">نیازمندی ها</a></li>' +
                         '<li><a class="dropdown-item phases" style="cursor:pointer">فاز ها</a></li>' +
-                        @endcan
-                        '</ul>' +
-                        '</div>'
+                    @endcan
+                    '</ul>' +
+                    '</div>'
                 }
 
             ];
@@ -318,7 +317,7 @@
             $('#add_users_form').submit(function(event) {
                 event.preventDefault();
 
-                ajaxfunc('/projects/' + clickButtonID + '/add-users', 'POST', $(this).serialize())
+                ajaxfunc('/project/' + clickButtonID + '/add-users', 'POST', $(this).serialize())
                     .then(function(res) {
                         toastr['success'](res.message);
                     })
@@ -419,16 +418,18 @@
                 ajaxfunc("project/" + clickButtonID + '/getProjectUsers', 'GET', '')
                     .then(function(res) {
                         projectUsers = res;
+                        userTable = datatable('#tbl_users',
+                            '{{ route('projects.getUsers') }}',
+                            userColumns, false);
 
+
+                        $('#add_users').modal('show')
                     })
-                    .catch();
-                $("input").prop("checked", true)
-                userTable = datatable('#tbl_users',
-                    '{{ route('projects.getUsers') }}',
-                    userColumns, false);
-                // $('input[type="checkbox"]').prop('checked',true)
+                    .catch(function(res) {
 
-                $('#add_users').modal('show')
+                    });
+
+
             })
 
 
