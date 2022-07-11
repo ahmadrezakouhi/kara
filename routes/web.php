@@ -92,6 +92,9 @@ Route::prefix('project')->group(function () {
 
     Route::get('{project}',[ProjectController::class,'edit'])
         ->name('projects.edit');
+
+    Route::delete('{project}',[ProjectController::class,'destroy'])
+        ->name('projects.destroy')->can('delete','project');
 });
 
 // Route::get('/project', function () {
