@@ -3,12 +3,8 @@
 @section('content')
 
     <div class="container">
-        <div class="mt-3 mt-3 shadow-sm border p-3 d-flex align-items-center rounded">
-            <nav aria-label="breadcrumb">
 
-            </nav>
-        </div>
-        <div class="card shadow-sm mt-3 border">
+        <div class="card shadow-sm mt-5 border">
             <div class="card-header ">
 
                 <div class="d-flex justify-content-between">
