@@ -136,7 +136,7 @@
                     if(target != '#indo' || element.user_id != {{ Auth::id() }}){
                         var $paly_pause_button = $(target).find('.play-pause');
                         $paly_pause_button.remove();
-                        console.log(element.user_id +" : "+{{ Auth::id() }})
+                        
                     }
                 });
             }).catch(function(res) {
