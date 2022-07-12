@@ -116,8 +116,14 @@ class ProjectPolicy
         //
     }
 
-    public function addUser($user){
+    public function addUsers(User $user){
         return $user->isAdmin() ?
         Response::allow() : Response::deny('دسترسی افزودن کاربر برای پروژه را ندارید.');
+    }
+
+
+    public function getProjectUsers(User $user){
+        return $user->isAdmin() ?
+        Response::allow() : Response::deny('دسترسی مشاهده افراد پروژه را ندارید.');
     }
 }
