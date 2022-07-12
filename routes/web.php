@@ -73,7 +73,7 @@ Route::middleware('auth', 'role:manager')->group(function () {
 
 
 
-Route::prefix('project')->group(function () {
+Route::prefix('project')->middleware('auth')->group(function () {
 
     Route::get('/', [ProjectController::class, 'index'])
         ->name('projects.index');
@@ -89,13 +89,13 @@ Route::prefix('project')->group(function () {
         ->name('projects.getAll');
 
     Route::get('{project}/getProjectUsers', [ProjectController::class, 'getProjectUsers'])
-        ->name('projects.getProjectUsers');
+        ->name('projects.getProjectUsers')->can('getProjectUsers',\App\Models\Project::class);
 
     Route::post('{project}/add-users', [ProjectController::class, 'addUsers'])
-        ->name('projects.addUsers');
+        ->name('projects.addUsers')->can('addUsers',\App\Models\Project::class);
 
     Route::get('{project}', [ProjectController::class, 'edit'])
-        ->name('projects.edit');
+        ->name('projects.edit')->can('update',\App\Models\Project::class);
 
     Route::delete('{project}', [ProjectController::class, 'destroy'])
         ->name('projects.destroy')->can('delete', 'project');
