@@ -85,8 +85,8 @@ Route::prefix('project')->middleware('auth')->group(function () {
         ->name('projects.getUsers');
 
 
-    Route::get('getAll', [ProjectController::class, 'getAll'])
-        ->name('projects.getAll');
+    Route::get('getProjects', [ProjectController::class, 'getProjects'])
+        ->name('projects.getProjects');
 
     Route::get('{project}/getProjectUsers', [ProjectController::class, 'getProjectUsers'])
         ->name('projects.getProjectUsers')->can('getProjectUsers',\App\Models\Project::class);
