@@ -8,6 +8,9 @@ function ajaxfunc(url, method, data) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    loading(true);
+
+
     return new Promise(function (resolve, reject) {
         $.ajax(
             {
@@ -26,14 +29,14 @@ function ajaxfunc(url, method, data) {
 
 
 
-function datatable(table_id, url, columns,removeButtons=true) {
+function datatable(table_id, url, columns,removeButtons=true , paginate = true) {
     var table = $(table_id).on('preXhr.dt', function (e, settings, json, xhr) { }).DataTable({
         ajax: {
             url: url,
 
 
         },
-
+        paging:paginate,
 
 
         columns: columns,
@@ -137,4 +140,12 @@ function showErrors(errors) {
     $.each(errors, function (index, value) {
         toastr['error'](value);
     });
+}
+
+
+function loading(show){
+    show ?
+    $('body').loadingModal({animation: 'foldingCube' , color:'green'})
+    :
+    $('body').loadingModal('destroy') ;
 }
