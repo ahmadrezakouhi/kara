@@ -41,7 +41,6 @@ class UserRequest extends FormRequest
         return [
             'fname.required' => 'فیلد نام الزامی است.',
             'lname.required' => 'فیلد نام خانوادگی الزامی است.',
-            'email'
         ];
     }
 }
