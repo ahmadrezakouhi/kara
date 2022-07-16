@@ -113,19 +113,14 @@
     <script src="{{ asset('js/general/functions.js') }}"></script>
 
     <script src="{{ asset('js/general/toastr_option.js') }}"></script>
+    <script src="{{ asset('js/general/datepikcer_options.js') }}"></script>
 
 
 
     <script>
         $(document).ready(function() {
 
-            $("#start_date, #end_date").pDatepicker({
-                format: "YYYY/MM/DD",
-                autoClose: true,
-                onSelect: function() {}
 
-            });
-            $("#start_date, #end_date").val("");
             var clickButtonID;
             var columns = [{
                     title: 'ردیف',
@@ -202,10 +197,12 @@
                 submit_form('#create_update', clickButtonID,
                         '{{ route('projects.phases.store') }}', '#add_requirements', table)
                     .then(function(res) {
+                        loading(false);
                         toastr["success"](res.message);
                         $('#add_requirements').modal('hide');
                         table.ajax.reload();
                     }).catch(function(res) {
+                        loading(false);
                         showErrors(res.responseJSON.errors);
                     });
             })
@@ -227,10 +224,11 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         ajaxfunc(url, 'DELETE', '').then(function(res) {
+                            loading(false);
                             toastr['warning'](res.message);
                             table.ajax.reload();
                         }).catch(function(res) {
-
+                            loading(false);
                             toastr['error'](res.responseJSON.message);
                         })
 
@@ -252,7 +250,7 @@
 
                 ajaxfunc('{{ route("projects.phases.store") }}' + '/' + clickButtonID,
                         'GET', '').then(function(res) {
-
+                            loading(false);
                         if (res.message) {
                             toastr['success'](res.message)
                         }
@@ -265,7 +263,7 @@
                         $('#add_requirements').modal('show');
                     })
                     .catch(function(res) {
-
+                        loading(false);
                         toastr['error'](res.responseJSON.message);
                     })
 

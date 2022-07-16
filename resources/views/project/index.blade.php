@@ -146,18 +146,13 @@
     <script src="{{ asset('js/general/functions.js') }}"></script>
 
     <script src="{{ asset('js/general/toastr_option.js') }}"></script>
+    <script src="{{ asset('js/general/datepikcer_options.js') }}"></script>
 
 
 
     <script>
         $(document).ready(function() {
-            $("#start_date, #end_date").pDatepicker({
-                format: "YYYY/MM/DD",
-                autoClose: true,
-                onSelect: function() {}
 
-            });
-            $("#start_date, #end_date").val("");
             var clickButtonID, projectUsers, userTable;
             var columns = [{
                     title: 'ردیف',
@@ -303,10 +298,12 @@
                 submit_form('#create_update', clickButtonID,
                         '{{ route('projects.store') }}')
                     .then(function(res) {
+                        loading(false);
                         toastr['success'](res.message);
                         $('#add_projects').modal('hide');
                         table.ajax.reload();
                     }).catch(function(res) {
+                        loading(false);
                         showErrors(res.responseJSON.errors);
                     });
             });
@@ -319,10 +316,11 @@
 
                 ajaxfunc('/project/' + clickButtonID + '/add-users', 'POST', $(this).serialize())
                     .then(function(res) {
+                        loading(false);
                         toastr['success'](res.message);
                     })
                     .catch(function(res) {
-
+                        loading(false);
                     });
                 $('#add_users').modal('hide');
 
@@ -345,9 +343,11 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         ajaxfunc(url, 'DELETE', '').then(function(res) {
+                            loading(false);
                             toastr['warning'](res.message);
                             table.ajax.reload();
                         }).catch(function(res) {
+                            loading(false);
                             toastr['error'](res.responseJSON.message);
                         })
 
@@ -362,6 +362,7 @@
                 clickButtonID = $(this).attr('data-id');
                 ajaxfunc('{{ route('projects.store') }}' + '/' + clickButtonID,
                         'GET', '').then(function(res) {
+                            loading(false);
                         if (res.message) {
                             toastr['success'](res.message)
                         }
@@ -373,6 +374,7 @@
                         $('#add_projects').modal('show');
                     })
                     .catch(function(res) {
+                        loading(false);
                         // toastr['error'](res.responseJSON.message);
 
                     })
@@ -417,16 +419,17 @@
                 }
                 ajaxfunc("project/" + clickButtonID + '/getProjectUsers', 'GET', '')
                     .then(function(res) {
+                        loading(false);
                         projectUsers = res;
                         userTable = datatable('#tbl_users',
                             '{{ route('projects.getUsers') }}',
-                            userColumns, false);
+                            userColumns, false, false);
 
 
                         $('#add_users').modal('show')
                     })
                     .catch(function(res) {
-
+                        loading(false);
                     });
 
 
@@ -435,8 +438,9 @@
 
 
             function getProjectForParentSelect() {
-                ajaxfunc("{{ route('projects.getAll') }}", "GET", "")
+                ajaxfunc("{{ route('projects.getProjects') }}", "GET", "")
                     .then(function(res) {
+                        loading(false);
                         options = '<option value="0">اصلی</option>';
                         res.forEach(project => {
                             options += '<option value="' + project.id + '">' + project.title +
@@ -445,11 +449,13 @@
                         $('#project_id').empty();
                         $('#project_id').append(options);
                     }).catch(function(res) {
-
+                        loading(false);
                     })
             }
 
 
         });
     </script>
+
+
 @endsection

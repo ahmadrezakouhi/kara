@@ -190,10 +190,12 @@
                 submit_form('#create_update', clickButtonID,
                 '{{ route("projects.requirements.store") }}')
                     .then(function(res) {
+                        loading(false);
                         $('#add_requirements').modal('hide');
                         toastr['success'](res.message);
                         table.ajax.reload();
                     }).catch(function(res) {
+                        loading(false);
                         showErrors(res.responseJSON.errors);
                     });
 
@@ -217,9 +219,11 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         ajaxfunc(url, 'DELETE', '').then(function(res) {
+                            loading(false);
                             toastr['warning'](res.message);
                             table.ajax.reload();
                         }).catch(function(res) {
+                            loading(false);
                             toastr['error'](res.responseJSON.message);
                         })
 
@@ -237,7 +241,7 @@
 
                 ajaxfunc('{{ route('projects.requirements.store') }}' + '/' + clickButtonID,
                         'GET', '').then(function(res) {
-
+                            loading(false);
                         if (res.message) {
                             toastr['success'](res.message)
                         }
@@ -247,6 +251,7 @@
                         $('#add_requirements').modal('show');
                     })
                     .catch(function(res) {
+                        loading(false);
                         toastr['error'](res.responseJSON.message);
 
                     })
@@ -274,10 +279,12 @@
                 submit_form(this, clickButtonID, "/requirements/" + clickButtonID + "/phases",
                         false)
                     .then(function(res) {
+                        loading(false);
                         $('#add_phase').modal('hide');
                         table.ajax.reload();
                         toastr['success'](res.message);
                     }).catch(function(res) {
+                        loading(false);
                         $('#add_phase').modal('hide');
                         toastr['error'](res.responseJSON.message);
                     });
