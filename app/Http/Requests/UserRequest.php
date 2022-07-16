@@ -24,7 +24,24 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'fname' => ['required'],
+            'lname' => ['required'],
+            'email' => ['required'],
+            'mobile' => ['required'],
+            'phone' => ['required'],
+            'role' => ['required'],
+            'password' => ['required']
+        ];
+    }
+
+
+
+    public function messages()
+    {
+        return [
+            'fname.required' => 'فیلد نام الزامی است.',
+            'lname.required' => 'فیلد نام خانوادگی الزامی است.',
+            'email'
         ];
     }
 }
