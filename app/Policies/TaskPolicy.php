@@ -132,4 +132,15 @@ class TaskPolicy
 
         return ($user->id == $task->user_id) && ($task->status == 1);
     }
+
+
+    public function confirm(User $user , $sprint_id){
+        $project = Sprint::find($sprint_id)->phase->project;
+        $project_user = $user->projects()->find($project->id);
+
+        return $project_user && $project_user->pivot->admin ?
+        Response::allow():Response::deny('امکان تایید تسک برای شما وجود ندارد.');
+
+
+    }
 }
