@@ -108,12 +108,12 @@
                                 @endif
                                 <div class="d-flex justify-content-between mt-3">
                                     @for ($i = $start; $i <= $end; $i++)
-                                        <div class="form-check">
-                                            <input type="radio" class="form-check-input" id="picker{{ $i }}"
+
+                                            <button type="button" class="btn btn-info picker text-center" id="picker{{ $i }}"
                                                 name="duration_picker"
-                                                value="{{ $i * $base }}">{{ $i * $base }}دقیقه
-                                            <label class="form-check-label" for="picker{{ $i }}"></label>
-                                        </div>
+                                                value="{{ $i * $base }}" style="width:100px;font-size:12px">{{ $i * $base }}دقیقه
+                                        </button>
+
                                     @endfor
 
 
@@ -309,7 +309,7 @@
 
             })
 
-            $(document).on('change', 'input[type=radio][name=duration_picker]', function() {
+            $(document).on('click', '.picker', function() {
                 $('#duration').val($(this).val())
             })
 

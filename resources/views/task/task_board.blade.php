@@ -40,11 +40,14 @@
     <script src="{{ asset('js/general/functions.js') }}"></script>
     <script>
         $(document).ready(function() {
+            var auth_id = {{ Auth::id() }};
+            var play = null;
             var url = '/tasks/task-board'
             ajaxfunc(url, 'GET', '').then(function(res) {
+
+
                 loading(false);
                 res.forEach(task => {
-
                     var $li =
                         '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   rounded " data-id="' +
                         task.id + '" ' + ' data-background-color="' + task.user
@@ -79,7 +82,7 @@
                         '<p class="persian" style="font-size:18px">تخمین زمان پایان</p>' +
                         '<p class="persian text-center" style="font-weight: bold">' + task
                         .duration +
-                        '</p>' +
+                        'دقیقه</p>' +
                         '</div>' +
 
 
@@ -87,23 +90,23 @@
 
                         '<div class="content" style="display:none ;">' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p class="persian">زمان ورود به صف انتظار</p>' +
-                        '<p class="persian text-center todo_date">' + covertGregorianToJalali(
+                        '<p class="persian" style="font-size:16px">زمان ورود به صف انتظار</p>' +
+                        '<p class="persian text-center todo_date" style="font-size:16px">' + covertGregorianToJalali(
                             task
                             .todo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p class="persian">زمان ورود به صف در حال انجام</p>' +
-                        '<p class="persian text-center indo_date">' + covertGregorianToJalali(
+                        '<p class="persian" style="font-size:16px">زمان ورود به صف در حال انجام</p>' +
+                        '<p class="persian text-center indo_date" style="font-size:16px">' + covertGregorianToJalali(
                             task.indo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p class="persian">زمان پایان</p>' +
-                        '<p class="persian text-center done_date">' + covertGregorianToJalali(
+                        '<p class="persian" style="font-size:16px">زمان پایان</p>' +
+                        '<p class="persian text-center done_date" style="font-size:16px">' + covertGregorianToJalali(
                             task.done_date) + '</p>' +
                         '</div>' +
                         '<hr>' +
-                        '<p class="persian">' + task.description + '</p>' +
+                        '<p class="persian" >' + task.description + '</p>' +
 
                         '<div class="p-1 rounded bg-white">' +
                         '<div class="progress">' +
@@ -120,13 +123,13 @@
                         '<div  class="mt-1 play-pause" data-play="' + task.play + '"' +
                         ' style="cursor:pointer">' +
                         (task.play ?
-                        '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
+                        ('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
                         '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
-                        '</svg>'
+                        '</svg>')
                         :
-                        '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
+                        ('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
                         '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>' +
-                        '</svg>'
+                        '</svg>')
                          ) +
                         '</div>' +
                         '</div>' +
@@ -146,12 +149,13 @@
                     }
                     $(target).append($li);
 
+                    if ( task.status  != 1 ) {
 
-                    if (target != '#indo' || task.user_id != {{ Auth::id() }}) {
-                        var $paly_pause_button = $(target).find('.play-pause');
-                        $paly_pause_button.remove();
+                        var $play_pause_button = $(target).find('.play-pause');
+                        $play_pause_button.remove();
 
                     }
+
                 });
             }).catch(function(res) {
                 loading(false);
@@ -227,7 +231,7 @@
             var $item = $(this).parent().parent().parent();
             if ($item.css('height') == '80px') {
                 $item.animate({
-                    height: '300px'
+                    height: '320px'
                 })
                 $item.find('.content').css('display', 'block')
             } else {
