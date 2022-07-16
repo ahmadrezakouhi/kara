@@ -83,7 +83,7 @@
       <img src="{{ asset('images/img_avatar.png') }}" class="rounded-circle" alt="" width="30px">
       </a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-        <li class=" ">
+        <li class="dropdown-item">
            <span class="dropdown-item-text"> {{ Auth::user()->fname . ' ' . Auth::user()->lname }}</span>
 
         </li>
@@ -93,7 +93,7 @@
             @csrf
             <li class="dropdown-item " :href="route('logout')"
                     onclick="event.preventDefault();
-                                this.closest('form').submit();">
+                                this.closest('form').submit();" style="cursor: pointer">
                 خروج
           </li>
           </form>
