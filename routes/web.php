@@ -34,7 +34,7 @@ Route::get('/', function () {
 
 
 
-Route::middleware('auth', 'role:manager')->group(function () {
+Route::middleware('auth','role:admin')->group(function () {
 
     Route::resource('/personnel', PersonnelController::class);
     // Route::delete('/personnel/{personnel}', [PersonnelController::class, "destroy"]);
@@ -73,7 +73,7 @@ Route::middleware('auth', 'role:manager')->group(function () {
 
 
 
-Route::prefix('project')->group(function () {
+Route::prefix('project')->middleware('auth')->group(function () {
 
     Route::get('/', [ProjectController::class, 'index'])
         ->name('projects.index');
@@ -81,17 +81,24 @@ Route::prefix('project')->group(function () {
     Route::post('{project?}', [ProjectController::class, 'store'])
         ->name('projects.store');
 
-    Route::get('getUsers',[ProjectController::class,'getUsers'])
+    Route::get('getUsers', [ProjectController::class, 'getUsers'])
         ->name('projects.getUsers');
 
-    Route::get('getAll',[ProjectController::class,'getAll'])
-        ->name('projects.getAll');
 
-    Route::get('{project}/getProjectUsers',[ProjectController::class,'getProjectUsers'])
-        ->name('projects.getProjectUsers');
+    Route::get('getProjects', [ProjectController::class, 'getProjects'])
+        ->name('projects.getProjects');
 
-    Route::get('{project}',[ProjectController::class,'edit'])
-        ->name('projects.edit');
+    Route::get('{project}/getProjectUsers', [ProjectController::class, 'getProjectUsers'])
+        ->name('projects.getProjectUsers')->can('getProjectUsers',\App\Models\Project::class);
+
+    Route::post('{project}/add-users', [ProjectController::class, 'addUsers'])
+        ->name('projects.addUsers')->can('addUsers',\App\Models\Project::class);
+
+    Route::get('{project}', [ProjectController::class, 'edit'])
+        ->name('projects.edit')->can('update',\App\Models\Project::class);
+
+    Route::delete('{project}', [ProjectController::class, 'destroy'])
+        ->name('projects.destroy')->can('delete', 'project');
 });
 
 // Route::get('/project', function () {

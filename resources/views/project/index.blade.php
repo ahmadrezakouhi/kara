@@ -3,18 +3,14 @@
 @section('content')
 
     <div class="container">
-        <div class="mt-3 mt-3 shadow-sm border p-3 d-flex align-items-center rounded">
-            <nav aria-label="breadcrumb">
 
-            </nav>
-        </div>
-        <div class="card shadow-sm mt-3 border">
+        <div class="card shadow-sm mt-5 border">
             <div class="card-header ">
 
                 <div class="d-flex justify-content-between">
                     <h2>لیست پروژه ها</h2>
 
-                    @can('create',\App\Models\Project::class)
+                    @can('create', \App\Models\Project::class)
                         <button class="btn btn-success" id="create_button"> افزودن
                             پروژه</button>
                     @endcan
@@ -36,8 +32,7 @@
                         <th>تاریخ پایان</th>
                         <th>
                         </th>
-                        {{-- <th>تاریخ ثبت</th>
-                        <th>مدیریت</th> --}}
+
 
                     </thead>
                     <tbody>
@@ -151,18 +146,13 @@
     <script src="{{ asset('js/general/functions.js') }}"></script>
 
     <script src="{{ asset('js/general/toastr_option.js') }}"></script>
+    <script src="{{ asset('js/general/datepikcer_options.js') }}"></script>
 
 
 
     <script>
         $(document).ready(function() {
-            $("#start_date, #end_date").pDatepicker({
-                format: "YYYY/MM/DD",
-                autoClose: true,
-                onSelect: function() {}
 
-            });
-            $("#start_date, #end_date").val("");
             var clickButtonID, projectUsers, userTable;
             var columns = [{
                     title: 'ردیف',
@@ -217,16 +207,16 @@
 
 
                         @can('isAdmin')
-                        '<li><a class="dropdown-item delete" style="cursor:pointer">حذف</a></li>' +
-                        '<li><a class="dropdown-item edit"  style="cursor:pointer">ویرایش</a></li>' +
-                        '<li><a class="dropdown-item users" style="cursor:pointer">کاربر ها</a></li>' +
+                            '<li><a class="dropdown-item delete" style="cursor:pointer">حذف</a></li>' +
+                            '<li><a class="dropdown-item edit"  style="cursor:pointer">ویرایش</a></li>' +
+                            '<li><a class="dropdown-item users" style="cursor:pointer">کاربر ها</a></li>' +
                         @endcan
-                        @can('isUser')
+                    @can('isUser')
                         '<li><a class="dropdown-item requirements" style="cursor:pointer">نیازمندی ها</a></li>' +
                         '<li><a class="dropdown-item phases" style="cursor:pointer">فاز ها</a></li>' +
-                        @endcan
-                        '</ul>' +
-                        '</div>'
+                    @endcan
+                    '</ul>' +
+                    '</div>'
                 }
 
             ];
@@ -308,10 +298,12 @@
                 submit_form('#create_update', clickButtonID,
                         '{{ route('projects.store') }}')
                     .then(function(res) {
+                        loading(false);
                         toastr['success'](res.message);
                         $('#add_projects').modal('hide');
                         table.ajax.reload();
                     }).catch(function(res) {
+                        loading(false);
                         showErrors(res.responseJSON.errors);
                     });
             });
@@ -322,12 +314,13 @@
             $('#add_users_form').submit(function(event) {
                 event.preventDefault();
 
-                ajaxfunc('/projects/' + clickButtonID + '/add-users', 'POST', $(this).serialize())
+                ajaxfunc('/project/' + clickButtonID + '/add-users', 'POST', $(this).serialize())
                     .then(function(res) {
+                        loading(false);
                         toastr['success'](res.message);
                     })
                     .catch(function(res) {
-
+                        loading(false);
                     });
                 $('#add_users').modal('hide');
 
@@ -350,9 +343,11 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         ajaxfunc(url, 'DELETE', '').then(function(res) {
+                            loading(false);
                             toastr['warning'](res.message);
                             table.ajax.reload();
                         }).catch(function(res) {
+                            loading(false);
                             toastr['error'](res.responseJSON.message);
                         })
 
@@ -367,6 +362,7 @@
                 clickButtonID = $(this).attr('data-id');
                 ajaxfunc('{{ route('projects.store') }}' + '/' + clickButtonID,
                         'GET', '').then(function(res) {
+                            loading(false);
                         if (res.message) {
                             toastr['success'](res.message)
                         }
@@ -378,6 +374,7 @@
                         $('#add_projects').modal('show');
                     })
                     .catch(function(res) {
+                        loading(false);
                         // toastr['error'](res.responseJSON.message);
 
                     })
@@ -422,24 +419,28 @@
                 }
                 ajaxfunc("project/" + clickButtonID + '/getProjectUsers', 'GET', '')
                     .then(function(res) {
+                        loading(false);
                         projectUsers = res;
+                        userTable = datatable('#tbl_users',
+                            '{{ route('projects.getUsers') }}',
+                            userColumns, false, false);
 
+
+                        $('#add_users').modal('show')
                     })
-                    .catch();
-                $("input").prop("checked", true)
-                userTable = datatable('#tbl_users',
-                    '{{ route('projects.getUsers') }}',
-                    userColumns, false);
-                // $('input[type="checkbox"]').prop('checked',true)
+                    .catch(function(res) {
+                        loading(false);
+                    });
 
-                $('#add_users').modal('show')
+
             })
 
 
 
             function getProjectForParentSelect() {
-                ajaxfunc("{{ route('projects.getAll') }}", "GET", "")
+                ajaxfunc("{{ route('projects.getProjects') }}", "GET", "")
                     .then(function(res) {
+                        loading(false);
                         options = '<option value="0">اصلی</option>';
                         res.forEach(project => {
                             options += '<option value="' + project.id + '">' + project.title +
@@ -448,11 +449,13 @@
                         $('#project_id').empty();
                         $('#project_id').append(options);
                     }).catch(function(res) {
-
+                        loading(false);
                     })
             }
 
 
         });
     </script>
+
+
 @endsection

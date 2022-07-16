@@ -73,6 +73,13 @@ class ProjectPolicy
     public function delete(User $user, Project $project)
     {
 
+        if($project->requirements()->count() != 0){
+            return Response::deny('پروژه دارای نیازمندی می باشد');
+        }
+
+        if($project->phases()->count() != 0){
+            return Response::deny('پروژه دارای فاز می باشد.');
+        }
 
         if(!$user->isAdmin()){
             return Response::deny('امکان حذف پروژه وجود ندارد.');
@@ -109,8 +116,14 @@ class ProjectPolicy
         //
     }
 
-    public function addUser($user){
+    public function addUsers(User $user){
         return $user->isAdmin() ?
         Response::allow() : Response::deny('دسترسی افزودن کاربر برای پروژه را ندارید.');
+    }
+
+
+    public function getProjectUsers(User $user){
+        return $user->isAdmin() ?
+        Response::allow() : Response::deny('دسترسی مشاهده افراد پروژه را ندارید.');
     }
 }

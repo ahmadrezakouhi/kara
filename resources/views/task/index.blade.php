@@ -119,11 +119,12 @@
 
                                 </div>
                             @endfor
+                            @can('confirm',[App\Models\Task::class,$sprint->id])
                             <div class="form-check mt-3">
                                 <input class="form-check-input" type="checkbox" id="confirm" name="confirm">
                                 <label class="form-check-label">تایید</label>
                             </div>
-
+                            @endcan
 
                         </div>
                     </div>
@@ -157,13 +158,7 @@
 
     <script>
         $(document).ready(function() {
-            $("#start_date, #end_date").pDatepicker({
-                format: "YYYY/MM/DD",
-                autoClose: true,
-                onSelect: function() {}
 
-            });
-            $("#start_date, #end_date").val("");
             var clickButtonID;
             var columns = [{
                     title: 'ردیف',
@@ -214,11 +209,12 @@
                 submit_form('#create_update', clickButtonID, '{{ route('sprints.tasks.store') }}',
                        )
                     .then(function(res) {
+                        loading(false);
                         toastr["success"](res.message);
                         $('#add_requirements').modal('hide');
                         table.ajax.reload();
                     }).catch(function(res) {
-
+                        loading(false);
                         var error = eval("(" + res.responseText + ")")
                         $.each(res.responseJSON.errors, function(index, value) {
                             toastr["error"](value);
@@ -231,9 +227,6 @@
             $(document).on('click', '.delete', function(event) {
                 var id = $(this).attr('data-id');
                 var url = "{{ route('sprints.tasks.store') }}" + '/' + id;
-                // ajaxfunc(url, 'DELETE', '').then(function(res) {
-                //     toastr['success'](res.message)
-                // })
 
                 Swal.fire({
                     text: "می خواهید رکورد مورد نظر حذف شود ؟",
@@ -246,10 +239,11 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         ajaxfunc(url, 'DELETE', '').then(function(res) {
+                            loading(false);
                             toastr['warning'](res.message);
                             table.ajax.reload();
                         }).catch(function(res) {
-
+                            loading(false);
                             toastr['error'](res.responseJSON.message);
 
 
@@ -269,6 +263,7 @@
 
                 ajaxfunc("{{ route('sprints.tasks.store') }}" + '/' + clickButtonID,
                         'GET', '').then(function(res) {
+                            loading(false);
                         if (res.message) {
                             toastr['success'](res.message)
                         }
@@ -285,6 +280,7 @@
                         $('#add_requirements').modal('show');
                     })
                     .catch(function(res) {
+                        loading(false);
                         if (res.responseJSON.message) {
                             toastr['error'](res.responseJSON.message);
                         } else {
@@ -310,7 +306,7 @@
             $(document).on('click', '.sprints', (e) => {
                 let data_id = $(this).attr("data-id");
                 window.location = '/phases/' + data_id + '/sprints';
-                
+
             })
 
             $(document).on('change', 'input[type=radio][name=duration_picker]', function() {

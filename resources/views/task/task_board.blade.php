@@ -42,22 +42,29 @@
         $(document).ready(function() {
             var url = '/tasks/task-board'
             ajaxfunc(url, 'GET', '').then(function(res) {
-
-                res.forEach(element => {
+                loading(false);
+                res.forEach(task => {
 
                     var $li =
                         '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   rounded " data-id="' +
-                        element.id + '" '+ ' data-background-color="'+element.user.background_color+'"'+'style="width:100%;height: 80px; background-color:'+element.user.background_color+
-                        ';color:'+element.user.text_color+'">' +
+                        task.id + '" ' + ' data-background-color="' + task.user
+                        .background_color + '"' +
+                        'style="width:100%;height: 80px; background:' + (task.play == 0 ?
+
+                            'repeating-linear-gradient(45deg,' + task.user.background_color +
+                            ' 0px,' +
+                            task.user.background_color + ' 20px,#a3a3a3ab 20px,#a3a3a3ab 40px)' :
+                            task.user.background_color) +
+                        ';color:' + task.user.text_color + '">' +
 
                         '<div class="d-flex justify-content-between"> ' +
-                        '<h4 class="persian">' + element.title + '</h4> ' +
+                        '<h4 class="persian">' + task.title + '</h4> ' +
                         '<div> ' +
                         '<a class="text-white plus" style="text-decoration: none ;cursor: pointer ;"><svg ' +
                         'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
                         'class="bi bi-plus-square-fill" viewBox="0 0 16 16"> ' +
                         '<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" /> ' +
-                        '</svg></a> ' + ((element.status != 2) ? (
+                        '</svg></a> ' + ((task.status != 2) ? (
                             '<a class="text-white next_level" style="text-decoration: none ;cursor: pointer ;"><svg ' +
                             'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
                             'class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16"> ' +
@@ -68,9 +75,9 @@
                         '</div> ' +
 
 
-                        '<div class="d-flex justify-content-between">' +
-                        '<p class="persian">تخمین زمان پایان</p>' +
-                        '<p class="persian text-center" style="font-weight: bold">' + element
+                        '<div class="d-flex justify-content-between" >' +
+                        '<p class="persian" style="font-size:18px">تخمین زمان پایان</p>' +
+                        '<p class="persian text-center" style="font-weight: bold">' + task
                         .duration +
                         '</p>' +
                         '</div>' +
@@ -82,21 +89,21 @@
                         '<div class="d-flex justify-content-between">' +
                         '<p class="persian">زمان ورود به صف انتظار</p>' +
                         '<p class="persian text-center todo_date">' + covertGregorianToJalali(
-                            element
+                            task
                             .todo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
                         '<p class="persian">زمان ورود به صف در حال انجام</p>' +
                         '<p class="persian text-center indo_date">' + covertGregorianToJalali(
-                            element.indo_date) + '</p>' +
+                            task.indo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
                         '<p class="persian">زمان پایان</p>' +
                         '<p class="persian text-center done_date">' + covertGregorianToJalali(
-                            element.done_date) + '</p>' +
+                            task.done_date) + '</p>' +
                         '</div>' +
                         '<hr>' +
-                        '<p class="persian">' + element.description + '</p>' +
+                        '<p class="persian">' + task.description + '</p>' +
 
                         '<div class="p-1 rounded bg-white">' +
                         '<div class="progress">' +
@@ -110,20 +117,27 @@
                         '</div>' +
 
                         '<div class="d-flex justify-content-center container-play-pause">' +
-                        '<div data-play="1" class="mt-1 play-pause" style="cursor:pointer">' +
+                        '<div  class="mt-1 play-pause" data-play="' + task.play + '"' +
+                        ' style="cursor:pointer">' +
+                        (task.play ?
                         '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
                         '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
-                        '</svg>' +
-                        '</div>'+
+                        '</svg>'
+                        :
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
+                        '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>' +
+                        '</svg>'
+                         ) +
+                        '</div>' +
                         '</div>' +
 
 
                         '</div>' +
                         '</li>';
                     var target = '';
-                    if (element.status == 0) {
+                    if (task.status == 0) {
                         target = '#todo';
-                    } else if (element.status == 1) {
+                    } else if (task.status == 1) {
                         target = '#indo';
 
                     } else {
@@ -133,14 +147,14 @@
                     $(target).append($li);
 
 
-                    if(target != '#indo' || element.user_id != {{ Auth::id() }}){
+                    if (target != '#indo' || task.user_id != {{ Auth::id() }}) {
                         var $paly_pause_button = $(target).find('.play-pause');
                         $paly_pause_button.remove();
-                        console.log(element.user_id +" : "+{{ Auth::id() }})
+
                     }
                 });
             }).catch(function(res) {
-
+                loading(false);
             });
             $('.sortable').sortable({
                 start: function(event, ui) {
@@ -180,27 +194,28 @@
                     '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
                     '</svg>';
                 var status = $(this).attr('data-play');
-                if (status == 1){
+                if (status == 1) {
                     $(this).empty();
                     $(this).append(palyIcon);
-                    $(this).attr('data-play','0');
+                    $(this).attr('data-play', '0');
                     $(this).parents('li')
-                    .css('background','repeating-linear-gradient(45deg,'+background_color+' 0px,'+background_color+' 20px,#a3a3a3ab 20px,#a3a3a3ab 40px)')
-                }else{
+                        .css('background', 'repeating-linear-gradient(45deg,' + background_color + ' 0px,' +
+                            background_color + ' 20px,#a3a3a3ab 20px,#a3a3a3ab 40px)')
+                } else {
                     $(this).empty();
                     $(this).append(pauseIcon);
-                    $(this).attr('data-play','1');
+                    $(this).attr('data-play', '1');
                     $(this).parents('li')
-                    .css('background','').css('background-color',background_color);
+                        .css('background', '').css('background-color', background_color);
                 }
                 var task_id = $(this).parents('li').attr('data-id');
-                ajaxfunc('/tasks/'+task_id+'/play-pause','POST','')
-                .then(function(res){
-
-                })
-                .catch(function(res){
-
-                })
+                ajaxfunc('/tasks/' + task_id + '/play-pause', 'POST', '')
+                    .then(function(res) {
+                        loading(false);
+                    })
+                    .catch(function(res) {
+                        loading(false);
+                    })
 
 
             })
@@ -274,6 +289,7 @@
             var task_id = $item.attr('data-id');
             ajaxfunc('/tasks/' + task_id + '/change-status', 'POST', '').then(function(
                 res) {
+                loading(false);
                 $item.detach();
                 $item.css({
                     'position': '',
@@ -291,7 +307,8 @@
                 }
                 if ($target.attr('id') == 'indo') {
 
-                    $item.find('.container-play-pause').append('<div data-play="1" class="mt-1 play-pause" style="cursor:pointer">' +
+                    $item.find('.container-play-pause').append(
+                        '<div data-play="1" class="mt-1 play-pause" style="cursor:pointer">' +
                         '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
                         '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
                         '</svg>' +
@@ -300,7 +317,7 @@
                 }
                 $target.append($item[0].outerHTML);
             }).catch(function(res) {
-
+                loading(false);
             });
         }
 

@@ -40,15 +40,29 @@ class TaskController extends Controller
 
 
 
-    public function owner(Request $request){
+    public function owner(Request $request)
+    {
         $user = Auth::user();
-        if($request->ajax()){
-            if($user->isAdmin()){
-                $tasks = Task::with(['category:id,name','sprint:id,title,phase_id','sprint.phase:id,title,project_id','sprint.phase.project:id,title','user:id,fname,lname'])
-                ->get();
-            }else{
-                $tasks = $user->tasks()->with(['category:id,name','sprint:id,title,phase_id','sprint.phase:id,title,project_id','sprint.phase.project:id,title','user:id,fname,lname'])
-                ->get();
+        if ($request->ajax()) {
+            if ($user->isAdmin()) {
+                $tasks = Task::with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
+                    ->get();
+            } else {
+                // $tasks = $user->tasks()->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
+                //     ->get();
+
+                $tasks = [];
+                foreach ($user->projects as $project) {
+                    foreach ($project->phases as $phase) {
+                        foreach($phase->sprints as $sprint){
+                            $tasks[]=$sprint->tasks()
+                            ->with(['category:id,name', 'sprint:id,title,phase_id',
+                            'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title',
+                            'user:id,fname,lname'])->get();
+                        }
+                        $tasks = collect($tasks)->collapse();
+                    }
+                }
             }
 
             $recordTotal = $tasks->count();
@@ -69,19 +83,25 @@ class TaskController extends Controller
     {
         $user = Auth::user();
         if ($request->ajax()) {
-            $tasks=[];
-            foreach($user->projects as $project){
-                foreach($project->phases as $phase){
-                    foreach($phase->sprints as $sprint){
-                       foreach($sprint->tasks as $task){
-                        if($task->indo_date){
-                        $tasks[]=$task;
+            $tasks = [];
+            if ($user->isAdmin()) {
+                $tasks = Task::where('todo_date','!=',null)->get();
+            } else {
+                $tasks=[];
+                foreach ($user->projects as $project) {
+                    foreach ($project->phases as $phase) {
+                        foreach ($phase->sprints as $sprint) {
+                            foreach ($sprint->tasks as $task) {
+                                // if ($task->indo_date) {
+                                    $tasks[] = $task;
+                                // }
+                            }
                         }
-                       }
                     }
                 }
-            }
 
+                // $tasks = collect($tasks)->collapse();
+            }
             return response()->json($tasks);
         }
         return view('task.task_board');
@@ -173,8 +193,12 @@ class TaskController extends Controller
 
         if ($task->status == 0) {
             $task->status = 1;
+            $task->play = 1;
+            Time::create([
+                'task_id' => $task->id,
+                'start' => Carbon::now()
+            ]);
             $task->indo_date = Carbon::now();
-
         } else if ($task->status == 1) {
             $task->status = 2;
             $task->done_date = Carbon::now();
@@ -185,26 +209,23 @@ class TaskController extends Controller
 
 
 
-    public function playPause(Task $task){
-        if($task->times->count()==0){
+    public function playPause(Task $task)
+    {
+        $time = $task->times()->latest()->first();
+        if ($time->stop) {
             Time::create([
-                'task_id'=>$task->id,
-                'start'=>Carbon::now()
+                'task_id' => $task->id,
+                'start' => Carbon::now()
             ]);
-        }else{
-            $time = $task->times()->latest()->first();
-            if($time->stop){
-                Time::create([
-                    'task_id'=>$task->id,
-                    'start'=>Carbon::now()
-                ]);
-
-            }else{
-                $time->stop = Carbon::now();
-                $time->save();
-            }
-
+            $task->play = 1;
+        } else {
+            $time->stop = Carbon::now();
+            $task->play = 0;
+            $time->save();
         }
+        $task->save();
+
+        // }
         return response()->json();
     }
 

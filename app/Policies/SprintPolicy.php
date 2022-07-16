@@ -23,7 +23,7 @@ class SprintPolicy
         $phase = Phase::find($phase_id);
         $project = $phase->project;
         $project_user = $user->projects->find($project->id);
-        return ($project_user && $project_user->pivot->admin) ?
+        return ($project_user && ($project_user->pivot->admin || $project_user->pivot->developer )) ?
             Response::allow() : Response::deny('مجوز مشاهده اسپرینت وجود ندارد.');
     }
 
