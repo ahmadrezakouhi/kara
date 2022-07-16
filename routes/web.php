@@ -34,7 +34,7 @@ Route::get('/', function () {
 
 
 
-Route::middleware('auth', 'role:manager')->group(function () {
+Route::middleware('auth','role:admin')->group(function () {
 
     Route::resource('/personnel', PersonnelController::class);
     // Route::delete('/personnel/{personnel}', [PersonnelController::class, "destroy"]);
