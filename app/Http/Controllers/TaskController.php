@@ -92,15 +92,15 @@ class TaskController extends Controller
                     foreach ($project->phases as $phase) {
                         foreach ($phase->sprints as $sprint) {
                             foreach ($sprint->tasks as $task) {
-                                // if ($task->indo_date) {
+                                if ($task->todo_date) {
                                     $tasks[] = $task;
-                                // }
+                                }
                             }
                         }
                     }
                 }
 
-                // $tasks = collect($tasks)->collapse();
+
             }
             return response()->json($tasks);
         }
