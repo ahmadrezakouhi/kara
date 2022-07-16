@@ -115,11 +115,11 @@
                     <div class="form-check my-3">
 
                           <input class="form-check-input" type="checkbox"
-                          name="changePassword" id="changePassword" checked>
+                          name="changePassword" id="changePassword" >
                           <label class="form-check-label">تغییر رمز</label>
                       </div>
                 </div>
-                <div class="col-md-3 password">
+                <div class="col-md-3 password" style="display: none">
                     <div class="row">
                         <x-label class="col-sm-3 col-form-label"  for="password" :value="__('رمز ورود')" />
                         <div class="col-md-9">
@@ -131,7 +131,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3 password">
+                <div class="col-md-3 password" style="display: none">
                     <div class="row">
                         <x-label class="col-sm-3 col-form-label"  for="password_confirmation" :value="__('تکرار رمز ')" />
                         <div class="col-md-9">

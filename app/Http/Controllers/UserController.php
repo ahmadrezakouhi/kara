@@ -65,8 +65,8 @@ class UserController extends Controller
         // }
         // $recordsFiltered = $queryFiltered->count();
         // $data = $queryFiltered->orderBy($columns[$request['order'][0]['column']], $request['order'][0]['dir'])->offset($request['start'])->limit($request['length'])->get();
-            $users = User::all();
-            $recordsTotal = $users->count();
+        $users = User::all();
+        $recordsTotal = $users->count();
 
         $json_data = array(
             "draw" => intval($_REQUEST['draw']),
@@ -265,8 +265,10 @@ class UserController extends Controller
                 $user->role        = $request->role;
                 $user->background_color = $request->background_color;
                 $user->text_color = $request->text_color;
-                if($request->changePassword){
-                $user->password         =  Hash::make($request->password);
+                if ($request->changePassword) {
+                    if($request->password){
+                        $user->password         =  Hash::make($request->password);
+                    }
                 }
                 $user->save();
 
