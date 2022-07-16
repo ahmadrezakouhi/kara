@@ -133,7 +133,7 @@ function covertGregorianToJalali(date) {
     if (date == null) {
         return '-';
     }
-    return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD');
+    return moment(date, 'YYYY-M-D HH:mm:ss').format('HH:mm:ss - jYYYY/jMM/jDD');
 }
 
 function showErrors(errors) {
