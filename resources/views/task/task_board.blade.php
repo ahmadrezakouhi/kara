@@ -52,7 +52,7 @@
                         '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   rounded " data-id="' +
                         task.id + '" ' + ' data-background-color="' + task.user
                         .background_color + '"' +
-                        'style="width:100%;height: 80px; background:' + (task.play != null && task.play==0 ?
+                        'style="width:100%;height: 100px; background:' + (task.play != null && task.play==0 ?
 
                             'repeating-linear-gradient(45deg,' + task.user.background_color +
                             ' 0px,' +
@@ -78,7 +78,10 @@
                         '</div> ' +
                         '</div> ' +
 
-                        '<p>'+task.user.fname + ' '+task.user.lname+'</p>'+
+                        '<div class="d-flex justify-content-between">'+
+                            '<p>مجری</p>'+
+                            '<p>'+task.user.fname + ' '+task.user.lname+'</p>'+
+                            '</div>'+
                         '<div class="d-flex justify-content-between" >' +
                         '<p class="" style="">تخمین زمان پایان</p>' +
                         '<p class=" text-center" style="font-weight: bold">' + task
@@ -107,7 +110,7 @@
                             task.done_date) + '</p>' +
                         '</div>' +
                         '<hr>' +
-                        '<p class="" >' + task.description + '</p>' +
+                        '<p class="" style="overflow-y:scroll;height:50px">' + task.description + '</p>' +
 
                         '<div class="p-1 rounded bg-white">' +
                         '<div class="progress">' +
@@ -230,14 +233,14 @@
         });
         $(document).on('click', '.plus', function() {
             var $item = $(this).parent().parent().parent();
-            if ($item.css('height') == '80px') {
+            if ($item.css('height') == '100px') {
                 $item.animate({
-                    height: '320px'
+                    height: '360px'
                 })
                 $item.find('.content').css('display', 'block')
             } else {
                 $item.animate({
-                        height: '80px'
+                        height: '100px'
                     }
 
                     ,

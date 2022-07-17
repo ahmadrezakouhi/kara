@@ -20,7 +20,7 @@ class PhasePolicy
     public function viewAny(User $user , $project_id)
     {
         $project_user = $user->projects->find($project_id);
-        return $project_user ?
+        return $project_user || $user->isAdmin() ?
         Response::allow() : Response::deny('امکان دیدن فازهای این پروژه وجود ندارد.');
     }
 
@@ -46,7 +46,7 @@ class PhasePolicy
     {
 
         $project_user = $user->projects->find($project_id);
-        if($project_user && $project_user->pivot->admin ){
+        if(($project_user && $project_user->pivot->admin )||($user->isAdmin())){
             return Response::allow();
         }
 
@@ -62,7 +62,7 @@ class PhasePolicy
      */
     public function update(User $user, Phase $phase)
     {
-        return $user->id == $phase->user_id ? Response::allow()
+        return ($user->id == $phase->user_id ) || ($user->isAdmin())? Response::allow()
         :Response::deny('مجوز به روز رسانی فاز را ندارید.');
     }
 
@@ -75,7 +75,7 @@ class PhasePolicy
      */
     public function delete(User $user, Phase $phase)
     {
-        if($user->id != $phase->user_id){
+        if(!($user->isAdmin())&&($user->id != $phase->user_id)){
             return Response::deny('مجوز حذف فاز مورد نظر را ندارید.');
         }else if($phase->sprints->count() != 0){
             return Response::deny('فاز مورد نظر دارای اسپرینت است');

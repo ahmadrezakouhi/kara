@@ -6,7 +6,8 @@
         <div class="mt-3 shadow-sm border p-3 d-flex align-items-center rounded">
             <nav aria-label="breadcrumb ">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('projects.index') }}">پروژه ها</a></li>
+                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('projects.index') }}">پروژه ها</a>
+                    </li>
                     <li class="breadcrumb-item active " aria-current="page">{{ $project->title }}</li>
                 </ol>
             </nav>
@@ -103,12 +104,18 @@
 @section('scripts')
     <script>
         var auth_id = {{ Auth::id() }};
-        var isAdmin =
-            {{ Auth::user()->projects->find($project->id)->pivot->admin }};
-        var isOwner =
-            {{ Auth::user()->projects->find($project->id)->pivot->owner }};
-        var isDeveloper =
-            {{ Auth::user()->projects->find($project->id)->pivot->developer }};
+
+        @if (Auth::user()->isAdmin())
+            var isSuperAdmin = true;
+        @else
+            var isSuperAdmin = false;
+            var isAdmin =
+                {{ Auth::user()->projects->find($project->id)->pivot->admin }};
+            var isOwner =
+                {{ Auth::user()->projects->find($project->id)->pivot->owner }};
+            var isDeveloper =
+                {{ Auth::user()->projects->find($project->id)->pivot->developer }};
+        @endif
     </script>
     <script src="{{ asset('js/general/functions.js') }}"></script>
 
@@ -248,9 +255,9 @@
 
 
 
-                ajaxfunc('{{ route("projects.phases.store") }}' + '/' + clickButtonID,
+                ajaxfunc('{{ route('projects.phases.store') }}' + '/' + clickButtonID,
                         'GET', '').then(function(res) {
-                            loading(false);
+                        loading(false);
                         if (res.message) {
                             toastr['success'](res.message)
                         }
