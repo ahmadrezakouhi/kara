@@ -7,7 +7,7 @@
         <div class="row card-group">
             <!-- <div class="card-group"> -->
             <div class="col-lg-2 p-0 card border" style="min-height:100vh ;">
-                <div class="card-header persian text-center">
+                <div class="card-header  text-center">
                     در صف انتظار
                 </div>
                 <div class="card-body" style="">
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="col-lg-2 p-0 card border">
-                <div class="card-header persian text-center">در حال انجام</div>
+                <div class="card-header  text-center">در حال انجام</div>
                 <div class="card-body" style="">
                     <ul class="list-group  sortable droppable p-0 " id="indo" style="width:100%;height:100%;">
 
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="col-lg-2 p-0 card border">
-                <div class="card-header persian text-center">انجام شده</div>
+                <div class="card-header  text-center">انجام شده</div>
                 <div class="card-body" style="">
                     <ul class="list-group  sortable droppable p-0" id="done" style="width:100%;height:100%;">
 
@@ -52,7 +52,7 @@
                         '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   rounded " data-id="' +
                         task.id + '" ' + ' data-background-color="' + task.user
                         .background_color + '"' +
-                        'style="width:100%;height: 80px; background:' + (task.play == 0 ?
+                        'style="width:100%;height: 80px; background:' + (task.play != null && task.play==0 ?
 
                             'repeating-linear-gradient(45deg,' + task.user.background_color +
                             ' 0px,' +
@@ -61,7 +61,8 @@
                         ';color:' + task.user.text_color + '">' +
 
                         '<div class="d-flex justify-content-between"> ' +
-                        '<h4 class="persian">' + task.title + '</h4> ' +
+                        '<h5 class="">' + task.title + '</h5> ' +
+
                         '<div> ' +
                         '<a class="text-white plus" style="text-decoration: none ;cursor: pointer ;"><svg ' +
                         'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
@@ -77,10 +78,10 @@
                         '</div> ' +
                         '</div> ' +
 
-
+                        '<p>'+task.user.fname + ' '+task.user.lname+'</p>'+
                         '<div class="d-flex justify-content-between" >' +
-                        '<p class="persian" style="font-size:18px">تخمین زمان پایان</p>' +
-                        '<p class="persian text-center" style="font-weight: bold">' + task
+                        '<p class="" style="">تخمین زمان پایان</p>' +
+                        '<p class=" text-center" style="font-weight: bold">' + task
                         .duration +
                         'دقیقه</p>' +
                         '</div>' +
@@ -90,23 +91,23 @@
 
                         '<div class="content" style="display:none ;">' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p class="persian" style="font-size:16px">زمان ورود به صف انتظار</p>' +
-                        '<p class="persian text-center todo_date" style="font-size:16px">' + covertGregorianToJalali(
+                        '<p class="" style="">زمان ورود به صف انتظار</p>' +
+                        '<p class=" text-center todo_date" style="">' + covertGregorianToJalali(
                             task
                             .todo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p class="persian" style="font-size:16px">زمان ورود به صف در حال انجام</p>' +
-                        '<p class="persian text-center indo_date" style="font-size:16px">' + covertGregorianToJalali(
+                        '<p class="" style="">زمان ورود به صف در حال انجام</p>' +
+                        '<p class=" text-center indo_date" style="">' + covertGregorianToJalali(
                             task.indo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p class="persian" style="font-size:16px">زمان پایان</p>' +
-                        '<p class="persian text-center done_date" style="font-size:16px">' + covertGregorianToJalali(
+                        '<p class="" style="">زمان پایان</p>' +
+                        '<p class=" text-center done_date" style="">' + covertGregorianToJalali(
                             task.done_date) + '</p>' +
                         '</div>' +
                         '<hr>' +
-                        '<p class="persian" >' + task.description + '</p>' +
+                        '<p class="" >' + task.description + '</p>' +
 
                         '<div class="p-1 rounded bg-white">' +
                         '<div class="progress">' +
