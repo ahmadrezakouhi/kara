@@ -22,8 +22,9 @@ class TaskPolicy
     {
         $sprint = Sprint::find($sprint_id);
         $project = $sprint->phase->project;
-        $project_user = $user->projects->find($project->id); //$user->projects->find($project->id);
-        return ($project_user && ($project_user->pivot->admin || $project_user->pivot->developer)) ?
+        $project_user = $user->projects->find($project->id);
+        return (($project_user && ($project_user->pivot->admin || $project_user->pivot->developer))
+        ||($user->isAdmin())) ?
             Response::allow() : Response::deny('مجوز مشاهده تسک ها را ندارید.');
     }
 
@@ -50,7 +51,8 @@ class TaskPolicy
         $sprint = Sprint::find($sprint_id);
         $project = $sprint->phase->project;
         $project_user = $user->projects->find($project->id); //$user->projects->find($project->id);
-        if ($project_user && ($project_user->pivot->admin || $project_user->pivot->developer) ) {
+        if (($project_user && ($project_user->pivot->admin || $project_user->pivot->developer))
+        || ($user->isAdmin()) ) {
             return Response::allow();
         }
 
@@ -68,7 +70,7 @@ class TaskPolicy
     {
         //
         if ($task) {
-            if ($user->id != $task->user_id) {
+            if (!($user->isAdmin())&&($user->id != $task->user_id)) {
                 return Response::deny('مجوز برای به روز رسانی این تسک را ندارید.');
             } else if ($task->todo_date != null) {
                 return Response::deny('تسک تایید شده را نمی توان به روز کرد.');
@@ -88,7 +90,7 @@ class TaskPolicy
     public function delete(User $user, Task $task)
     {
         //
-        if ($user->id != $task->user_id) {
+        if (!($user->isAdmin())&&($user->id != $task->user_id)) {
             return Response::deny('مجوز برای حذف این تسک را ندارید.');
         } else if ($task->todo_date != null) {
             return Response::deny('تسک تایید شده را نمی توان حذف کرد.');
@@ -138,7 +140,7 @@ class TaskPolicy
         $project = Sprint::find($sprint_id)->phase->project;
         $project_user = $user->projects()->find($project->id);
 
-        return $project_user && $project_user->pivot->admin ?
+        return ($project_user && $project_user->pivot->admin )||($user->isAdmin())?
         Response::allow():Response::deny('امکان تایید تسک برای شما وجود ندارد.');
 
 

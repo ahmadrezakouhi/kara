@@ -66,6 +66,7 @@ function datatable(table_id, url, columns,removeButtons=true , paginate = true) 
 
             $(row).find('button,.dropdown-item').attr("data-id", data['id']);
             if (removeButtons) {
+                if(!isSuperAdmin){
                 if (auth_id != data.user_id) {
                     $(row).find('.edit,.delete').remove();
                 }
@@ -73,6 +74,7 @@ function datatable(table_id, url, columns,removeButtons=true , paginate = true) 
                     $(row).find('.add_phase,.sprints').remove();
 
                 }
+            }
             }
         }
 

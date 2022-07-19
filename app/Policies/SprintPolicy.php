@@ -23,7 +23,7 @@ class SprintPolicy
         $phase = Phase::find($phase_id);
         $project = $phase->project;
         $project_user = $user->projects->find($project->id);
-        return ($project_user && ($project_user->pivot->admin || $project_user->pivot->developer )) ?
+        return (($project_user && ($project_user->pivot->admin || $project_user->pivot->developer ))||$user->isAdmin()) ?
             Response::allow() : Response::deny('مجوز مشاهده اسپرینت وجود ندارد.');
     }
 
@@ -50,7 +50,7 @@ class SprintPolicy
         $phase = Phase::find($phase_id);
         $project = $phase->project;
         $project_user = $user->projects->find($project->id);
-        if ($project_user && $project_user->pivot->admin ) {
+        if (($project_user && $project_user->pivot->admin )||($user->isAdmin())) {
             return Response::allow();
         }
 
@@ -66,7 +66,7 @@ class SprintPolicy
      */
     public function update(User $user, Sprint $sprint)
     {
-        return $user->id == $sprint->user_id ?
+        return ($user->id == $sprint->user_id)||$user->isAdmin() ?
             Response::allow() :
             Response::deny('مجوز تغییر اسپرینت را ندارید.');
     }

@@ -211,10 +211,10 @@
                             '<li><a class="dropdown-item edit"  style="cursor:pointer">ویرایش</a></li>' +
                             '<li><a class="dropdown-item users" style="cursor:pointer">کاربر ها</a></li>' +
                         @endcan
-                    @can('isUser')
+
                         '<li><a class="dropdown-item requirements" style="cursor:pointer">نیازمندی ها</a></li>' +
                         '<li><a class="dropdown-item phases" style="cursor:pointer">فاز ها</a></li>' +
-                    @endcan
+                    
                     '</ul>' +
                     '</div>'
                 }

@@ -6,21 +6,23 @@
         <div class="mt-3 mt-3 shadow-sm border p-3 d-flex align-items-center rounded">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item " aria-current="page" ><a href="{{ route('projects.index') }}">پروژه ها</a></li>
-                  <li class="breadcrumb-item"><a href="{{ route('projects.phases.index',$phase->project->id) }}"> {{ $phase->project->title }}</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">{{ $phase->title }}</li>
+                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('projects.index') }}">پروژه ها</a>
+                    </li>
+                    <li class="breadcrumb-item"><a href="{{ route('projects.phases.index', $phase->project->id) }}">
+                            {{ $phase->project->title }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $phase->title }}</li>
                 </ol>
-              </nav>
+            </nav>
         </div>
         <div class="card shadow-sm mt-3 border">
             <div class="card-header ">
 
-                  <div class="d-flex justify-content-between">
-                <h2>لیست اسپرینت ها</h2>
+                <div class="d-flex justify-content-between">
+                    <h2>لیست اسپرینت ها</h2>
 
-                    @can('create',[App\Models\Sprint::class ,$phase->id])
-                <button class="btn btn-success" id="create_button"> افزودن
-                    اسپرینت</button>
+                    @can('create', [App\Models\Sprint::class, $phase->id])
+                        <button class="btn btn-success" id="create_button"> افزودن
+                            اسپرینت</button>
                     @endcan
                 </div>
 
@@ -107,12 +109,18 @@
 @section('scripts')
     <script>
         var auth_id = {{ Auth::id() }};
-        var isAdmin =
-            {{ Auth::user()->projects->find($phase->project->id)->pivot->admin }};
-        var isOwner =
-            {{ Auth::user()->projects->find($phase->project->id)->pivot->owner }};
-        var isDeveloper =
-            {{ Auth::user()->projects->find($phase->project->id)->pivot->developer }};
+
+        @if (Auth::user()->isAdmin())
+            var isSuperAdmin = true;
+        @else
+            var isSuperAdmin = false;
+            var isAdmin =
+                {{ Auth::user()->projects->find($project->id)->pivot->admin }};
+            var isOwner =
+                {{ Auth::user()->projects->find($project->id)->pivot->owner }};
+            var isDeveloper =
+                {{ Auth::user()->projects->find($project->id)->pivot->developer }};
+        @endif
     </script>
     <script src="{{ asset('js/general/functions.js') }}"></script>
 
@@ -183,7 +191,7 @@
             ];
             var table =
                 datatable('#tbl_requirements',
-                    '{{ route("phases.sprints.index", $phase->id) }}',
+                    '{{ route('phases.sprints.index', $phase->id) }}',
                     columns);
 
 
@@ -191,7 +199,7 @@
             $('#create_update').submit(function(event) {
                 event.preventDefault();
                 submit_form('#create_update', clickButtonID,
-                        '{{ route("phases.sprints.store") }}')
+                        '{{ route('phases.sprints.store') }}')
                     .then(function(res) {
                         loading(false);
                         toastr['success'](res.message);
@@ -241,7 +249,7 @@
 
                 ajaxfunc('{{ route('phases.sprints.store') }}' + '/' + clickButtonID,
                         'GET', '').then(function(res) {
-                            loading(false);
+                        loading(false);
                         if (res.message) {
                             toastr['success'](res.message)
                         }
@@ -272,7 +280,7 @@
             })
 
 
-            $(document).on('click', '.tasks', function(e){
+            $(document).on('click', '.tasks', function(e) {
                 let data_id = $(this).attr("data-id");
                 window.location = '/sprints/' + data_id + '/tasks';
                 // console.log("hi")

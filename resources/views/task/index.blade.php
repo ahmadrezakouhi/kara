@@ -6,7 +6,8 @@
         <div class="mt-3 mt-3 shadow-sm border p-3 d-flex align-items-center rounded">
             <nav aria-label="breadcrumb ">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('projects.index') }}">پروژه ها</a></li>
+                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('projects.index') }}">پروژه ها</a>
+                    </li>
                     <li class="breadcrumb-item"><a
                             href="{{ route('projects.phases.index', $sprint->phase->project->id) }}">پروژه
                             {{ $sprint->phase->project->title }}</a></li>
@@ -23,9 +24,9 @@
                 <div class="d-flex justify-content-between">
                     <h2>لیست تسک ها</h2>
 
-                    @can('create' , [\App\Models\Task::class,$sprint->id])
-                    <button class="btn btn-success" id="create_button"> افزودن
-                        تسک</button>
+                    @can('create', [\App\Models\Task::class, $sprint->id])
+                        <button class="btn btn-success" id="create_button"> افزودن
+                            تسک</button>
                     @endcan
                 </div>
             </div>
@@ -108,22 +109,21 @@
                                 @endif
                                 <div class="d-flex justify-content-between mt-3">
                                     @for ($i = $start; $i <= $end; $i++)
-
-                                            <button type="button" class="btn btn-info picker text-center" id="picker{{ $i }}"
-                                                name="duration_picker"
-                                                value="{{ $i * $base }}" style="width:100px;font-size:12px">{{ $i * $base }}دقیقه
+                                        <button type="button" class="btn btn-info picker text-center"
+                                            id="picker{{ $i }}" name="duration_picker"
+                                            value="{{ $i * $base }}"
+                                            style="width:100px;font-size:12px">{{ $i * $base }}دقیقه
                                         </button>
-
                                     @endfor
 
 
                                 </div>
                             @endfor
-                            @can('confirm',[App\Models\Task::class,$sprint->id])
-                            <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" id="confirm" name="confirm">
-                                <label class="form-check-label">تایید</label>
-                            </div>
+                            @can('confirm', [App\Models\Task::class, $sprint->id])
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" id="confirm" name="confirm">
+                                    <label class="form-check-label">تایید</label>
+                                </div>
                             @endcan
 
                         </div>
@@ -143,12 +143,18 @@
 @section('scripts')
     <script>
         var auth_id = {{ Auth::id() }};
-        var isAdmin =
-            {{ Auth::user()->projects->find($sprint->phase->project->id)->pivot->admin }};
-        var isOwner =
-            {{ Auth::user()->projects->find($sprint->phase->project->id)->pivot->owner }};
-        var isDeveloper =
-            {{ Auth::user()->projects->find($sprint->phase->project->id)->pivot->developer }};
+
+        @if (Auth::user()->isAdmin())
+            var isSuperAdmin = true;
+        @else
+            var isSuperAdmin = false;
+            var isAdmin =
+                {{ Auth::user()->projects->find($project->id)->pivot->admin }};
+            var isOwner =
+                {{ Auth::user()->projects->find($project->id)->pivot->owner }};
+            var isDeveloper =
+                {{ Auth::user()->projects->find($project->id)->pivot->developer }};
+        @endif
     </script>
     <script src="{{ asset('js/general/functions.js') }}"></script>
 
@@ -206,8 +212,7 @@
 
             $('#create_update').submit(function(event) {
                 event.preventDefault();
-                submit_form('#create_update', clickButtonID, '{{ route('sprints.tasks.store') }}',
-                       )
+                submit_form('#create_update', clickButtonID, '{{ route('sprints.tasks.store') }}', )
                     .then(function(res) {
                         loading(false);
                         toastr["success"](res.message);
@@ -263,7 +268,7 @@
 
                 ajaxfunc("{{ route('sprints.tasks.store') }}" + '/' + clickButtonID,
                         'GET', '').then(function(res) {
-                            loading(false);
+                        loading(false);
                         if (res.message) {
                             toastr['success'](res.message)
                         }

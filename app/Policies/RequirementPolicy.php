@@ -20,7 +20,7 @@ class RequirementPolicy
     public function viewAny(User $user , $project_id)
     {
         $project_user = $user->projects->find($project_id);
-        if($project_user && ($project_user->pivot->owner || $project_user->pivot->admin )){
+        if(($project_user && ($project_user->pivot->owner || $project_user->pivot->admin )|| ($user->isAdmin()))){
             return Response::allow();
         }
         return Response::deny('مجوز مشاهده نیازمندی ها وجود ندارد.');
@@ -47,7 +47,7 @@ class RequirementPolicy
     public function create(User $user , $project_id)
     {
         $project_user = $user->projects->find($project_id);
-        if($project_user && ($project_user->pivot->owner || $project_user->pivot->admin)){
+        if(($project_user && ($project_user->pivot->owner || $project_user->pivot->admin))||($user->isAdmin())){
             return Response::allow();
         }
         return Response::deny('مجوز ایجاد نیازمندی ها وجود ندارد.');
@@ -62,7 +62,7 @@ class RequirementPolicy
      */
     public function update(User $user, Requirement $requirement)
     {
-        if($user->id != $requirement->user_id){
+        if(!($user->isAdmin()) && ($user->id != $requirement->user_id)){
             return Response::deny('مجوز به روز رسانی برای فاز وجود ندارد.');
         }
 
@@ -85,7 +85,7 @@ class RequirementPolicy
     {
 
 
-        if($user->id != $requirement->user_id){
+        if(!($user->isAdmin())&&($user->id != $requirement->user_id)){
             return Response::deny('مجوز حذف برای فاز وجود ندارد.');
         }
 
@@ -123,7 +123,7 @@ class RequirementPolicy
 
     public function add_phase(User $user , Requirement $requirement){
        $project_user = $user->projects->find($requirement->project->id); //$user->projects->find($requirement->project->id);
-       if($project_user && $project_user->pivot->admin){
+       if(($project_user && $project_user->pivot->admin)||($user->isAdmin())){
         return Response::allow();
        }
        return Response::deny('مجوز  لینک دادن نیازمندی به فاز را ندارید.');
