@@ -149,11 +149,11 @@
         @else
             var isSuperAdmin = false;
             var isAdmin =
-                {{ Auth::user()->projects->find($project->id)->pivot->admin }};
+                {{ Auth::user()->projects->find($sprint->phase->project->id)->pivot->admin }};
             var isOwner =
-                {{ Auth::user()->projects->find($project->id)->pivot->owner }};
+                {{ Auth::user()->projects->find($sprint->phase->project->id)->pivot->owner }};
             var isDeveloper =
-                {{ Auth::user()->projects->find($project->id)->pivot->developer }};
+                {{ Auth::user()->projects->find($sprint->phase->project->id)->pivot->developer }};
         @endif
     </script>
     <script src="{{ asset('js/general/functions.js') }}"></script>
