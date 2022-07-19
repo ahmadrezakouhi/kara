@@ -7,7 +7,7 @@
         <div class="row card-group">
             <!-- <div class="card-group"> -->
             <div class="col-lg-2 p-0 card border" style="min-height:100vh ;">
-                <div class="card-header persian text-center">
+                <div class="card-header  text-center">
                     در صف انتظار
                 </div>
                 <div class="card-body" style="">
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="col-lg-2 p-0 card border">
-                <div class="card-header persian text-center">در حال انجام</div>
+                <div class="card-header  text-center">در حال انجام</div>
                 <div class="card-body" style="">
                     <ul class="list-group  sortable droppable p-0 " id="indo" style="width:100%;height:100%;">
 
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="col-lg-2 p-0 card border">
-                <div class="card-header persian text-center">انجام شده</div>
+                <div class="card-header  text-center">انجام شده</div>
                 <div class="card-body" style="">
                     <ul class="list-group  sortable droppable p-0" id="done" style="width:100%;height:100%;">
 
@@ -41,8 +41,15 @@
     <script>
         $(document).ready(function() {
             var auth_id = {{ Auth::id() }};
-            var play = null;
-            var url = '/tasks/task-board'
+            var url = '/tasks/task-board';
+            var palyIcon =
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
+                    '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>' +
+                    '</svg>';
+                var pauseIcon =
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
+                    '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
+                    '</svg>';
             ajaxfunc(url, 'GET', '').then(function(res) {
 
 
@@ -50,9 +57,10 @@
                 res.forEach(task => {
                     var $li =
                         '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   rounded " data-id="' +
-                        task.id + '" ' + ' data-background-color="' + task.user
+                        task.id + '" data-user-id="'+task.user_id+'" ' + ' data-background-color="' + task.user
                         .background_color + '"' +
-                        'style="width:100%;height: 80px; background:' + (task.play == 0 ?
+                        'style="width:100%;height: 100px; background:' + (task.play != null && task
+                            .play == 0 ?
 
                             'repeating-linear-gradient(45deg,' + task.user.background_color +
                             ' 0px,' +
@@ -61,7 +69,8 @@
                         ';color:' + task.user.text_color + '">' +
 
                         '<div class="d-flex justify-content-between"> ' +
-                        '<h4 class="persian">' + task.title + '</h4> ' +
+                        '<h5 class="">' + task.title + '</h5> ' +
+
                         '<div> ' +
                         '<a class="text-white plus" style="text-decoration: none ;cursor: pointer ;"><svg ' +
                         'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
@@ -77,10 +86,13 @@
                         '</div> ' +
                         '</div> ' +
 
-
+                        '<div class="d-flex justify-content-between">' +
+                        '<p>مجری</p>' +
+                        '<p>' + task.user.fname + ' ' + task.user.lname + '</p>' +
+                        '</div>' +
                         '<div class="d-flex justify-content-between" >' +
-                        '<p class="persian" style="font-size:18px">تخمین زمان پایان</p>' +
-                        '<p class="persian text-center" style="font-weight: bold">' + task
+                        '<p class="" style="">تخمین زمان پایان</p>' +
+                        '<p class=" text-center" style="font-weight: bold">' + task
                         .duration +
                         'دقیقه</p>' +
                         '</div>' +
@@ -90,23 +102,24 @@
 
                         '<div class="content" style="display:none ;">' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p class="persian" style="font-size:16px">زمان ورود به صف انتظار</p>' +
-                        '<p class="persian text-center todo_date" style="font-size:16px">' + covertGregorianToJalali(
+                        '<p class="" style="">زمان ورود به صف انتظار</p>' +
+                        '<p class=" text-center todo_date" style="">' + covertGregorianToJalali(
                             task
                             .todo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p class="persian" style="font-size:16px">زمان ورود به صف در حال انجام</p>' +
-                        '<p class="persian text-center indo_date" style="font-size:16px">' + covertGregorianToJalali(
+                        '<p class="" style="">زمان ورود به صف در حال انجام</p>' +
+                        '<p class=" text-center indo_date" style="">' + covertGregorianToJalali(
                             task.indo_date) + '</p>' +
                         '</div>' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p class="persian" style="font-size:16px">زمان پایان</p>' +
-                        '<p class="persian text-center done_date" style="font-size:16px">' + covertGregorianToJalali(
+                        '<p class="" style="">زمان پایان</p>' +
+                        '<p class=" text-center done_date" style="">' + covertGregorianToJalali(
                             task.done_date) + '</p>' +
                         '</div>' +
                         '<hr>' +
-                        '<p class="persian" >' + task.description + '</p>' +
+                        '<p class="" style="overflow-y:scroll;height:50px">' + task.description +
+                        '</p>' +
 
                         '<div class="p-1 rounded bg-white">' +
                         '<div class="progress">' +
@@ -123,14 +136,13 @@
                         '<div  class="mt-1 play-pause" data-play="' + task.play + '"' +
                         ' style="cursor:pointer">' +
                         (task.play ?
-                        ('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
-                        '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
-                        '</svg>')
-                        :
-                        ('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
-                        '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>' +
-                        '</svg>')
-                         ) +
+                            ('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
+                                '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
+                                '</svg>') :
+                            ('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
+                                '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>' +
+                                '</svg>')
+                        ) +
                         '</div>' +
                         '</div>' +
 
@@ -149,7 +161,7 @@
                     }
                     $(target).append($li);
 
-                    if ( task.status  != 1 ) {
+                    if (task.status != 1) {
 
                         var $play_pause_button = $(target).find('.play-pause');
                         $play_pause_button.remove();
@@ -177,7 +189,9 @@
                     var targetID = $target.attr('id');
                     if (canMove(parentID, targetID)) {
 
-                        changeStatus($item, $target);
+                            changeStatus($item, $target);
+
+
 
                     }
 
@@ -189,14 +203,7 @@
             $(document).on('click', '.play-pause', function() {
                 var background_color = $(this).parents('li').attr('data-background-color');
 
-                var palyIcon =
-                    '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
-                    '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>' +
-                    '</svg>';
-                var pauseIcon =
-                    '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
-                    '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
-                    '</svg>';
+
                 var status = $(this).attr('data-play');
                 if (status == 1) {
                     $(this).empty();
@@ -206,6 +213,7 @@
                         .css('background', 'repeating-linear-gradient(45deg,' + background_color + ' 0px,' +
                             background_color + ' 20px,#a3a3a3ab 20px,#a3a3a3ab 40px)')
                 } else {
+                    stopUIOtherTasks();
                     $(this).empty();
                     $(this).append(pauseIcon);
                     $(this).attr('data-play', '1');
@@ -229,14 +237,14 @@
         });
         $(document).on('click', '.plus', function() {
             var $item = $(this).parent().parent().parent();
-            if ($item.css('height') == '80px') {
+            if ($item.css('height') == '100px') {
                 $item.animate({
-                    height: '320px'
+                    height: '360px'
                 })
                 $item.find('.content').css('display', 'block')
             } else {
                 $item.animate({
-                        height: '80px'
+                        height: '100px'
                     }
 
                     ,
@@ -311,6 +319,7 @@
                 }
                 if ($target.attr('id') == 'indo') {
 
+                   stopUIOtherTasks();
                     $item.find('.container-play-pause').append(
                         '<div data-play="1" class="mt-1 play-pause" style="cursor:pointer">' +
                         '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
@@ -328,6 +337,14 @@
 
         function removeNextLevelButton($item) {
             $item.find('.next_level').remove();
+        }
+
+
+        function stopUIOtherTasks(){
+            $('ul#indo>li[data-user-id="'+{{ Auth::id() }}+'"]')
+                    .css('background', 'repeating-linear-gradient(45deg,' + '{{ Auth::user()->background_color }}' + ' 0px,' +
+                            '{{ Auth::user()->background_color }}' + ' 20px,#a3a3a3ab 20px,#a3a3a3ab 40px)');
+                            $('ul#indo>li[data-user-id="'+{{ Auth::id() }}+'"] .play-pause').attr('data-play',0);
         }
     </script>
 @endsection

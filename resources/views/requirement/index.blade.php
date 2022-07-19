@@ -106,12 +106,18 @@
 @section('scripts')
     <script>
         var auth_id = {{ Auth::id() }};
-        var isAdmin =
-            {{ Auth::user()->projects->find($project->id)->pivot->admin }};
-        var isOwner =
-            {{ Auth::user()->projects->find($project->id)->pivot->owner }};
-        var isDeveloper =
-            {{ Auth::user()->projects->find($project->id)->pivot->developer }};
+
+        @if (Auth::user()->isAdmin())
+            var isSuperAdmin = true;
+        @else
+            var isSuperAdmin = false;
+            var isAdmin =
+                {{ Auth::user()->projects->find($project->id)->pivot->admin }};
+            var isOwner =
+                {{ Auth::user()->projects->find($project->id)->pivot->owner }};
+            var isDeveloper =
+                {{ Auth::user()->projects->find($project->id)->pivot->developer }};
+        @endif
     </script>
     <script src="{{ asset('js/general/functions.js') }}"></script>
 
@@ -188,7 +194,7 @@
                 event.preventDefault();
                 console.log('hi')
                 submit_form('#create_update', clickButtonID,
-                '{{ route("projects.requirements.store") }}')
+                        '{{ route('projects.requirements.store') }}')
                     .then(function(res) {
                         loading(false);
                         $('#add_requirements').modal('hide');
@@ -241,7 +247,7 @@
 
                 ajaxfunc('{{ route('projects.requirements.store') }}' + '/' + clickButtonID,
                         'GET', '').then(function(res) {
-                            loading(false);
+                        loading(false);
                         if (res.message) {
                             toastr['success'](res.message)
                         }
