@@ -190,8 +190,9 @@ class TaskController extends Controller
 
     public function changeStatus(Task $task)
     {
-
+        $user = Auth::user();
         if ($task->status == 0) {
+            $user->tasks()->where('play',1)->update(['play'=>0]);
             $task->status = 1;
             $task->play = 1;
             Time::create([
@@ -211,12 +212,14 @@ class TaskController extends Controller
 
     public function playPause(Task $task)
     {
+        $user = Auth::user();
         $time = $task->times()->latest()->first();
         if ($time->stop) {
             Time::create([
                 'task_id' => $task->id,
                 'start' => Carbon::now()
             ]);
+            $user->tasks()->where('play',1)->update(['play'=>0]);
             $task->play = 1;
         } else {
             $time->stop = Carbon::now();
