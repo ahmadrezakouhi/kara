@@ -92,6 +92,13 @@
                                 </div>
                             </div>
                         </div>
+
+
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" id="task_confirm" name="task_confirm">
+                                    <label class="form-check-label">تایید پیش فرض تسک ها</label>
+                                </div>
+
                     </div>
 
                     <!-- Modal footer -->
