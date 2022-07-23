@@ -39,6 +39,7 @@
                         <th></th>
                         <th>عنوان</th>
                         <th>توضیحات</th>
+                        <th>مجری</th>
                         <th>مدت زمان انجام</th>
                         <th>دسته بندی</th>
                         <th></th>
@@ -182,7 +183,18 @@
                     }
                 },
                 {
-                    data: 'duration'
+                    data: null,
+                    render:function(data,row,full){
+                        return data['user']['fname'] + ' '+ data['user']['lname'];
+
+
+                    }
+                },
+                {
+                    data: null,
+                    render:function(data,row,full){
+                        return data['duration'] + ' دقیقه'
+                    }
                 },
                 {
                     data: 'category.name'
