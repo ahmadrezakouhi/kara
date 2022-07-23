@@ -174,7 +174,12 @@
                     data: 'title'
                 },
                 {
-                    data: 'description'
+                    data: null,
+                    render:function(data,row,full){
+                        return data['description'] ? data['description'] : '-';
+
+
+                    }
                 },
                 {
                     data: 'duration'
