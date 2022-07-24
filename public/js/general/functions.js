@@ -37,9 +37,11 @@ function datatable(table_id, url, columns,removeButtons=true , paginate = true) 
 
         },
         paging:paginate,
-
+        responsive:true,
 
         columns: columns,
+
+   
         language: {
             "decimal": "-",
             "decimal": "",

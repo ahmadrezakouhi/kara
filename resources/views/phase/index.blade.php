@@ -27,7 +27,7 @@
             </div>
             <div class="card-body">
 
-                <table id="tbl_requirements" class="table table-bordered table-striped">
+                <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap" width="100%">
                     <thead>
                         <th></th>
                         <th>عنوان</th>
@@ -197,6 +197,7 @@
                     '{{ route('projects.phases.index', $project->id) }}',
                     columns);
 
+                    new $.fn.dataTable.FixedHeader( table );
 
 
             $('#create_update').submit(function(event) {

@@ -15,7 +15,7 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_phases" class="table table-bordered table-striped">
+                <table id="tbl_phases" class="table  table-bordered border table-striped nowrap" width="100%">
                     <thead>
                         <th></th>
                         <th> پروژه</th>
@@ -108,6 +108,7 @@
                     columns, false);
 
 
+                    new $.fn.dataTable.FixedHeader( table );
 
 
 

@@ -32,7 +32,7 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_requirements" class="table table-bordered table-striped">
+                <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap" width="100%">
                     <thead>
                         <th></th>
                         <th>عنوان</th>
@@ -92,6 +92,13 @@
                                 </div>
                             </div>
                         </div>
+
+
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" id="task_confirm" name="task_confirm">
+                                    <label class="form-check-label">تایید پیش فرض تسک ها</label>
+                                </div>
+
                     </div>
 
                     <!-- Modal footer -->
@@ -194,6 +201,7 @@
                     '{{ route('phases.sprints.index', $phase->id) }}',
                     columns);
 
+                    new $.fn.dataTable.FixedHeader( table );
 
 
             $('#create_update').submit(function(event) {
