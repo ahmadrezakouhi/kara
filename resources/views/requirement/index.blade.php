@@ -15,7 +15,7 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_requirements" class="table table-bordered table-striped">
+                <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap" width="100%">
                     <thead>
                         <th></th>
                         <th>عنوان</th>
@@ -187,6 +187,7 @@
                 datatable('#tbl_requirements',
                     '{{ route('projects.requirements.index', $project->id) }}',
                     columns, true);
+                    new $.fn.dataTable.FixedHeader( table );
 
 
 

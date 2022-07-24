@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SprintRequest;
 use App\Models\Sprint;
 use App\Models\Phase;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -108,6 +109,9 @@ class SprintController extends Controller
         $inputs['phase_id'] = $request->phase_id;
         $inputs['start_date'] = convertJalaliToGeorgian($request->start_date);
         $inputs['end_date'] = convertJalaliToGeorgian($request->end_date);
+        if($request->task_confirm){
+            $inputs['task_confirm']=1;
+        }
         Sprint::updateOrCreate(['id' => $sprint_id], $inputs);
         if ($sprint_id) {
             return response()->json(['message' => 'اسپرینت مورد نظر آپدیت شد.']);

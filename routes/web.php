@@ -201,7 +201,7 @@ Route::prefix('sprints')->middleware('auth')->group(function () {
         ->name('sprints.tasks.edit')->can('update', 'task');
 });
 
-Route::prefix('tasks')->group(function () {
+Route::prefix('tasks')->middleware('auth')->group(function () {
 
     Route::get('/', [TaskController::class, 'owner'])->name('tasks.owner');
 
@@ -216,10 +216,10 @@ Route::prefix('tasks')->group(function () {
 });
 
 
-Route::prefix('sprints')->group(function () {
+Route::prefix('sprints')->middleware('auth')->group(function () {
     Route::get('/', [SprintController::class, 'owner'])->name('sprints.owner');
 });
 
-Route::prefix('phases')->group(function () {
+Route::prefix('phases')->middleware('auth')->group(function () {
     Route::get('/', [PhaseController::class, 'owner'])->name('phases.owner');
 });

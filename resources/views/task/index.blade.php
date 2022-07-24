@@ -34,11 +34,12 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_requirements" class="table table-bordered table-striped">
+                <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap" width="100%">
                     <thead>
                         <th></th>
                         <th>عنوان</th>
                         <th>توضیحات</th>
+                        <th>مجری</th>
                         <th>مدت زمان انجام</th>
                         <th>دسته بندی</th>
                         <th></th>
@@ -174,10 +175,26 @@
                     data: 'title'
                 },
                 {
-                    data: 'description'
+                    data: null,
+                    render:function(data,row,full){
+                        return data['description'] ? data['description'] : '-';
+
+
+                    }
                 },
                 {
-                    data: 'duration'
+                    data: null,
+                    render:function(data,row,full){
+                        return data['user']['fname'] + ' '+ data['user']['lname'];
+
+
+                    }
+                },
+                {
+                    data: null,
+                    render:function(data,row,full){
+                        return data['duration'] + ' دقیقه'
+                    }
                 },
                 {
                     data: 'category.name'
@@ -207,6 +224,7 @@
                     '{{ route('sprints.tasks.index', $sprint->id) }}',
                     columns);
 
+                    new $.fn.dataTable.FixedHeader( table );
 
 
 

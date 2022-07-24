@@ -68,8 +68,7 @@ body {
     color: #020202;
     height: 100% !important;
     width: 100%;
-    /* background-color: rgba(0, 0, 0, 0.24); */
-	/*background-image: url("../image/bg2.jpg") !important;*/
+
 	background-attachment: fixed;
 	background-size: cover;
 	background-position: center;
@@ -87,7 +86,7 @@ body {
 	text-align: center;
 } */
 
-.align-left{
+/* .align-left{
     text-align: left;
 }
 .align-right{
@@ -141,4 +140,4 @@ a{
 .btn-brown{
 	color: #fff;
 	background-color: #a5673f;
-}
+} */

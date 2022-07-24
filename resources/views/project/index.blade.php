@@ -22,7 +22,8 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_projects" class="table table-bordered table-striped">
+                <div class="">
+                <table id="tbl_projects" class="table text-center table-striped table-bordered border nowrap" style="width:100%">
                     <thead>
                         <th></th>
                         <th>عنوان</th>
@@ -39,7 +40,7 @@
 
                     </tbody>
                 </table>
-
+                </div>
             </div>
         </div>
     </div>
@@ -99,7 +100,7 @@
 
 
     <div class="modal fade" id="add_users">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -111,8 +112,8 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <div class="table-responsive">
-                            <table id="tbl_users" class="table table-bordered table-striped" style="width: 100%">
+                        <div class="">
+                            <table id="tbl_users" class="table table-bordered border table-striped nowrap" width="100%">
                                 <thead>
                                     <th></th>
                                     <th>مالک</th>
@@ -214,7 +215,7 @@
 
                         '<li><a class="dropdown-item requirements" style="cursor:pointer">نیازمندی ها</a></li>' +
                         '<li><a class="dropdown-item phases" style="cursor:pointer">فاز ها</a></li>' +
-                    
+
                     '</ul>' +
                     '</div>'
                 }
@@ -291,7 +292,7 @@
                     '{{ route('projects.index') }}',
                     columns, false);
 
-
+                    new $.fn.dataTable.FixedHeader( table );
 
             $('#create_update').submit(function(event) {
                 event.preventDefault();
@@ -425,7 +426,7 @@
                             '{{ route('projects.getUsers') }}',
                             userColumns, false, false);
 
-
+                            new $.fn.dataTable.FixedHeader( userTable );
                         $('#add_users').modal('show')
                     })
                     .catch(function(res) {
