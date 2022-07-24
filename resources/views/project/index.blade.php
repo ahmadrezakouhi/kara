@@ -22,7 +22,8 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_projects" class="table table-bordered table-striped">
+                <div class="responsive">
+                <table id="tbl_projects" class="table table-striped">
                     <thead>
                         <th></th>
                         <th>عنوان</th>
@@ -39,7 +40,7 @@
 
                     </tbody>
                 </table>
-
+                </div>
             </div>
         </div>
     </div>
@@ -214,7 +215,7 @@
 
                         '<li><a class="dropdown-item requirements" style="cursor:pointer">نیازمندی ها</a></li>' +
                         '<li><a class="dropdown-item phases" style="cursor:pointer">فاز ها</a></li>' +
-                    
+
                     '</ul>' +
                     '</div>'
                 }

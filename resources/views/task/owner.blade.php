@@ -15,7 +15,7 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_tasks" class="table table-bordered table-striped">
+                <table id="tbl_tasks" class="table text-center table-striped">
                     <thead>
                         <th></th>
                         <th>عنوان</th>

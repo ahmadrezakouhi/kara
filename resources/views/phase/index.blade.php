@@ -27,7 +27,7 @@
             </div>
             <div class="card-body">
 
-                <table id="tbl_requirements" class="table table-bordered table-striped">
+                <table id="tbl_requirements" class="table text-center table-striped">
                     <thead>
                         <th></th>
                         <th>عنوان</th>
