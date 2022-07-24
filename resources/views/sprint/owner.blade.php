@@ -15,7 +15,7 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_sprints" class="table text-center table-striped">
+                <table id="tbl_sprints" class="table  table-bordered border table-striped nowrap" width="100%">
                     <thead>
                         <th></th>
                         <th>پروژه</th>
@@ -129,6 +129,7 @@
                     "{{ route('sprints.owner') }}",
                     columns, false);
 
+                    new $.fn.dataTable.FixedHeader( table );
 
 
 

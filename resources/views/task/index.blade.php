@@ -34,7 +34,7 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_requirements" class="table text-center table-striped">
+                <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap" width="100%">
                     <thead>
                         <th></th>
                         <th>عنوان</th>
@@ -224,6 +224,7 @@
                     '{{ route('sprints.tasks.index', $sprint->id) }}',
                     columns);
 
+                    new $.fn.dataTable.FixedHeader( table );
 
 
 
