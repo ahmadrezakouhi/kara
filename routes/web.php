@@ -34,39 +34,12 @@ Route::get('/', function () {
 
 
 
-Route::middleware('auth','role:admin')->group(function () {
-
-    Route::resource('/personnel', PersonnelController::class);
-    // Route::delete('/personnel/{personnel}', [PersonnelController::class, "destroy"]);
-    Route::post('/personnel/getData', [PersonnelController::class, "getData"]);
-
-    Route::resource('/user', UserController::class);
-    Route::delete('/user/{id}', [UserController::class, "destroy"]);
-    Route::post('/user/getAll', [UserController::class, "getAll"]);
-    Route::post('/user/getData', [UserController::class, "getData"]);
-    Route::post('/user/getDataForProject', [UserController::class, "getDataForProject"]);
-    Route::post('/user/addUser', [UserController::class, "addUser"]);
-
-    // Route::resource('/project', ProjectController::class);
-    // Route::delete('/project/{id}', [ProjectController::class, "destroy"]);
-    // Route::post('/project/getData', [ProjectController::class, "getData"]);
-    // Route::post('/project/getProjects', [ProjectController::class, "getProjects"]);
-    // Route::post('/project/getParentProjects', [ProjectController::class, "getParentProjects"]);
-    // Route::post('/project/addParent', [ProjectController::class, "addParent"]);
-    // Route::post('/project/addProject', [ProjectController::class, "addProject"]);
+Route::middleware('auth', 'role:admin')->group(function () {
 
 
 
-
-
-    Route::resource('/projectUser', ProjectUserController::class);
-    Route::prefix("projectUser")->group(function () {
-        Route::delete('{id}', [ProjectUserController::class, "destroy"]);
-        Route::post('getData', [ProjectUserController::class, "getData"]);
-        Route::post('add', [ProjectUserController::class, "add"]);
-        Route::get('getAllWithID/{id}', [ProjectUserController::class, "getAllWithID"],);
-        Route::post('getUserByParentProject', [ProjectUserController::class, "getUserByParentProject"]);
-        Route::post('getUserProjects', [ProjectUserController::class, "getUserProjects"]);
+    Route::prefix('users')->group(function () {
+        Route::get('users', [UserController::class, 'index'])->name('users.index');
     });
 });
 
@@ -89,13 +62,13 @@ Route::prefix('project')->middleware('auth')->group(function () {
         ->name('projects.getProjects');
 
     Route::get('{project}/getProjectUsers', [ProjectController::class, 'getProjectUsers'])
-        ->name('projects.getProjectUsers')->can('getProjectUsers',\App\Models\Project::class);
+        ->name('projects.getProjectUsers')->can('getProjectUsers', \App\Models\Project::class);
 
     Route::post('{project}/add-users', [ProjectController::class, 'addUsers'])
-        ->name('projects.addUsers')->can('addUsers',\App\Models\Project::class);
+        ->name('projects.addUsers')->can('addUsers', \App\Models\Project::class);
 
     Route::get('{project}', [ProjectController::class, 'edit'])
-        ->name('projects.edit')->can('update',\App\Models\Project::class);
+        ->name('projects.edit')->can('update', \App\Models\Project::class);
 
     Route::delete('{project}', [ProjectController::class, 'destroy'])
         ->name('projects.destroy')->can('delete', 'project');
@@ -214,7 +187,7 @@ Route::prefix('tasks')->middleware('auth')->group(function () {
     Route::post('/{task}/play-pause', [TaskController::class, 'playPause'])
         ->name('tasks.play-pause')->can('playPause', 'task');
 
-    Route::post('/{task}/accept',[TaskController::class,'accept'])->name('tasks.accept');
+    Route::post('/{task}/accept', [TaskController::class, 'accept'])->name('tasks.accept');
 });
 
 
