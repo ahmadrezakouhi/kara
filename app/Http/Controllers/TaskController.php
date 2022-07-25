@@ -46,7 +46,7 @@ class TaskController extends Controller
         if ($request->ajax()) {
             if ($user->isAdmin()) {
                 $tasks = Task::with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
-                    ->get();
+                    ->orderBy('status')->orderBy('todo_date','DESC')->get();
             } else {
                 // $tasks = $user->tasks()->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
                 //     ->get();
@@ -93,14 +93,17 @@ class TaskController extends Controller
                         foreach ($phase->sprints as $sprint) {
                             foreach ($sprint->tasks as $task) {
                                 if ($task->todo_date) {
+
                                     $tasks[] = $task;
+
+
                                 }
                             }
                         }
                     }
                 }
 
-
+                // $tasks = collect($tasks)->collapse();
             }
             return response()->json($tasks);
         }
@@ -192,7 +195,7 @@ class TaskController extends Controller
     {
         $user = Auth::user();
         if ($task->status == 0) {
-            $user->tasks()->where('play',1)->update(['play'=>0]);
+            $user->tasks()->whereNull('done_date')->where('play',1)->update(['play'=>0]);
             $task->status = 1;
             $task->play = 1;
             Time::create([
@@ -203,6 +206,7 @@ class TaskController extends Controller
         } else if ($task->status == 1) {
             $task->status = 2;
             $task->done_date = Carbon::now();
+            $task->play = 1;
         }
         $task->save();
         return response()->json($task);
@@ -219,7 +223,7 @@ class TaskController extends Controller
                 'task_id' => $task->id,
                 'start' => Carbon::now()
             ]);
-            $user->tasks()->where('play',1)->update(['play'=>0]);
+            $user->tasks()->whereNull('done_date')->where('play',1)->update(['play'=>0]);
             $task->play = 1;
         } else {
             $time->stop = Carbon::now();
@@ -230,6 +234,17 @@ class TaskController extends Controller
 
         // }
         return response()->json();
+    }
+
+    public function accept(Task $task){
+        if($task->indo_date == null && $task->done_date == null && $task->todo_date != null){
+            $task->update(['todo_date'=>null]);
+            return response()->json(['message'=>'تسک مورد نظر لغو تایید  شد.']);
+        }else{
+            $task->update(['todo_date'=>now()]);
+            return response()->json(['message'=>'تسک مورد نظر تایید شد.']);
+        }
+
     }
 
     /**
