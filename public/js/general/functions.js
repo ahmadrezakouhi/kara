@@ -41,7 +41,7 @@ function datatable(table_id, url, columns,removeButtons=true , paginate = true) 
 
         columns: columns,
 
-   
+
         language: {
             "decimal": "-",
             "decimal": "",
@@ -67,6 +67,7 @@ function datatable(table_id, url, columns,removeButtons=true , paginate = true) 
         createdRow: function (row, data, dataIndex) {
 
             $(row).find('button,.dropdown-item').attr("data-id", data['id']);
+            
             if (removeButtons) {
                 if(!isSuperAdmin){
                 if (auth_id != data.user_id) {
@@ -137,7 +138,14 @@ function covertGregorianToJalali(date) {
     if (date == null) {
         return '-';
     }
-    return moment(date, 'YYYY-M-D HH:mm:ss').format('HH:mm:ss - jYYYY/jMM/jDD');
+    return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD');
+}
+
+function covertGregorianToJalaliTime(date) {
+    if (date == null) {
+        return '-';
+    }
+    return moment(date, 'YYYY-M-D HH:mm:ss').format('HH:mm');
 }
 
 function showErrors(errors) {

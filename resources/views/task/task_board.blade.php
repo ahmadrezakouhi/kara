@@ -59,17 +59,17 @@
                         '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   rounded " data-id="' +
                         task.id + '" data-user-id="'+task.user_id+'" ' + ' data-background-color="' + task.user
                         .background_color + '"' +
-                        'style="width:100%;height: 100px; background:' + (task.play != null && task
+                        'style="width:100%;height: 70px; background:' + (task.play != null && task
                             .play == 0 ?
 
                             'repeating-linear-gradient(45deg,' + task.user.background_color +
                             ' 0px,' +
-                            task.user.background_color + ' 20px,#a3a3a3ab 20px,#a3a3a3ab 40px)' :
+                            task.user.background_color + ' 100px,#a3a3a3ab 300px,#a3a3a3ab 20px)' :
                             task.user.background_color) +
                         ';color:' + task.user.text_color + '">' +
 
                         '<div class="d-flex justify-content-between"> ' +
-                        '<h5 class="">' + task.title + '</h5> ' +
+                        '<h5 class="">' + task.id +'# ' + task.title +'</h5> ' +
 
                         '<div> ' +
                         '<a class="text-white plus" style="text-decoration: none ;cursor: pointer ;"><svg ' +
@@ -87,36 +87,46 @@
                         '</div> ' +
 
                         '<div class="d-flex justify-content-between">' +
-                        '<p>مجری</p>' +
+                        '<p>فاز5/اسپرینت 9/کارا</p>' +
                         '<p>' + task.user.fname + ' ' + task.user.lname + '</p>' +
                         '</div>' +
-                        '<div class="d-flex justify-content-between" >' +
-                        '<p class="" style="">تخمین زمان پایان</p>' +
-                        '<p class=" text-center" style="font-weight: bold">' + task
-                        .duration +
-                        'دقیقه</p>' +
-                        '</div>' +
+                        '<div class="content" style="display:none">'+
+                        '<table class="table text-white text-center table-bordered" style="width:100%">'+
+                            '<thead class="">'+
+                                '<tr>'+
+                                '<th width="33%">'+
+                                'ورود'+
+                                '</th>'+
+                                '<th width="33%">'+
+                                'انجام'+
+                                '</th>'+
+                                '<th width="33%">'+
+                                'پایان'+
+                                '</th>'+
+                                '<tr>'+
+                            '</thead>'+
+                            '<tbody >'+
+                                '<tr>'+
+                            '<td>'+
+                                covertGregorianToJalali(task.todo_date)+
+                                '<br>'+
+                                covertGregorianToJalaliTime(task.todo_date)+
+                                '</td>'+
+                                '<td>'+
+                                    covertGregorianToJalali(task.indo_date)+
+                                    '<br>'+
+                                covertGregorianToJalaliTime(task.indo_date)+
+                                '</td>'+
+                                '<td>'+
+                                    covertGregorianToJalali(task.done_date)+
+                                    '<br>'+
+                                covertGregorianToJalaliTime(task.done_date)+
+                                '</td>'+
+                                '</tr>'+
 
 
+                            '</table>'+
 
-
-                        '<div class="content" style="display:none ;">' +
-                        '<div class="d-flex justify-content-between">' +
-                        '<p class="" style="">زمان ورود به صف انتظار</p>' +
-                        '<p class=" text-center todo_date" style="">' + covertGregorianToJalali(
-                            task
-                            .todo_date) + '</p>' +
-                        '</div>' +
-                        '<div class="d-flex justify-content-between">' +
-                        '<p class="" style="">زمان ورود به صف در حال انجام</p>' +
-                        '<p class=" text-center indo_date" style="">' + covertGregorianToJalali(
-                            task.indo_date) + '</p>' +
-                        '</div>' +
-                        '<div class="d-flex justify-content-between">' +
-                        '<p class="" style="">زمان پایان</p>' +
-                        '<p class=" text-center done_date" style="">' + covertGregorianToJalali(
-                            task.done_date) + '</p>' +
-                        '</div>' +
                         '<hr>' +
                         '<p class="" style="overflow-y:scroll;height:50px">' + task.description +
                         '</p>' +
@@ -182,14 +192,19 @@
 
                 drop: function(event, ui) {
                     var $item = $(ui.draggable);
+
                     var parentID = $item.parent().attr('id');
 
 
                     var $target = $(event.target);
                     var targetID = $target.attr('id');
                     if (canMove(parentID, targetID)) {
+                        $item.remove();
+                        loading(true);
+                            setTimeout(() => {
 
-                            changeStatus($item, $target);
+                                changeStatus($item, $target);
+                            }, 5000);
 
 
 
@@ -211,7 +226,7 @@
                     $(this).attr('data-play', '0');
                     $(this).parents('li')
                         .css('background', 'repeating-linear-gradient(45deg,' + background_color + ' 0px,' +
-                            background_color + ' 20px,#a3a3a3ab 20px,#a3a3a3ab 40px)')
+                            background_color + ' 100px,#a3a3a3ab 300px,#a3a3a3ab 20px)')
                 } else {
                     stopUIOtherTasks();
                     $(this).empty();
@@ -237,14 +252,14 @@
         });
         $(document).on('click', '.plus', function() {
             var $item = $(this).parent().parent().parent();
-            if ($item.css('height') == '100px') {
+            if ($item.css('height') == '70px') {
                 $item.animate({
                     height: '360px'
                 })
                 $item.find('.content').css('display', 'block')
             } else {
                 $item.animate({
-                        height: '100px'
+                        height: '70px'
                     }
 
                     ,
@@ -315,7 +330,9 @@
                     .done_date));
                 if ($target.attr('id') == 'done') {
                     removeNextLevelButton($item);
+                    var background_color = $item.attr('data-background-color');
                     $item.find('.play-pause').remove();
+                    $item.css('background',background_color);
                 }
                 if ($target.attr('id') == 'indo') {
 
@@ -328,7 +345,7 @@
                         '</div>');
 
                 }
-                $target.append($item[0].outerHTML);
+                $target.prepend($item[0].outerHTML);
             }).catch(function(res) {
                 loading(false);
             });
@@ -343,7 +360,7 @@
         function stopUIOtherTasks(){
             $('ul#indo>li[data-user-id="'+{{ Auth::id() }}+'"]')
                     .css('background', 'repeating-linear-gradient(45deg,' + '{{ Auth::user()->background_color }}' + ' 0px,' +
-                            '{{ Auth::user()->background_color }}' + ' 20px,#a3a3a3ab 20px,#a3a3a3ab 40px)');
+                            '{{ Auth::user()->background_color }}' + ' 100px,#a3a3a3ab 300px,#a3a3a3ab 20px)');
                             $('ul#indo>li[data-user-id="'+{{ Auth::id() }}+'"] .play-pause').attr('data-play',0);
         }
     </script>

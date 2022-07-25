@@ -213,6 +213,8 @@ Route::prefix('tasks')->middleware('auth')->group(function () {
 
     Route::post('/{task}/play-pause', [TaskController::class, 'playPause'])
         ->name('tasks.play-pause')->can('playPause', 'task');
+
+    Route::post('/{task}/accept',[TaskController::class,'accept'])->name('tasks.accept');
 });
 
 
