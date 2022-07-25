@@ -11,7 +11,7 @@ class Task extends Model
 
     protected $guarded = ['id'];
 
-    protected $with = ['user'];
+    protected $with = ['user' , 'sprint' ,'sprint.phase','sprint.phase.project'];
 
     public function user()
     {

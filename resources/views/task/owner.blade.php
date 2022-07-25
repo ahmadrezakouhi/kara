@@ -17,11 +17,11 @@
                 </div>
                 <table id="tbl_tasks" class="table  table-bordered border table-striped nowrap" width="100%">
                     <thead>
-                        <th></th>
+                        <th>شماره</th>
                         <th>عنوان</th>
                         <th>توضیحات</th>
                         <th>مدت زمان انجام</th>
-                        <th>انجام دهنده</th>
+                        <th>مجری</th>
                         <th>تایید</th>
 
                         <th>وضعیت</th>
@@ -29,9 +29,8 @@
                         <th>عنوان اسپرینت</th>
                         <th>عنوان فاز</th>
                         <th>عنوان پروژه</th>
-                        {{-- <th></th> --}}
-                        {{-- <th>تاریخ ثبت</th>
-                        <th>مدیریت</th> --}}
+                        <th>مدیریت</th>
+
 
                     </thead>
                     <tbody>
@@ -58,8 +57,8 @@
         $(document).ready(function() {
 
             var columns = [{
-                    title: 'ردیف',
-                    "defaultContent": "-",
+                    data: 'id'
+
                 },
                 {
                     data: 'title'
@@ -121,7 +120,16 @@
                 {
                     data: 'sprint.phase.project.title'
                 },
-
+                {
+                    responsivePriority: 0,
+                    data: null,
+                    title: "مدیریت",
+                    className: "center",
+                    defaultContent:
+                        "<button class='btn btn-outline-success accept'>" +
+                        'تایید'+
+                        "</button>"
+                }
 
 
             ];
@@ -131,12 +139,40 @@
                     columns, false);
 
 
-                    new $.fn.dataTable.FixedHeader( table );
+            new $.fn.dataTable.FixedHeader(table);
 
 
 
 
+                $(document).on('click','.accept',function(){
+                    var id = $(this).attr('data-id');
+                    var url = "tasks/"  + id+'/accept';
+                    Swal.fire({
+                    text: "می خواهید تسک مورد نظر تایید شود ؟",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله می خواهم'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        ajaxfunc(url, 'POST', '').then(function(res) {
+                            loading(false);
+                            toastr['success'](res.message);
+                            table.ajax.reload();
+                        }).catch(function(res) {
+                            loading(false);
+                            toastr['error'](res.responseJSON.message);
 
+
+                        })
+
+
+
+                    }
+                })
+                })
 
 
 

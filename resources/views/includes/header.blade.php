@@ -23,7 +23,7 @@
 
         @can('isAdmin')
         <li class="nav-item dropdown">
-          <a class="nav-link " aria-current="page" href="{{ route('user.index') }}">
+          <a class="nav-link " aria-current="page" href="{{ route('users.index') }}">
           کاربران
           </a>
 
