@@ -87,7 +87,7 @@
                         '</div> ' +
 
                         '<div class="d-flex justify-content-between">' +
-                        '<p>فاز5/اسپرینت 9/کارا</p>' +
+                        '<p>'+task.sprint.phase.project.title+'/'+task.sprint.phase.title+'/'+task.sprint.title+'</p>' +
                         '<p>' + task.user.fname + ' ' + task.user.lname + '</p>' +
                         '</div>' +
                         '<div class="content" style="display:none">'+
