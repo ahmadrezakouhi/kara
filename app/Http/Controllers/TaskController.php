@@ -45,8 +45,8 @@ class TaskController extends Controller
         $user = Auth::user();
         if ($request->ajax()) {
             if ($user->isAdmin()) {
-                $tasks = Task::with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
-                    ->orderBy('status')->orderBy('todo_date','DESC')->get();
+                $tasks = Task::orderBy('id','DESC')->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
+                    ->get();
             } else {
                 // $tasks = $user->tasks()->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
                 //     ->get();
@@ -58,7 +58,7 @@ class TaskController extends Controller
                             $tasks[]=$sprint->tasks()
                             ->with(['category:id,name', 'sprint:id,title,phase_id',
                             'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title',
-                            'user:id,fname,lname'])->get();
+                            'user:id,fname,lname'])->orderBy('created_at','DESC')->get();
                         }
                         $tasks = collect($tasks)->collapse();
                     }
