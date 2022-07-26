@@ -142,7 +142,9 @@ class TaskController extends Controller
 
         $user = Auth::user();
         $inputs = $request->all();
+        if(!$user->isAdmin()){
         $inputs['user_id'] = $user->id;
+        }
         $inputs['sprint_id'] = $request->sprint_id;
         $inputs['category_id'] = $request->category;
         if ($request->confirm || $sprint->task_confirm) {
