@@ -11,8 +11,8 @@
                     <h2>لیست کاربران </h2>
 
                     {{-- @can('create', [\App\Models\Task::class, $sprint->id]) --}}
-                        <button class="btn btn-success" id="create_button"> افزودن
-                            کاربر</button>
+                    <button class="btn btn-success" id="create_button"> افزودن
+                        کاربر</button>
                     {{-- @endcan --}}
                 </div>
             </div>
@@ -27,7 +27,8 @@
                         <th>نام خانوادگی</th>
                         <th>شماره همراه</th>
                         <th>نوع کاربر</th>
-
+                        <th>رنگ پس زمینه</th>
+                        <th>رنگ متن</th>
                         <th></th>
 
 
@@ -54,16 +55,16 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                       <div class="row my-3">
-                        <div class="col-md-6">
-                            <label for="fname" class="form-label">نام</label>
-                            <input type="text" class="form-control" id="fname" name="fname">
+                        <div class="row my-3">
+                            <div class="col-md-6">
+                                <label for="fname" class="form-label">نام</label>
+                                <input type="text" class="form-control" id="fname" name="fname">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fname" class="form-label">نام خانوادگی </label>
+                                <input type="text" class="form-control" id="fname" name="fname">
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="fname" class="form-label">نام خانوادگی </label>
-                            <input type="text" class="form-control" id="fname" name="fname">
-                        </div>
-                       </div>
                         <div class="mb-3 mt-3">
                             <label for="description" class="form-label">توضیحات</label>
                             <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
@@ -117,7 +118,7 @@
 
             var clickButtonID;
             var columns = [{
-                    data:'id'
+                    data: 'id'
                 },
                 {
                     data: 'fname'
@@ -126,15 +127,33 @@
                     data: 'lname'
                 },
                 {
-                    data:'phone'
+                    data: 'phone'
                 },
 
-               {
-                    data:null,
-                    render:function(data,row,full){
-                        return data['role']=='admin' ? 'مدیر' : 'کاربر';
+                {
+                    data: null,
+                    render: function(data, row, full) {
+                        return data['role'] == 'admin' ? 'مدیر' : 'کاربر';
                     }
-               },
+                },
+                {
+                    data: null,
+                    render: function(data, row, full) {
+                        return  data['background_color'] ? '<div style="color:'+data['background_color']+'"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-square-fill border" viewBox="0 0 16 16">' +
+                            '<path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>' +
+                            '</svg></div>' : '-' ;
+                    }
+                },
+
+
+                {
+                    data: null,
+                    render: function(data, row, full) {
+                        return data['text_color'] ? '<div style="color:'+data['text_color']+'"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-square-fill border" viewBox="0 0 16 16">' +
+                            '<path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>' +
+                            '</svg></div>' : '-' ;
+                    }
+                },
 
                 {
                     responsivePriority: 0,
@@ -157,10 +176,10 @@
             ];
             var table =
                 datatable('#tbl_requirements',
-                    '{{ route("users.index") }}',
+                    '{{ route('users.index') }}',
                     columns);
 
-                    new $.fn.dataTable.FixedHeader( table );
+            new $.fn.dataTable.FixedHeader(table);
 
 
 
