@@ -17,7 +17,7 @@
                 </div>
                 <table id="tbl_sprints" class="table  table-bordered border table-striped nowrap" width="100%">
                     <thead>
-                        <th></th>
+                        <th>شماره</th>
                         <th>پروژه</th>
                         <th>فاز</th>
                         <th>عنوان</th>
@@ -30,9 +30,7 @@
                         <th>زمان شروع</th>
                         <th>زمان پایان</th>
 
-                        {{-- <th></th> --}}
-                        {{-- <th>تاریخ ثبت</th>
-                        <th>مدیریت</th> --}}
+
 
                     </thead>
                     <tbody>
@@ -59,8 +57,7 @@
         $(document).ready(function() {
 
             var columns = [{
-                    title: 'ردیف',
-                    "defaultContent": "-",
+                    data:'id'
                 },
                 {
                     data: 'phase.project.title'

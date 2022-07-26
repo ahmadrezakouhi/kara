@@ -22,7 +22,7 @@
                 </div>
                 <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap" width="100%">
                     <thead>
-                        <th></th>
+                        <th>شماره</th>
                         <th>نام </th>
                         <th>نام خانوادگی</th>
                         <th>شماره همراه</th>
@@ -47,7 +47,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modal_title">افزودن تسک ها</h4>
+                    <h4 class="modal-title" id="modal_title">افزودن کاربر ها</h4>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" action="post" id="create_update">
@@ -117,8 +117,7 @@
 
             var clickButtonID;
             var columns = [{
-                    title: 'ردیف',
-                    "defaultContent": "-",
+                    data:'id'
                 },
                 {
                     data: 'fname'

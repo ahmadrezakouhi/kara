@@ -69,7 +69,7 @@
                         ';color:' + task.user.text_color + '">' +
 
                         '<div class="d-flex justify-content-between"> ' +
-                        '<h5 class="">' + task.id +'# ' + task.title +'</h5> ' +
+                        '<h5 class="">' + task.id +'# ' + task.title + '('+task.duration+'دقیقه)'+'</h5> ' +
 
                         '<div> ' +
                         '<a class="text-white plus" style="text-decoration: none ;cursor: pointer ;"><svg ' +

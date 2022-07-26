@@ -59,6 +59,7 @@
             var columns = [{
                     data: 'id'
 
+
                 },
                 {
                     data: 'title'
@@ -137,7 +138,7 @@
                 datatable('#tbl_tasks',
                     "{{ route('tasks.owner') }}",
                     columns, false);
-
+                    order: [[3, 'desc']],
 
             new $.fn.dataTable.FixedHeader(table);
 

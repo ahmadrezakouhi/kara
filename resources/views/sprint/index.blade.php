@@ -34,7 +34,7 @@
                 </div>
                 <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap" width="100%">
                     <thead>
-                        <th></th>
+                        <th>شماره</th>
                         <th>عنوان</th>
                         <th>توضیحات</th>
                         <th>مدت زمان انجام</th>
@@ -140,8 +140,7 @@
         $(document).ready(function() {
             var clickButtonID;
             var columns = [{
-                    title: 'ردیف',
-                    "defaultContent": "-",
+                    data:'id'
                 },
                 {
                     data: 'title'

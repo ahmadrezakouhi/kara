@@ -9,7 +9,7 @@ class UserController extends Controller
     public function index(Request $request){
 
         if($request->ajax()){
-            $users = User::select('fname','lname','phone','role')->get();
+            $users = User::select('id','fname','lname','phone','role')->get();
             $recordTotal = count($users);
             $data = array(
                 "draw" => intval($request['draw']),
