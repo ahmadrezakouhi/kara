@@ -38,7 +38,7 @@ function datatable(table_id, url, columns,removeButtons=true , paginate = true) 
         },
         paging:paginate,
         responsive:true,
-
+        ordering:false,
         columns: columns,
 
 
@@ -67,7 +67,7 @@ function datatable(table_id, url, columns,removeButtons=true , paginate = true) 
         createdRow: function (row, data, dataIndex) {
 
             $(row).find('button,.dropdown-item').attr("data-id", data['id']);
-            
+
             if (removeButtons) {
                 if(!isSuperAdmin){
                 if (auth_id != data.user_id) {
@@ -86,16 +86,16 @@ function datatable(table_id, url, columns,removeButtons=true , paginate = true) 
 
 
     );
-    table.on('draw', function () {
+    // table.on('draw', function () {
 
-        table.column(0, {
-            search: 'applied',
-            order: 'applied'
-        }).nodes().each(function (cell, i) {
+    //     table.column(0, {
+    //         search: 'applied',
+    //         order: 'applied'
+    //     }).nodes().each(function (cell, i) {
 
-            cell.innerHTML = table.page.len() * table.page() + i + 1;
-        });
-    }).draw();
+    //         cell.innerHTML = table.page.len() * table.page() + i + 1;
+    //     });
+    // }).draw();
 
 
     return table;
