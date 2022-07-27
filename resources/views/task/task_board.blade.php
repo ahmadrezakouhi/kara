@@ -132,7 +132,8 @@
                             '</table>'+
 
                         '<hr>' +
-                        '<p class="" style="overflow-y:scroll;height:50px">' + task.description +
+                        '<p class="" style="overflow-y:scroll;height:50px">' +
+                            (task.description ? task.description : '-') +
                         '</p>' +
 
                         '<div class="p-1 rounded bg-white">' +
