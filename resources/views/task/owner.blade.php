@@ -74,7 +74,8 @@
                     data: null,
                     render: function(data, type, row) {
                         return data['user']['fname'] + ' ' + data['user']['lname'];
-                    }
+                    },
+                    visible:true
                 },
                 {
                     data: null,

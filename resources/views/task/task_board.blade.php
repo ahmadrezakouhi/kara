@@ -59,7 +59,7 @@
                         '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   rounded " data-id="' +
                         task.id + '" data-user-id="'+task.user_id+'" ' + ' data-background-color="' + task.user
                         .background_color + '"' +
-                        'style="width:100%;height: 70px; background:' + (task.play != null && task
+                        'style="width:100%;height: 110px; background:' + (task.play != null && task
                             .play == 0 ?
 
                             'repeating-linear-gradient(45deg,' + task.user.background_color +
@@ -69,9 +69,11 @@
                         ';color:' + task.user.text_color + '">' +
 
                         '<div class="d-flex justify-content-between"> ' +
-                        '<h5 class="">' + task.id +'# ' + task.title + '('+task.duration+'دقیقه)'+'</h5> ' +
+                        '<h5 class="">' + task.id +'# ' + '</h5> ' +
 
-                        '<div> ' +
+                        '<p>' + task.user.fname + ' ' + task.user.lname + '</p>' +
+
+                        '<div class="d-flex flex-row-reverse "> ' +
                         '<a class="text-white plus" style="text-decoration: none ;cursor: pointer ;"><svg ' +
                         'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
                         'class="bi bi-plus-square-fill" viewBox="0 0 16 16"> ' +
@@ -83,15 +85,16 @@
                             '<path ' +
                             'd="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z" /> ' +
                             '</svg></a> ') : '') +
+                             '('+task.duration+'دقیقه)'+
                         '</div> ' +
                         '</div> ' +
-
+                        '<p>'+ (truncate(task.title,50)) +'</p>'+
                         '<div class="d-flex justify-content-between">' +
                         '<p>'+task.sprint.phase.project.title+'/'+task.sprint.phase.title+'/'+task.sprint.title+'</p>' +
-                        '<p>' + task.user.fname + ' ' + task.user.lname + '</p>' +
+
                         '</div>' +
                         '<div class="content" style="display:none">'+
-                        '<table class="table text-white text-center table-bordered" style="width:100%">'+
+                        '<table class="table  text-center table-bordered" style="width:100%;border : 1px '+task.user.text_color+';color:'+task.user.text_color+'">'+
                             '<thead class="">'+
                                 '<tr>'+
                                 '<th width="33%">'+
@@ -252,14 +255,14 @@
         });
         $(document).on('click', '.plus', function() {
             var $item = $(this).parent().parent().parent();
-            if ($item.css('height') == '70px') {
+            if ($item.css('height') == '110px') {
                 $item.animate({
                     height: '360px'
                 })
                 $item.find('.content').css('display', 'block')
             } else {
                 $item.animate({
-                        height: '70px'
+                        height: '110px'
                     }
 
                     ,

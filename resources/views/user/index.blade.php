@@ -65,6 +65,26 @@
                                 <input type="text" class="form-control" id="fname" name="fname">
                             </div>
                         </div>
+                        <div class="row my-3">
+                            <div class="col-md-6">
+                                <label for="fname" class="form-label">نام</label>
+                                <input type="text" class="form-control" id="fname" name="fname">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fname" class="form-label">نام خانوادگی </label>
+                                <input type="text" class="form-control" id="fname" name="fname">
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-md-6">
+                                <label for="fname" class="form-label">نام</label>
+                                <input type="text" class="form-control" id="fname" name="fname">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fname" class="form-label">نام خانوادگی </label>
+                                <input type="text" class="form-control" id="fname" name="fname">
+                            </div>
+                        </div>
                         <div class="mb-3 mt-3">
                             <label for="description" class="form-label">توضیحات</label>
                             <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
@@ -127,7 +147,7 @@
                     data: 'lname'
                 },
                 {
-                    data: 'phone'
+                    data: 'mobile'
                 },
 
                 {
@@ -139,7 +159,7 @@
                 {
                     data: null,
                     render: function(data, row, full) {
-                        return  data['background_color'] ? '<div style="color:'+data['background_color']+'"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-square-fill border" viewBox="0 0 16 16">' +
+                        return  data['background_color'] ? '<div style="color:'+data['background_color']+'"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-square-fill border rounded shadow" viewBox="0 0 16 16">' +
                             '<path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>' +
                             '</svg></div>' : '-' ;
                     }
@@ -149,7 +169,7 @@
                 {
                     data: null,
                     render: function(data, row, full) {
-                        return data['text_color'] ? '<div style="color:'+data['text_color']+'"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-square-fill border" viewBox="0 0 16 16">' +
+                        return data['text_color'] ? '<div style="color:'+data['text_color']+'"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-square-fill border rounded shadow"  viewBox="0 0 16 16">' +
                             '<path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>' +
                             '</svg></div>' : '-' ;
                     }
