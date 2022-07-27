@@ -290,8 +290,7 @@
             $(document).on('click', '.tasks', function(e) {
                 let data_id = $(this).attr("data-id");
                 window.location = '/sprints/' + data_id + '/tasks';
-                // console.log("hi")
-                // console.log(data_id)
+
             })
 
 

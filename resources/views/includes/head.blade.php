@@ -28,6 +28,7 @@
 <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
 <link rel="stylesheet" href="{{ asset('css/jquery.loadingModal.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/monolith.min.css') }}">
 <script>
     var _start ="";
 	var _end ="";

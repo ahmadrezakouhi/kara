@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 class UserController extends Controller
 {
     public function index(Request $request){
@@ -22,6 +24,32 @@ class UserController extends Controller
             return response()->json($data);
         }
         return view('user.index');
+
+    }
+
+    public function store(Request $request){
+
+        $inputs = $request->all();
+        $inputs['password'] = Hash::make($request->password);
+        User::create($inputs);
+        return response()->json(['message'=>'کاربر افزوده شد.']);
+
+    }
+
+
+
+    public function edit(User $user){
+
+        return response()->json($user);
+    }
+
+
+
+
+    public function destroy(User $user){
+
+        $user->delete();
+        return response()->json(['message'=>'کاربر مورد نظر حذف شد.']);
 
     }
 

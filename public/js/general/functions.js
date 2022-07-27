@@ -133,6 +133,12 @@ function removeIDValues(form_id) {
     });
 }
 
+function setIDValues(form_id,res) {
+    getIDs(form_id).forEach(element => {
+        $('#' + element).val(res[element]);
+    });
+}
+
 
 function covertGregorianToJalali(date) {
     if (date == null) {
