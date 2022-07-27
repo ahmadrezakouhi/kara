@@ -73,13 +73,14 @@
 
                         '<p>' + task.user.fname + ' ' + task.user.lname + '</p>' +
 
-                        '<div class="d-flex flex-row-reverse "> ' +
-                        '<a class="text-white plus" style="text-decoration: none ;cursor: pointer ;"><svg ' +
+                        '<div class="d-flex flex-row-reverse justify-content-between " > ' +
+                        '<a class=" plus" style="text-decoration: none ;cursor: pointer ;color:'+task.user.text_color+'"><svg ' +
                         'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
                         'class="bi bi-plus-square-fill" viewBox="0 0 16 16"> ' +
                         '<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" /> ' +
                         '</svg></a> ' + ((task.status != 2) ? (
-                            '<a class="text-white next_level" style="text-decoration: none ;cursor: pointer ;"><svg ' +
+                            '<a class=" next_level" style="text-decoration: none ;cursor: pointer ;color:'+task.user.text_color+
+                            '"><svg ' +
                             'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
                             'class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16"> ' +
                             '<path ' +
@@ -88,9 +89,9 @@
                              '('+task.duration+'دقیقه)'+
                         '</div> ' +
                         '</div> ' +
-                        '<p>'+ (truncate(task.title,50)) +'</p>'+
+                        '<p>'+ (truncate(task.title,45)) +'</p>'+
                         '<div class="d-flex justify-content-between">' +
-                        '<p>'+task.sprint.phase.project.title+'/'+task.sprint.phase.title+'/'+task.sprint.title+'</p>' +
+                        '<p>'+(truncate(task.sprint.phase.project.title,20))+'/'+(truncate(task.sprint.phase.title,20))+'/'+(truncate(task.sprint.title,20))+'</p>' +
 
                         '</div>' +
                         '<div class="content" style="display:none">'+
@@ -257,7 +258,7 @@
             var $item = $(this).parent().parent().parent();
             if ($item.css('height') == '110px') {
                 $item.animate({
-                    height: '360px'
+                    height: '400px'
                 })
                 $item.find('.content').css('display', 'block')
             } else {
