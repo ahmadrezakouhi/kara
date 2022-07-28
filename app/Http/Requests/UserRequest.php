@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class UserRequest extends FormRequest
 {
     /**
@@ -23,14 +23,15 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+     $user = $this->route('user');
         return [
             'fname' => ['required'],
             'lname' => ['required'],
-            'email' => ['required'],
-            'mobile' => ['required'],
-            'phone' => ['required'],
-            'role' => ['required'],
-            'password' => ['required']
+            'email' => ['required','unique:users,email,'.$user],
+            // 'mobile' => ['required','unique:users,mobile,'.$user],
+            // 'phone' => ['required'],
+            // 'role' => ['required'],
+            // 'password' => ['required']
         ];
     }
 

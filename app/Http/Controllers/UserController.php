@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -27,11 +29,13 @@ class UserController extends Controller
 
     }
 
-    public function store(Request $request){
+    public function store(UserRequest $request ,User $user = null){
 
         $inputs = $request->all();
         $inputs['password'] = Hash::make($request->password);
-        User::create($inputs);
+        $inputs['user_id']=Auth::id();
+        unset($inputs['confirm_password']);
+        User::updateOrCreate(['id'=>$user->id],$inputs);
         return response()->json(['message'=>'کاربر افزوده شد.']);
 
     }

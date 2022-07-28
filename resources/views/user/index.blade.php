@@ -99,7 +99,7 @@
                                 <div class="text_color  border rounded" ></div>
                             </div>
 
-                            <div class="col-md-2  preview border rounded d-flex justify-content-center  align-items-center" style="height: 35px">
+                            <div class="col-md-2  preview border rounded d-flex justify-content-center  align-items-center" style="height: 30px">
                                 ABCD
                             </div>
                         </div>

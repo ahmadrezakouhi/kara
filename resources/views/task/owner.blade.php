@@ -21,8 +21,8 @@
                         <th>عنوان</th>
                         <th>توضیحات</th>
                         <th>مدت زمان انجام</th>
-                        <th>مجری</th>
-                        <th>تایید</th>
+                        <th  data-priority="1">مجری</th>
+                        <th data-priority="1">تایید</th>
 
                         <th>وضعیت</th>
                         <th>دسته بندی</th>
@@ -162,7 +162,7 @@
                         ajaxfunc(url, 'POST', '').then(function(res) {
                             loading(false);
                             toastr['success'](res.message);
-                            table.ajax.reload();
+                            table.ajax.reload(null,false);
                         }).catch(function(res) {
                             loading(false);
                             toastr['error'](res.responseJSON.message);

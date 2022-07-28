@@ -34,7 +34,7 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap" width="100%">
+                <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap display" style="width:100%">
                     <thead>
                         <th>شماره</th>
                         <th>عنوان</th>
@@ -43,7 +43,7 @@
                         <th>مدت زمان انجام</th>
                         <th>دسته بندی</th>
                         <th></th>
-                        
+
 
                     </thead>
                     <tbody>
@@ -86,6 +86,17 @@
                             <label for="description" class="form-label">توضیحات</label>
                             <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
                         </div>
+                        @can('createForOthers',[App\models\Task::class,$sprint->id])
+                        <div class="mb-3 mt3">
+                            <label for="user_id" class="form-label">مجری</label>
+                            <select class="form-select" id="user_id"  name="user_id">
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->fname .' ' .$user->lname}}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                        @endcan
                         <div class="mb-3 mt-3">
 
 

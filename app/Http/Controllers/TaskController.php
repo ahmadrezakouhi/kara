@@ -23,6 +23,7 @@ class TaskController extends Controller
     {
 
         $sprint = Sprint::with('tasks.category')->findOrFail($sprint_id);
+        $users = $sprint->phase->project->users;
         $categories = Category::all();
         if ($request->ajax()) {
             $tasks = $sprint->tasks;
@@ -35,7 +36,7 @@ class TaskController extends Controller
             );
             return response()->json($data);
         }
-        return view('task.index', compact('sprint', 'categories'));
+        return view('task.index', compact('sprint', 'categories','users'));
     }
 
 
@@ -48,21 +49,21 @@ class TaskController extends Controller
                 $tasks = Task::orderBy('id','DESC')->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
                     ->get();
             } else {
-                // $tasks = $user->tasks()->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
-                //     ->get();
+                $tasks = $user->tasks()->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
+                    ->get();
 
-                $tasks = [];
-                foreach ($user->projects as $project) {
-                    foreach ($project->phases as $phase) {
-                        foreach($phase->sprints as $sprint){
-                            $tasks[]=$sprint->tasks()
-                            ->with(['category:id,name', 'sprint:id,title,phase_id',
-                            'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title',
-                            'user:id,fname,lname'])->orderBy('created_at','DESC')->get();
-                        }
-                        $tasks = collect($tasks)->collapse();
-                    }
-                }
+                // $tasks = [];
+                // foreach ($user->projects as $project) {
+                //     foreach ($project->phases as $phase) {
+                //         foreach($phase->sprints as $sprint){
+                //             $tasks[]=$sprint->tasks()
+                //             ->with(['category:id,name', 'sprint:id,title,phase_id',
+                //             'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title',
+                //             'user:id,fname,lname'])->orderBy('created_at','DESC')->get();
+                //         }
+                //         $tasks = collect($tasks)->collapse();
+                //     }
+                // }
             }
 
             $recordTotal = $tasks->count();
@@ -139,12 +140,17 @@ class TaskController extends Controller
         if (!$response->allowed()) {
             return response()->json(['errors' => ['message' => $response->message()]], 403);
         }
+        $users = $sprint->phase->project->users;
 
-        $user = Auth::user();
+        $user = $users->find(Auth::id());
+
         $inputs = $request->all();
-        if(!$user->isAdmin()){
-        $inputs['user_id'] = $user->id;
+        if($user && $user->pivot->developer){
+            $inputs['user_id'] = Auth::id();
         }
+        // if(!$user->isAdmin()){
+        // $inputs['user_id'] = $request->user_id;
+        // }
         $inputs['sprint_id'] = $request->sprint_id;
         $inputs['category_id'] = $request->category;
         if ($request->confirm || $sprint->task_confirm) {

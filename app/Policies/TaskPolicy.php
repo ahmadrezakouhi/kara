@@ -145,4 +145,17 @@ class TaskPolicy
 
 
     }
+
+
+    public function createForOthers(User $user,$sprint_id){
+        $sprint = Sprint::find($sprint_id);
+        $project = $sprint->phase->project;
+        $project_user = $user->projects->find($project->id); //$user->projects->find($project->id);
+        if (($project_user && ($project_user->pivot->admin ))
+        || ($user->isAdmin()) ) {
+            return Response::allow();
+        }
+
+        return Response::deny('مجوز ایجاد تسک را ندارید.');
+    }
 }
