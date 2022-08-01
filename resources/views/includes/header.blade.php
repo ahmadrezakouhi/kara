@@ -1,9 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-themed shadow ">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark  shadow ">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">کارا - سامانه مدیریت پروژه</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+      </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
       <ul class="navbar-nav mb-2 mb-lg-0  ">
@@ -74,15 +76,15 @@
 
       <ul class="navbar-nav ms-auto">
 <li class="nav-item mt-1">
-    <div class="ms-auto mt-2 rounded" style="width:24px;height:24px;background: {{ Auth::user()->background_color }}">
+    <div class="ms-lg-auto mt-2 rounded" style="width:24px;height:24px;background: {{ Auth::user()->background_color }}">
 
     </div>
 </li>
-    <li class="nav-item dropdown " >
+    <li class="nav-item dropdown mr-auto" >
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       <img src="{{ asset('images/img_avatar.png') }}" class="rounded-circle" alt="" width="30px">
       </a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+      <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
         <li class="dropdown-item">
            <span class="dropdown-item-text"> {{ Auth::user()->fname . ' ' . Auth::user()->lname }}</span>
 

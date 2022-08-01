@@ -39,7 +39,10 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
 
     Route::prefix('users')->group(function () {
-        Route::get('users', [UserController::class, 'index'])->name('users.index');
+        Route::get('/', [UserController::class, 'index'])->name('users.index');
+        Route::post('/{user?}',[UserController::class , 'store'])->name('users.store');
+        Route::get('/{user}',[UserController::class,'edit'])->name('users.edit');
+        Route::delete('{user}',[UserController::class,'destroy'])->name('users.destroy');
     });
 });
 
@@ -187,7 +190,11 @@ Route::prefix('tasks')->middleware('auth')->group(function () {
     Route::post('/{task}/play-pause', [TaskController::class, 'playPause'])
         ->name('tasks.play-pause')->can('playPause', 'task');
 
-    Route::post('/{task}/accept', [TaskController::class, 'accept'])->name('tasks.accept');
+    Route::post('/{task}/accept', [TaskController::class, 'accept'])->name('tasks.accept')
+    ->can('confirmTask','task');
+
+    Route::post('/{task}/addComment',[TaskController::class,'addComment'])->name('tasks.addComment')
+    ->can('addComment','task');
 });
 
 

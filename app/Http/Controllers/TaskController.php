@@ -23,6 +23,7 @@ class TaskController extends Controller
     {
 
         $sprint = Sprint::with('tasks.category')->findOrFail($sprint_id);
+        $users = $sprint->phase->project->users;
         $categories = Category::all();
         if ($request->ajax()) {
             $tasks = $sprint->tasks;
@@ -35,7 +36,7 @@ class TaskController extends Controller
             );
             return response()->json($data);
         }
-        return view('task.index', compact('sprint', 'categories'));
+        return view('task.index', compact('sprint', 'categories','users'));
     }
 
 
@@ -45,24 +46,24 @@ class TaskController extends Controller
         $user = Auth::user();
         if ($request->ajax()) {
             if ($user->isAdmin()) {
-                $tasks = Task::with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
-                    ->orderBy('status')->orderBy('todo_date','DESC')->get();
+                $tasks = Task::orderBy('id','DESC')->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
+                    ->get();
             } else {
-                // $tasks = $user->tasks()->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
-                //     ->get();
+                $tasks = $user->tasks()->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
+                    ->get();
 
-                $tasks = [];
-                foreach ($user->projects as $project) {
-                    foreach ($project->phases as $phase) {
-                        foreach($phase->sprints as $sprint){
-                            $tasks[]=$sprint->tasks()
-                            ->with(['category:id,name', 'sprint:id,title,phase_id',
-                            'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title',
-                            'user:id,fname,lname'])->get();
-                        }
-                        $tasks = collect($tasks)->collapse();
-                    }
-                }
+                // $tasks = [];
+                // foreach ($user->projects as $project) {
+                //     foreach ($project->phases as $phase) {
+                //         foreach($phase->sprints as $sprint){
+                //             $tasks[]=$sprint->tasks()
+                //             ->with(['category:id,name', 'sprint:id,title,phase_id',
+                //             'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title',
+                //             'user:id,fname,lname'])->orderBy('created_at','DESC')->get();
+                //         }
+                //         $tasks = collect($tasks)->collapse();
+                //     }
+                // }
             }
 
             $recordTotal = $tasks->count();
@@ -85,7 +86,7 @@ class TaskController extends Controller
         if ($request->ajax()) {
             $tasks = [];
             if ($user->isAdmin()) {
-                $tasks = Task::where('todo_date','!=',null)->get();
+                $tasks = Task::orderBy('updated_at','DESC')->where('todo_date','!=',null)->get();
             } else {
                 $tasks=[];
                 foreach ($user->projects as $project) {
@@ -102,8 +103,12 @@ class TaskController extends Controller
                         }
                     }
                 }
-
-                // $tasks = collect($tasks)->collapse();
+                // sort tasks
+                $tasks = collect($tasks);
+                $tasks = $tasks->sortBy([
+                    ['updated_at','desc'],
+                    ['status','asc']
+                ]);
             }
             return response()->json($tasks);
         }
@@ -139,10 +144,17 @@ class TaskController extends Controller
         if (!$response->allowed()) {
             return response()->json(['errors' => ['message' => $response->message()]], 403);
         }
+        $users = $sprint->phase->project->users;
 
-        $user = Auth::user();
+        $user = $users->find(Auth::id());
+
         $inputs = $request->all();
-        $inputs['user_id'] = $user->id;
+        if($user && $user->pivot->developer){
+            $inputs['user_id'] = Auth::id();
+        }
+        // if(!$user->isAdmin()){
+        // $inputs['user_id'] = $request->user_id;
+        // }
         $inputs['sprint_id'] = $request->sprint_id;
         $inputs['category_id'] = $request->category;
         if ($request->confirm || $sprint->task_confirm) {
@@ -244,6 +256,13 @@ class TaskController extends Controller
             $task->update(['todo_date'=>now()]);
             return response()->json(['message'=>'تسک مورد نظر تایید شد.']);
         }
+
+    }
+
+    public function addComment(Request $request ,Task $task){
+        $task->comment = $request->comment;
+        $task->save();
+        return response()->json(['message'=>'توضیحات پایانی افزوده شد.']);
 
     }
 

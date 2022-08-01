@@ -1,4 +1,4 @@
-<div class="fixed-bottom align-center" id="copyright"> تمام حقوق این سایت متعلق به شرکت سافر می باشد. </div>
+{{-- <div class="fixed-bottom align-center" id="copyright"> تمام حقوق این سایت متعلق به شرکت سافر می باشد. </div> --}}
 
 <script type="text/javascript" src="{{URL::to('/')}}/js/jquery.min.js"></script>
 
@@ -23,6 +23,8 @@
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('js/jquery.loadingModal.min.js') }}"></script>
+
+<script src="{{ asset('js/general/pickr.min.js') }}"></script>
 
 <!-- start webpushr tracking code -->
 <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";

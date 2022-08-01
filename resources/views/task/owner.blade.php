@@ -15,14 +15,14 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_tasks" class="table  table-bordered border table-striped nowrap" width="100%">
+                <table id="tbl_tasks" class="table  table-bordered border table-striped wrap" style="width:100%">
                     <thead>
                         <th>شماره</th>
                         <th>عنوان</th>
                         <th>توضیحات</th>
                         <th>مدت زمان انجام</th>
-                        <th>مجری</th>
-                        <th>تایید</th>
+                        <th  data-priority="1">مجری</th>
+                        <th data-priority="1">تایید</th>
 
                         <th>وضعیت</th>
                         <th>دسته بندی</th>
@@ -59,6 +59,7 @@
             var columns = [{
                     data: 'id'
 
+
                 },
                 {
                     data: 'title'
@@ -73,7 +74,8 @@
                     data: null,
                     render: function(data, type, row) {
                         return data['user']['fname'] + ' ' + data['user']['lname'];
-                    }
+                    },
+                    visible:true
                 },
                 {
                     data: null,
@@ -137,7 +139,7 @@
                 datatable('#tbl_tasks',
                     "{{ route('tasks.owner') }}",
                     columns, false);
-
+                    order: [[3, 'desc']],
 
             new $.fn.dataTable.FixedHeader(table);
 
@@ -160,7 +162,7 @@
                         ajaxfunc(url, 'POST', '').then(function(res) {
                             loading(false);
                             toastr['success'](res.message);
-                            table.ajax.reload();
+                            table.ajax.reload(null,false);
                         }).catch(function(res) {
                             loading(false);
                             toastr['error'](res.responseJSON.message);

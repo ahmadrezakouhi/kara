@@ -176,6 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Ybazli\Faker\FakerServiceProvider::class,
 
     ],
 
@@ -192,6 +193,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Input' => Illuminate\Support\Facades\Input::class,
+        'Faker' => Ybazli\Faker\Facades\Faker::class,
         // ...
     ])->toArray(),
 

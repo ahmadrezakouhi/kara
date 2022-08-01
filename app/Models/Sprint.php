@@ -22,6 +22,7 @@ class Sprint extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class)->latest();
+         return $this->hasMany(Task::class)->latest();
     }
+    
 }
