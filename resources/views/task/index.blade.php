@@ -178,7 +178,8 @@
 
             var clickButtonID;
             var columns = [{
-                    data:'id'
+                    data:'id',
+
                 },
                 {
                     data: 'title'
@@ -189,7 +190,9 @@
                         return data['description'] ? data['description'] : '-';
 
 
-                    }
+                    },
+                    responsivePriority:10001
+
                 },
                 {
                     data: null,
@@ -198,15 +201,21 @@
 
 
                     }
+
                 },
                 {
                     data: null,
                     render:function(data,row,full){
                         return data['duration'] + ' دقیقه'
-                    }
+                    },
+                    responsivePriority:10001
+
                 },
                 {
                     data: 'category.name'
+                    ,
+                    responsivePriority:10001
+
                 },
 
                 {
