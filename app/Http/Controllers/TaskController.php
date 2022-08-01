@@ -86,7 +86,7 @@ class TaskController extends Controller
         if ($request->ajax()) {
             $tasks = [];
             if ($user->isAdmin()) {
-                $tasks = Task::where('todo_date','!=',null)->get();
+                $tasks = Task::orderBy('updated_at','DESC')->where('todo_date','!=',null)->get();
             } else {
                 $tasks=[];
                 foreach ($user->projects as $project) {
@@ -103,8 +103,12 @@ class TaskController extends Controller
                         }
                     }
                 }
-
-                // $tasks = collect($tasks)->collapse();
+                // sort tasks
+                $tasks = collect($tasks);
+                $tasks = $tasks->sortBy([
+                    ['updated_at','desc'],
+                    ['status','asc']
+                ]);
             }
             return response()->json($tasks);
         }
@@ -252,6 +256,13 @@ class TaskController extends Controller
             $task->update(['todo_date'=>now()]);
             return response()->json(['message'=>'تسک مورد نظر تایید شد.']);
         }
+
+    }
+
+    public function addComment(Request $request ,Task $task){
+        $task->comment = $request->comment;
+        $task->save();
+        return response()->json(['message'=>'توضیحات پایانی افزوده شد.']);
 
     }
 
