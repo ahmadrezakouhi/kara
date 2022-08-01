@@ -34,17 +34,16 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap" width="100%">
+                <table id="tbl_tasks" class="table  table-bordered border table-striped wrap display" style="width:100%">
                     <thead>
-                        <th></th>
+                        <th>شماره</th>
                         <th>عنوان</th>
                         <th>توضیحات</th>
                         <th>مجری</th>
                         <th>مدت زمان انجام</th>
                         <th>دسته بندی</th>
                         <th></th>
-                        {{-- <th>تاریخ ثبت</th>
-                        <th>مدیریت</th> --}}
+
 
                     </thead>
                     <tbody>
@@ -56,7 +55,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="add_requirements">
+    <div class="modal fade" id="add_tasks">
         <div class="modal-dialog ">
             <div class="modal-content">
 
@@ -87,6 +86,17 @@
                             <label for="description" class="form-label">توضیحات</label>
                             <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
                         </div>
+                        @can('createForOthers',[App\models\Task::class,$sprint->id])
+                        <div class="mb-3 mt3">
+                            <label for="user_id" class="form-label">مجری</label>
+                            <select class="form-select" id="user_id"  name="user_id">
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->fname .' ' .$user->lname}}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                        @endcan
                         <div class="mb-3 mt-3">
 
 
@@ -168,8 +178,8 @@
 
             var clickButtonID;
             var columns = [{
-                    title: 'ردیف',
-                    "defaultContent": "-",
+                    data:'id',
+
                 },
                 {
                     data: 'title'
@@ -180,7 +190,9 @@
                         return data['description'] ? data['description'] : '-';
 
 
-                    }
+                    },
+                    responsivePriority:10001
+
                 },
                 {
                     data: null,
@@ -189,15 +201,21 @@
 
 
                     }
+
                 },
                 {
                     data: null,
                     render:function(data,row,full){
                         return data['duration'] + ' دقیقه'
-                    }
+                    },
+                    responsivePriority:10001
+
                 },
                 {
                     data: 'category.name'
+                    ,
+                    responsivePriority:10001
+
                 },
 
                 {
@@ -220,7 +238,7 @@
 
             ];
             var table =
-                datatable('#tbl_requirements',
+                datatable('#tbl_tasks',
                     '{{ route('sprints.tasks.index', $sprint->id) }}',
                     columns);
 
@@ -234,7 +252,7 @@
                     .then(function(res) {
                         loading(false);
                         toastr["success"](res.message);
-                        $('#add_requirements').modal('hide');
+                        $('#add_tasks').modal('hide');
                         table.ajax.reload();
                     }).catch(function(res) {
                         loading(false);
@@ -300,7 +318,7 @@
                         } else {
                             $('#confirm').prop('checked', false);
                         }
-                        $('#add_requirements').modal('show');
+                        $('#add_tasks').modal('show');
                     })
                     .catch(function(res) {
                         loading(false);
@@ -321,7 +339,7 @@
             $('#create_button').click(function() {
                 clickButtonID = undefined;
                 removeIDValues('#create_update');
-                $('#add_requirements').modal('show');
+                $('#add_tasks').modal('show');
 
             })
 

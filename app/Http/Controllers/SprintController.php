@@ -40,7 +40,7 @@ class SprintController extends Controller
         $user = Auth::user();
         if ($request->ajax()) {
             if ($user->isAdmin()) {
-                $sprints = Sprint::select('title', 'description', 'start_date', 'end_date', 'phase_id')->with(
+                $sprints = Sprint::select('id','title', 'description', 'start_date', 'end_date', 'phase_id')->with(
 
                     ['phase:id,title,project_id', 'phase.project:id,title', 'phase.project.users' => function ($query) {
                         $query->where('admin', '1');

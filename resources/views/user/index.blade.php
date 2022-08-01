@@ -11,8 +11,8 @@
                     <h2>لیست کاربران </h2>
 
                     {{-- @can('create', [\App\Models\Task::class, $sprint->id]) --}}
-                        <button class="btn btn-success" id="create_button"> افزودن
-                            کاربر</button>
+                    <button class="btn btn-success" id="create_button"> افزودن
+                        کاربر</button>
                     {{-- @endcan --}}
                 </div>
             </div>
@@ -20,14 +20,15 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap" width="100%">
+                <table id="tbl_users" class="table  table-bordered border table-striped wrap" width="100%">
                     <thead>
-                        <th></th>
+                        <th>شماره</th>
                         <th>نام </th>
                         <th>نام خانوادگی</th>
                         <th>شماره همراه</th>
                         <th>نوع کاربر</th>
-
+                        <th>رنگ پس زمینه</th>
+                        <th>رنگ متن</th>
                         <th></th>
 
 
@@ -41,42 +42,86 @@
         </div>
     </div>
 
-    <div class="modal fade" id="add_requirements">
+    <div class="modal fade" id="add_users">
         <div class="modal-dialog ">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modal_title">افزودن تسک ها</h4>
+                    <h4 class="modal-title" id="modal_title">افزودن کاربر ها</h4>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" action="post" id="create_update">
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                       <div class="row my-3">
-                        <div class="col-md-6">
-                            <label for="fname" class="form-label">نام</label>
-                            <input type="text" class="form-control" id="fname" name="fname">
+                        <div class="row my-3">
+                            <div class="col-md-6">
+                                <label for="fname" class="form-label">نام</label>
+                                <input type="text" class="form-control" id="fname" name="fname">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fname" class="form-label">نام خانوادگی </label>
+                                <input type="text" class="form-control" id="lname" name="lname">
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="fname" class="form-label">نام خانوادگی </label>
-                            <input type="text" class="form-control" id="fname" name="fname">
+                        <div class="row my-3">
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">تلفن</label>
+                                <input type="text" class="form-control" id="phone" name="phone">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="mobile" class="form-label">موبایل</label>
+                                <input type="text" class="form-control" id="mobile" name="mobile">
+                            </div>
                         </div>
-                       </div>
-                        <div class="mb-3 mt-3">
-                            <label for="description" class="form-label">توضیحات</label>
-                            <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
-                        </div>
-                        <div class="mb-3 mt-3">
 
-
-                            <label for="duration" class="form-label">مدت زمان انجام(به دقیقه)</label>
-                            <input type="text" class="form-control" id="duration" name="duration">
-
-
+                        <div class="row my-3">
+                            <div class="col-md-12">
+                                <label for="email" class="form-label">ایمیل</label>
+                                <input type="text" class="form-control" id="email" name="email">
+                            </div>
 
                         </div>
+
+
+
+                        <div class="row  my-3 d-flex align-items-center justify-content-center justify-content-between">
+                            <div class="col-md-5">
+                                <label for="background_color" class="form-label">رنگ پس زمینه</label>
+                                <input type="text" class="form-control " id="background_color" name="background_color" dir="ltr" style="font-family: sans-serif">
+                                <div  class=" background_color border rounded"></div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <label for="text_color" class="form-label">رنگ متن</label>
+                                <input type="text" class="form-control " id="text_color" name="text_color" dir="ltr" style="font-family: sans-serif">
+                                <div class="text_color  border rounded" ></div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="  preview border rounded d-flex justify-content-center  align-items-center" style="height: 30px">
+                                    ABCD
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="changePassword" name="changePassword">
+                            <label class="form-check-label">رمز</label>
+                        </div>
+                        <div class="row my-3 password" style="display: none">
+                            <div class="col-md-6">
+                                <label for="password" class="form-label">پسورد</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="password_confirmation" class="form-label">تکرار پسورد</label>
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <!-- Modal footer -->
@@ -110,15 +155,14 @@
 
     <script src="{{ asset('js/general/toastr_option.js') }}"></script>
 
-
+    <script src="{{ asset('js/general/colorpicker.js') }}"></script>
 
     <script>
         $(document).ready(function() {
 
             var clickButtonID;
             var columns = [{
-                    title: 'ردیف',
-                    "defaultContent": "-",
+                    data: 'id'
                 },
                 {
                     data: 'fname'
@@ -127,15 +171,33 @@
                     data: 'lname'
                 },
                 {
-                    data:'phone'
+                    data: 'mobile'
                 },
 
-               {
-                    data:null,
-                    render:function(data,row,full){
-                        return data['role']=='admin' ? 'مدیر' : 'کاربر';
+                {
+                    data: null,
+                    render: function(data, row, full) {
+                        return data['role'] == 'admin' ? 'مدیر' : 'کاربر';
                     }
-               },
+                },
+                {
+                    data: null,
+                    render: function(data, row, full) {
+                        return  data['background_color'] ? '<div style="color:'+data['background_color']+'"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-square-fill border rounded shadow" viewBox="0 0 16 16">' +
+                            '<path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>' +
+                            '</svg></div>' : '-' ;
+                    }
+                },
+
+
+                {
+                    data: null,
+                    render: function(data, row, full) {
+                        return data['text_color'] ? '<div style="color:'+data['text_color']+'"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-square-fill border rounded shadow"  viewBox="0 0 16 16">' +
+                            '<path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>' +
+                            '</svg></div>' : '-' ;
+                    }
+                },
 
                 {
                     responsivePriority: 0,
@@ -157,21 +219,22 @@
 
             ];
             var table =
-                datatable('#tbl_requirements',
-                    '{{ route("users.index") }}',
+                datatable('#tbl_users',
+                    '{{ route('users.index') }}',
                     columns);
 
-                    new $.fn.dataTable.FixedHeader( table );
+            new $.fn.dataTable.FixedHeader(table);
 
 
 
             $('#create_update').submit(function(event) {
                 event.preventDefault();
-                submit_form('#create_update', clickButtonID, '', )
+                console.log($('#create_update').serialize())
+                submit_form('#create_update', clickButtonID, "{{ route('users.index') }}", )
                     .then(function(res) {
                         loading(false);
                         toastr["success"](res.message);
-                        $('#add_requirements').modal('hide');
+                        $('#add_users').modal('hide');
                         table.ajax.reload();
                     }).catch(function(res) {
                         loading(false);
@@ -186,7 +249,7 @@
 
             $(document).on('click', '.delete', function(event) {
                 var id = $(this).attr('data-id');
-                var url = "" + '/' + id;
+                var url = "{{ route('users.index') }}" + '/' + id;
 
                 Swal.fire({
                     text: "می خواهید رکورد مورد نظر حذف شود ؟",
@@ -221,23 +284,18 @@
 
 
 
-                ajaxfunc("" + '/' + clickButtonID,
+                ajaxfunc("{{ route('users.index') }}" + '/' + clickButtonID,
                         'GET', '').then(function(res) {
+
                         loading(false);
                         if (res.message) {
                             toastr['success'](res.message)
                         }
 
-                        $('#title').val(res['title']);
-                        $('#description').val(res.description);
-                        $('#duration').val(res.duration);
-                        $('#category').val(res.category_id);
-                        if (res.todo_date) {
-                            $('#confirm').prop('checked', true);
-                        } else {
-                            $('#confirm').prop('checked', false);
-                        }
-                        $('#add_requirements').modal('show');
+                        setIDValues('#create_update',res);
+                        $('.preview').css({'color':res.text_color , 'background':res.background_color});
+
+                        $('#add_users').modal('show');
                     })
                     .catch(function(res) {
                         loading(false);
@@ -258,20 +316,20 @@
             $('#create_button').click(function() {
                 clickButtonID = undefined;
                 removeIDValues('#create_update');
-                $('#add_requirements').modal('show');
+                $('.preview').css({'color':'', 'background':''});
 
+                $('#add_users').modal('show');
+
+            });
+
+
+            $(document).on('change','#changePassword',function(){
+                $('.password').slideToggle();
             })
 
 
-            $(document).on('click', '.sprints', (e) => {
-                let data_id = $(this).attr("data-id");
-                window.location = '/phases/' + data_id + '/sprints';
 
-            })
 
-            $(document).on('click', '.picker', function() {
-                $('#duration').val($(this).val())
-            })
 
 
 

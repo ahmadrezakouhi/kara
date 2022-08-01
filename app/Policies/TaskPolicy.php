@@ -145,4 +145,31 @@ class TaskPolicy
 
 
     }
+
+
+    public function createForOthers(User $user,$sprint_id){
+        $sprint = Sprint::find($sprint_id);
+        $project = $sprint->phase->project;
+        $project_user = $user->projects->find($project->id); //$user->projects->find($project->id);
+        if (($project_user && ($project_user->pivot->admin ))
+        || ($user->isAdmin()) ) {
+            return Response::allow();
+        }
+
+        return Response::deny('مجوز ایجاد تسک را ندارید.');
+    }
+
+    public function confirmTask(User $user , Task $task){
+        $project = $task->sprint->phase->project;
+        $project_user = $user->projects->find($project->id);
+        return ($project_user && $project_user->pivot->admin )||($user->isAdmin())?
+        Response::allow():Response::deny('امکان تایید تسک برای شما وجود ندارد.');
+
+    }
+
+
+    public function addComment(User $user , Task $task){
+        return $task->user_id == $user->id ?
+        Response::allow(): Response::deny('امکان افزودن توضیحات پایانی وجود ندارد.');
+    }
 }

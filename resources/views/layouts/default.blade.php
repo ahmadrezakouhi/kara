@@ -7,17 +7,17 @@
     </head>
     <body>
         @include('includes.header')
-    <div class="container">
+    {{-- <div class="container"> --}}
        <header class="row">
 
        </header>
-       <div id="main" class="row">
+       {{-- <div id="main" class="row"> --}}
                @yield('content')
-       </div>
+       {{-- </div> --}}
        <footer class="row">
            @include('includes.footer')
            @yield('scripts')
        </footer>
-    </div>
+    {{-- </div> --}}
     </body>
     </html>
