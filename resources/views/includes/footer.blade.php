@@ -1,4 +1,4 @@
-<div class="fixed-bottom align-center" id="copyright"> تمام حقوق این سایت متعلق به شرکت سافر می باشد. </div>
+{{-- <div class="fixed-bottom align-center" id="copyright"> تمام حقوق این سایت متعلق به شرکت سافر می باشد. </div> --}}
 
 <script type="text/javascript" src="{{URL::to('/')}}/js/jquery.min.js"></script>
 

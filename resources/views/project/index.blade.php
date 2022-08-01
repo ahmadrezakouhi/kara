@@ -23,7 +23,7 @@
 
                 </div>
                 <div class="">
-                <table id="tbl_projects" class="table text-center table-striped table-bordered border nowrap" style="width:100%">
+                <table id="tbl_projects" class="table text-center table-striped table-bordered border wrap" style="width:100%">
                     <thead>
                         <th>شماره</th>
                         <th>عنوان</th>
@@ -113,7 +113,7 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="">
-                            <table id="tbl_users" class="table table-bordered border table-striped nowrap" width="100%">
+                            <table id="tbl_users" class="table table-bordered border table-striped wrap" width="100%">
                                 <thead>
                                     <th>شماره</th>
                                     <th>مالک</th>

@@ -15,7 +15,7 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_tasks" class="table  table-bordered border table-striped nowrap" width="100%">
+                <table id="tbl_tasks" class="table  table-bordered border table-striped wrap" style="width:100%">
                     <thead>
                         <th>شماره</th>
                         <th>عنوان</th>

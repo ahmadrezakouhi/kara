@@ -2,8 +2,21 @@
 @section('title', 'تسک بورد')
 @section('content')
 
+    <div class="container mt-3  shadow-sm border p-5 d-flex align-items-center rounded">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="user">کاربر</label>
+                <input type="text" class="form-control" id="user" name="user">
+            </div>
+            <div class="col-md-6">
+                <label for="project">پروژه</label>
+                <input type="text" class="form-control" id="project" name="project">
+            </div>
 
-    <div class="container border mt-5">
+        </div>
+    </div>
+    <div class="container border rounded mt-2">
+
         <div class="row card-group">
             <!-- <div class="card-group"> -->
             <div class="col-lg-2 p-0 card border" style="min-height:100vh ;">
@@ -35,21 +48,55 @@
             </div>
             <!-- </div> -->
         </div>
+
+        <div class="modal fade" id="add_task_comment">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        {{-- <h4 class="modal-title" id="modal_title"></h4> --}}
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="" action="post" id="create_update">
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+
+                            <div class="mb-3 mt-3">
+                                <label for="comment" class="form-label">توضیحات</label>
+                                <textarea name="comment" id="comment" cols="30" rows="10" class="form-control"></textarea>
+                            </div>
+
+
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="submit" id="submit-form" class="btn btn-success"
+                                data-bs-dismiss="modal">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @section('scripts')
     <script src="{{ asset('js/general/functions.js') }}"></script>
     <script>
+        var item_id = null;
         $(document).ready(function() {
             var auth_id = {{ Auth::id() }};
+
             var url = '/tasks/task-board';
             var palyIcon =
-                    '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
-                    '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>' +
-                    '</svg>';
-                var pauseIcon =
-                    '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
-                    '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
-                    '</svg>';
+                '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
+                '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>' +
+                '</svg>';
+            var pauseIcon =
+                '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
+                '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
+                '</svg>';
             ajaxfunc(url, 'GET', '').then(function(res) {
 
 
@@ -57,7 +104,8 @@
                 res.forEach(task => {
                     var $li =
                         '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   rounded " data-id="' +
-                        task.id + '" data-user-id="'+task.user_id+'" ' + ' data-background-color="' + task.user
+                        task.id + '" data-user-id="' + task.user_id + '" ' +
+                        ' data-background-color="' + task.user
                         .background_color + '"' +
                         'style="width:100%;height: 110px; background:' + (task.play != null && task
                             .play == 0 ?
@@ -69,71 +117,76 @@
                         ';color:' + task.user.text_color + '">' +
 
                         '<div class="d-flex justify-content-between"> ' +
-                        '<h5 class="">' + task.id +'# ' + '</h5> ' +
+                        '<h5 class="">' + task.id + '# ' + '</h5> ' +
 
                         '<p>' + task.user.fname + ' ' + task.user.lname + '</p>' +
 
                         '<div class="d-flex flex-row-reverse justify-content-between " > ' +
-                        '<a class=" plus" style="text-decoration: none ;cursor: pointer ;color:'+task.user.text_color+'"><svg ' +
+                        '<a class=" plus" style="text-decoration: none ;cursor: pointer ;color:' +
+                        task.user.text_color + '"><svg ' +
                         'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
                         'class="bi bi-plus-square-fill" viewBox="0 0 16 16"> ' +
                         '<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" /> ' +
                         '</svg></a> ' + ((task.status != 2) ? (
-                            '<a class=" next_level" style="text-decoration: none ;cursor: pointer ;color:'+task.user.text_color+
+                            '<a class=" next_level" style="text-decoration: none ;cursor: pointer ;color:' +
+                            task.user.text_color +
                             '"><svg ' +
                             'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
                             'class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16"> ' +
                             '<path ' +
                             'd="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z" /> ' +
                             '</svg></a> ') : '') +
-                             '('+task.duration+'دقیقه)'+
+                        '(' + task.duration + 'دقیقه)' +
                         '</div> ' +
                         '</div> ' +
-                        '<p>'+ (truncate(task.title,45)) +'</p>'+
+                        '<p>' + (truncate(task.title, 45)) + '</p>' +
                         '<div class="d-flex justify-content-between">' +
-                        '<p>'+(truncate(task.sprint.phase.project.title,20))+'/'+(truncate(task.sprint.phase.title,20))+'/'+(truncate(task.sprint.title,20))+'</p>' +
+                        '<p>' + (truncate(task.sprint.phase.project.title, 20)) + '/' + (truncate(
+                            task.sprint.phase.title, 20)) + '/' + (truncate(task.sprint.title,
+                            20)) + '</p>' +
 
                         '</div>' +
-                        '<div class="content" style="display:none">'+
-                        '<table class="table  text-center table-bordered" style="width:100%;border : 1px '+task.user.text_color+';color:'+task.user.text_color+'">'+
-                            '<thead class="">'+
-                                '<tr>'+
-                                '<th width="33%">'+
-                                'ورود'+
-                                '</th>'+
-                                '<th width="33%">'+
-                                'انجام'+
-                                '</th>'+
-                                '<th width="33%">'+
-                                'پایان'+
-                                '</th>'+
-                                '<tr>'+
-                            '</thead>'+
-                            '<tbody >'+
-                                '<tr>'+
-                            '<td>'+
-                                covertGregorianToJalali(task.todo_date)+
-                                '<br>'+
-                                covertGregorianToJalaliTime(task.todo_date)+
-                                '</td>'+
-                                '<td>'+
-                                    covertGregorianToJalali(task.indo_date)+
-                                    '<br>'+
-                                covertGregorianToJalaliTime(task.indo_date)+
-                                '</td>'+
-                                '<td>'+
-                                    covertGregorianToJalali(task.done_date)+
-                                    '<br>'+
-                                covertGregorianToJalaliTime(task.done_date)+
-                                '</td>'+
-                                '</tr>'+
+                        '<div class="content" style="display:none">' +
+                        '<table class="table  text-center table-bordered" style="width:100%;border : 1px ' +
+                        task.user.text_color + ';color:' + task.user.text_color + '">' +
+                        '<thead class="">' +
+                        '<tr>' +
+                        '<th width="33%">' +
+                        'ورود' +
+                        '</th>' +
+                        '<th width="33%">' +
+                        'انجام' +
+                        '</th>' +
+                        '<th width="33%">' +
+                        'پایان' +
+                        '</th>' +
+                        '<tr>' +
+                        '</thead>' +
+                        '<tbody >' +
+                        '<tr>' +
+                        '<td>' +
+                        covertGregorianToJalali(task.todo_date) +
+                        '<br>' +
+                        covertGregorianToJalaliTime(task.todo_date) +
+                        '</td>' +
+                        '<td>' +
+                        covertGregorianToJalali(task.indo_date) +
+                        '<br>' +
+                        covertGregorianToJalaliTime(task.indo_date) +
+                        '</td>' +
+                        '<td>' +
+                        covertGregorianToJalali(task.done_date) +
+                        '<br>' +
+                        covertGregorianToJalaliTime(task.done_date) +
+                        '</td>' +
+                        '</tr>' +
 
 
-                            '</table>'+
+                        '</table>' +
 
                         '<hr>' +
                         '<p class="" style="overflow-y:scroll;height:50px">' +
-                            (task.description ? task.description : '-') +
+                        (task.description ? task.description : '-') +
                         '</p>' +
 
                         '<div class="p-1 rounded bg-white">' +
@@ -206,10 +259,10 @@
                     if (canMove(parentID, targetID)) {
                         $item.remove();
                         loading(true);
-                            setTimeout(() => {
+                        setTimeout(() => {
 
-                                changeStatus($item, $target);
-                            }, 5000);
+                            changeStatus($item, $target);
+                        }, 5000);
 
 
 
@@ -252,7 +305,23 @@
 
             })
 
+            $('#create_update').submit(function(event) {
+                event.preventDefault();
+                submit_form('#create_update', null, '/tasks/' + item_id + '/addComment', false)
+                    .then(function(res) {
+                        loading(false);
+                        toastr["success"](res.message);
+                        $('#add_task_comment').modal('hide');
 
+                    }).catch(function(res) {
+                        loading(false);
+                        // var error = eval("(" + res.responseText + ")")
+                        // $.each(res.responseJSON.errors, function(index, value) {
+                        //     toastr["error"](value);
+                        // })
+
+                    });
+            });
 
         });
         $(document).on('click', '.plus', function() {
@@ -337,11 +406,14 @@
                     removeNextLevelButton($item);
                     var background_color = $item.attr('data-background-color');
                     $item.find('.play-pause').remove();
-                    $item.css('background',background_color);
+                    item_id = $item.attr('data-id');
+
+                    $item.css('background', background_color);
+                    $('#add_task_comment').modal('show');
                 }
                 if ($target.attr('id') == 'indo') {
 
-                   stopUIOtherTasks();
+                    stopUIOtherTasks();
                     $item.find('.container-play-pause').append(
                         '<div data-play="1" class="mt-1 play-pause" style="cursor:pointer">' +
                         '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
@@ -362,11 +434,11 @@
         }
 
 
-        function stopUIOtherTasks(){
-            $('ul#indo>li[data-user-id="'+{{ Auth::id() }}+'"]')
-                    .css('background', 'repeating-linear-gradient(45deg,' + '{{ Auth::user()->background_color }}' + ' 0px,' +
-                            '{{ Auth::user()->background_color }}' + ' 100px,#a3a3a3ab 300px,#a3a3a3ab 20px)');
-                            $('ul#indo>li[data-user-id="'+{{ Auth::id() }}+'"] .play-pause').attr('data-play',0);
+        function stopUIOtherTasks() {
+            $('ul#indo>li[data-user-id="' + {{ Auth::id() }} + '"]')
+                .css('background', 'repeating-linear-gradient(45deg,' + '{{ Auth::user()->background_color }}' + ' 0px,' +
+                    '{{ Auth::user()->background_color }}' + ' 100px,#a3a3a3ab 300px,#a3a3a3ab 20px)');
+            $('ul#indo>li[data-user-id="' + {{ Auth::id() }} + '"] .play-pause').attr('data-play', 0);
         }
     </script>
 @endsection

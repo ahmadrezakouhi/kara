@@ -20,7 +20,7 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_users" class="table  table-bordered border table-striped nowrap" width="100%">
+                <table id="tbl_users" class="table  table-bordered border table-striped wrap" width="100%">
                     <thead>
                         <th>شماره</th>
                         <th>نام </th>
@@ -86,7 +86,7 @@
 
 
 
-                        <div class="row my-3 d-flex align-items-center justify-content-center justify-content-between">
+                        <div class="row  my-3 d-flex align-items-center justify-content-center justify-content-between">
                             <div class="col-md-5">
                                 <label for="background_color" class="form-label">رنگ پس زمینه</label>
                                 <input type="text" class="form-control " id="background_color" name="background_color" dir="ltr" style="font-family: sans-serif">
@@ -98,21 +98,26 @@
                                 <input type="text" class="form-control " id="text_color" name="text_color" dir="ltr" style="font-family: sans-serif">
                                 <div class="text_color  border rounded" ></div>
                             </div>
-
-                            <div class="col-md-2  preview border rounded d-flex justify-content-center  align-items-center" style="height: 30px">
-                                ABCD
+                            <div class="col-md-2">
+                                <div class="  preview border rounded d-flex justify-content-center  align-items-center" style="height: 30px">
+                                    ABCD
+                                </div>
                             </div>
+
                         </div>
 
-
-                        <div class="row my-3">
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="changePassword" name="changePassword">
+                            <label class="form-check-label">رمز</label>
+                        </div>
+                        <div class="row my-3 password" style="display: none">
                             <div class="col-md-6">
                                 <label for="password" class="form-label">پسورد</label>
                                 <input type="password" class="form-control" id="password" name="password">
                             </div>
                             <div class="col-md-6">
-                                <label for="confirm_password" class="form-label">تکرار پسورد</label>
-                                <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+                                <label for="password_confirmation" class="form-label">تکرار پسورد</label>
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                             </div>
                         </div>
 
@@ -224,6 +229,7 @@
 
             $('#create_update').submit(function(event) {
                 event.preventDefault();
+                console.log($('#create_update').serialize())
                 submit_form('#create_update', clickButtonID, "{{ route('users.index') }}", )
                     .then(function(res) {
                         loading(false);
@@ -314,6 +320,11 @@
 
                 $('#add_users').modal('show');
 
+            });
+
+
+            $(document).on('change','#changePassword',function(){
+                $('.password').slideToggle();
             })
 
 

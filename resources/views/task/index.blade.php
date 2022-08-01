@@ -34,7 +34,7 @@
                 <div class="row pt-3">
 
                 </div>
-                <table id="tbl_requirements" class="table  table-bordered border table-striped nowrap display" style="width:100%">
+                <table id="tbl_tasks" class="table  table-bordered border table-striped wrap display" style="width:100%">
                     <thead>
                         <th>شماره</th>
                         <th>عنوان</th>
@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="add_requirements">
+    <div class="modal fade" id="add_tasks">
         <div class="modal-dialog ">
             <div class="modal-content">
 
@@ -229,7 +229,7 @@
 
             ];
             var table =
-                datatable('#tbl_requirements',
+                datatable('#tbl_tasks',
                     '{{ route('sprints.tasks.index', $sprint->id) }}',
                     columns);
 
@@ -243,7 +243,7 @@
                     .then(function(res) {
                         loading(false);
                         toastr["success"](res.message);
-                        $('#add_requirements').modal('hide');
+                        $('#add_tasks').modal('hide');
                         table.ajax.reload();
                     }).catch(function(res) {
                         loading(false);
@@ -309,7 +309,7 @@
                         } else {
                             $('#confirm').prop('checked', false);
                         }
-                        $('#add_requirements').modal('show');
+                        $('#add_tasks').modal('show');
                     })
                     .catch(function(res) {
                         loading(false);
@@ -330,7 +330,7 @@
             $('#create_button').click(function() {
                 clickButtonID = undefined;
                 removeIDValues('#create_update');
-                $('#add_requirements').modal('show');
+                $('#add_tasks').modal('show');
 
             })
 
