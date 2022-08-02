@@ -245,13 +245,13 @@
 
 
         $(document).on('keyup', '#user,#project', function() {
-            console.log($(this).val())
+
+
+            var url = '/tasks/task-board';
+            ajaxfunc(url, 'GET', $('#search').serialize()).then(function(res) {
             $('#todo').empty();
             $('#indo').empty();
             $('#done').empty();
-            var url = '/tasks/task-board';
-            ajaxfunc(url, 'GET', $('#search').serialize()).then(function(res) {
-
                 cards(res);
                 loading(false);
 
