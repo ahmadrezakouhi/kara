@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="container mt-3  shadow-sm border p-5 d-flex align-items-center rounded">
+       <form action="" method="post" id="search">
         <div class="row">
             <div class="col-md-6">
                 <label for="user">کاربر</label>
@@ -14,6 +15,7 @@
             </div>
 
         </div>
+       </form>
     </div>
     <div class="container border rounded mt-2">
 
@@ -99,144 +101,9 @@
                 '</svg>';
             ajaxfunc(url, 'GET', '').then(function(res) {
 
-
+                cards(res);
                 loading(false);
-                res.forEach(task => {
-                    var $li =
-                        '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   rounded " data-id="' +
-                        task.id + '" data-user-id="' + task.user_id + '" ' +
-                        ' data-background-color="' + task.user
-                        .background_color + '"' +
-                        'style="width:100%;height: 110px; background:' + (task.play != null && task
-                            .play == 0 ?
 
-                            'repeating-linear-gradient(45deg,' + task.user.background_color +
-                            ' 0px,' +
-                            task.user.background_color + ' 100px,#a3a3a3ab 300px,#a3a3a3ab 20px)' :
-                            task.user.background_color) +
-                        ';color:' + task.user.text_color + '">' +
-
-                        '<div class="d-flex justify-content-between"> ' +
-                        '<h5 class="">' + task.id + '# ' + '</h5> ' +
-
-                        '<p>' + task.user.fname + ' ' + task.user.lname + '</p>' +
-
-                        '<div class="d-flex flex-row-reverse justify-content-between " > ' +
-                        '<a class=" plus" style="text-decoration: none ;cursor: pointer ;color:' +
-                        task.user.text_color + '"><svg ' +
-                        'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
-                        'class="bi bi-plus-square-fill" viewBox="0 0 16 16"> ' +
-                        '<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" /> ' +
-                        '</svg></a> ' + ((task.status != 2) ? (
-                            '<a class=" next_level" style="text-decoration: none ;cursor: pointer ;color:' +
-                            task.user.text_color +
-                            '"><svg ' +
-                            'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
-                            'class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16"> ' +
-                            '<path ' +
-                            'd="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z" /> ' +
-                            '</svg></a> ') : '') +
-                        '(' + task.duration + 'دقیقه)' +
-                        '</div> ' +
-                        '</div> ' +
-                        '<p>' + (truncate(task.title, 45)) + '</p>' +
-                        '<div class="d-flex justify-content-between">' +
-                        '<p>' + (truncate(task.sprint.phase.project.title, 20)) + '/' + (truncate(
-                            task.sprint.phase.title, 20)) + '/' + (truncate(task.sprint.title,
-                            20)) + '</p>' +
-
-                        '</div>' +
-                        '<div class="content" style="display:none">' +
-                        '<table class="table  text-center table-bordered" style="width:100%;border : 1px ' +
-                        task.user.text_color + ';color:' + task.user.text_color + '">' +
-                        '<thead class="">' +
-                        '<tr>' +
-                        '<th width="33%">' +
-                        'ورود' +
-                        '</th>' +
-                        '<th width="33%">' +
-                        'انجام' +
-                        '</th>' +
-                        '<th width="33%">' +
-                        'پایان' +
-                        '</th>' +
-                        '<tr>' +
-                        '</thead>' +
-                        '<tbody >' +
-                        '<tr>' +
-                        '<td>' +
-                        covertGregorianToJalali(task.todo_date) +
-                        '<br>' +
-                        covertGregorianToJalaliTime(task.todo_date) +
-                        '</td>' +
-                        '<td>' +
-                        covertGregorianToJalali(task.indo_date) +
-                        '<br>' +
-                        covertGregorianToJalaliTime(task.indo_date) +
-                        '</td>' +
-                        '<td>' +
-                        covertGregorianToJalali(task.done_date) +
-                        '<br>' +
-                        covertGregorianToJalaliTime(task.done_date) +
-                        '</td>' +
-                        '</tr>' +
-
-
-                        '</table>' +
-
-                        '<hr>' +
-                        '<p class="" style="overflow-y:scroll;height:50px">' +
-                        (task.description ? task.description : '-') +
-                        '</p>' +
-
-                        '<div class="p-1 rounded bg-white">' +
-                        '<div class="progress">' +
-
-                        '<div class="progress-bar progress-bar-stripe2022-06-15 12:10:41d bg-info" role="progressbar"' +
-                        'style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">' +
-                        '</div>' +
-                        '</div>' +
-
-
-                        '</div>' +
-
-                        '<div class="d-flex justify-content-center container-play-pause">' +
-                        '<div  class="mt-1 play-pause" data-play="' + task.play + '"' +
-                        ' style="cursor:pointer">' +
-                        (task.play ?
-                            ('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
-                                '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
-                                '</svg>') :
-                            ('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
-                                '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>' +
-                                '</svg>')
-                        ) +
-                        '</div>' +
-                        '</div>' +
-
-
-                        '</div>' +
-                        '</li>';
-                    var target = '';
-                    if (task.status == 0) {
-                        target = '#todo';
-                    } else if (task.status == 1) {
-                        target = '#indo';
-
-                    } else {
-                        target = '#done';
-
-                    }
-                    $(target).append($li);
-
-                    if (task.status != 1) {
-
-                        var $play_pause_button = $(target).find('.play-pause');
-                        $play_pause_button.remove();
-
-                    }
-
-                });
             }).catch(function(res) {
                 loading(false);
             });
@@ -315,10 +182,7 @@
 
                     }).catch(function(res) {
                         loading(false);
-                        // var error = eval("(" + res.responseText + ")")
-                        // $.each(res.responseJSON.errors, function(index, value) {
-                        //     toastr["error"](value);
-                        // })
+
 
                     });
             });
@@ -378,6 +242,22 @@
 
 
         });
+
+
+        $(document).on('keyup', '#user,#project', function() {
+            console.log($(this).val())
+            $('#done').empty();
+            var url = '/tasks/task-board';
+            ajaxfunc(url, 'GET', $('#search').serialize()).then(function(res) {
+
+                cards(res);
+                loading(false);
+
+            }).catch(function(res) {
+                loading(false);
+            });
+
+        })
 
         function canMove(current, next) {
             return ((current == 'todo' && next == 'indo') || (current == 'indo' && next == 'done'));
@@ -439,6 +319,147 @@
                 .css('background', 'repeating-linear-gradient(45deg,' + '{{ Auth::user()->background_color }}' + ' 0px,' +
                     '{{ Auth::user()->background_color }}' + ' 100px,#a3a3a3ab 300px,#a3a3a3ab 20px)');
             $('ul#indo>li[data-user-id="' + {{ Auth::id() }} + '"] .play-pause').attr('data-play', 0);
+        }
+
+
+
+        function cards(res) {
+            res.forEach(task => {
+                var $li =
+                    '  <li class="animate__animated animate__flipInX list-group-item shadow mt-2   rounded " data-id="' +
+                    task.id + '" data-user-id="' + task.user_id + '" ' +
+                    ' data-background-color="' + task.user
+                    .background_color + '"' +
+                    'style="width:100%;height: 110px; background:' + (task.play != null && task
+                        .play == 0 ?
+
+                        'repeating-linear-gradient(45deg,' + task.user.background_color +
+                        ' 0px,' +
+                        task.user.background_color + ' 100px,#a3a3a3ab 300px,#a3a3a3ab 20px)' :
+                        task.user.background_color) +
+                    ';color:' + task.user.text_color + '">' +
+
+                    '<div class="d-flex justify-content-between"> ' +
+                    '<h5 class="">' + task.id + '# ' + '</h5> ' +
+
+                    '<p>' + task.user.fname + ' ' + task.user.lname + '</p>' +
+
+                    '<div class="d-flex flex-row-reverse justify-content-between " > ' +
+                    '<a class=" plus" style="text-decoration: none ;cursor: pointer ;color:' +
+                    task.user.text_color + '"><svg ' +
+                    'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
+                    'class="bi bi-plus-square-fill" viewBox="0 0 16 16"> ' +
+                    '<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" /> ' +
+                    '</svg></a> ' + ((task.status != 2) ? (
+                        '<a class=" next_level" style="text-decoration: none ;cursor: pointer ;color:' +
+                        task.user.text_color +
+                        '"><svg ' +
+                        'xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" ' +
+                        'class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16"> ' +
+                        '<path ' +
+                        'd="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z" /> ' +
+                        '</svg></a> ') : '') +
+                    '(' + task.duration + 'دقیقه)' +
+                    '</div> ' +
+                    '</div> ' +
+                    '<p>' + (truncate(task.title, 45)) + '</p>' +
+                    '<div class="d-flex justify-content-between">' +
+                    '<p>' + (truncate(task.sprint.phase.project.title, 20)) + '/' + (truncate(
+                        task.sprint.phase.title, 20)) + '/' + (truncate(task.sprint.title,
+                        20)) + '</p>' +
+
+                    '</div>' +
+                    '<div class="content" style="display:none">' +
+                    '<table class="table  text-center table-bordered" style="width:100%;border : 1px ' +
+                    task.user.text_color + ';color:' + task.user.text_color + '">' +
+                    '<thead class="">' +
+                    '<tr>' +
+                    '<th width="33%">' +
+                    'ورود' +
+                    '</th>' +
+                    '<th width="33%">' +
+                    'انجام' +
+                    '</th>' +
+                    '<th width="33%">' +
+                    'پایان' +
+                    '</th>' +
+                    '<tr>' +
+                    '</thead>' +
+                    '<tbody >' +
+                    '<tr>' +
+                    '<td>' +
+                    covertGregorianToJalali(task.todo_date) +
+                    '<br>' +
+                    covertGregorianToJalaliTime(task.todo_date) +
+                    '</td>' +
+                    '<td>' +
+                    covertGregorianToJalali(task.indo_date) +
+                    '<br>' +
+                    covertGregorianToJalaliTime(task.indo_date) +
+                    '</td>' +
+                    '<td>' +
+                    covertGregorianToJalali(task.done_date) +
+                    '<br>' +
+                    covertGregorianToJalaliTime(task.done_date) +
+                    '</td>' +
+                    '</tr>' +
+
+
+                    '</table>' +
+
+                    '<hr>' +
+                    '<p class="" style="overflow-y:scroll;height:50px">' +
+                    (task.description ? task.description : '-') +
+                    '</p>' +
+
+                    '<div class="p-1 rounded bg-white">' +
+                    '<div class="progress">' +
+
+                    '<div class="progress-bar progress-bar-stripe2022-06-15 12:10:41d bg-info" role="progressbar"' +
+                    'style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">' +
+                    '</div>' +
+                    '</div>' +
+
+
+                    '</div>' +
+
+                    '<div class="d-flex justify-content-center container-play-pause">' +
+                    '<div  class="mt-1 play-pause" data-play="' + task.play + '"' +
+                    ' style="cursor:pointer">' +
+                    (task.play ?
+                        ('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">' +
+                            '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>' +
+                            '</svg>') :
+                        ('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">' +
+                            '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>' +
+                            '</svg>')
+                    ) +
+                    '</div>' +
+                    '</div>' +
+
+
+                    '</div>' +
+                    '</li>';
+                var target = '';
+                if (task.status == 0) {
+                    target = '#todo';
+                } else if (task.status == 1) {
+                    target = '#indo';
+
+                } else {
+                    target = '#done';
+
+                }
+                $(target).append($li);
+
+                if (task.status != 1) {
+
+                    var $play_pause_button = $(target).find('.play-pause');
+                    $play_pause_button.remove();
+
+                }
+
+            });
         }
     </script>
 @endsection

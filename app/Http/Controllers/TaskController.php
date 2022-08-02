@@ -11,6 +11,8 @@ use App\Models\Time;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Database\Eloquent\Builder;
+use DB;
 
 class TaskController extends Controller
 {
@@ -36,7 +38,7 @@ class TaskController extends Controller
             );
             return response()->json($data);
         }
-        return view('task.index', compact('sprint', 'categories','users'));
+        return view('task.index', compact('sprint', 'categories', 'users'));
     }
 
 
@@ -46,7 +48,7 @@ class TaskController extends Controller
         $user = Auth::user();
         if ($request->ajax()) {
             if ($user->isAdmin()) {
-                $tasks = Task::orderBy('id','DESC')->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
+                $tasks = Task::orderBy('id', 'DESC')->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
                     ->get();
             } else {
                 $tasks = $user->tasks()->with(['category:id,name', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title', 'user:id,fname,lname'])
@@ -82,22 +84,35 @@ class TaskController extends Controller
 
     public function taskBoard(Request $request)
     {
+
         $user = Auth::user();
         if ($request->ajax()) {
             $tasks = [];
             if ($user->isAdmin()) {
-                $tasks = Task::orderBy('updated_at','DESC')->where('todo_date','!=',null)->get();
+            
+                    $tasks = Task::with('user:id,fname,lname,background_color,text_color', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title')->orderBy('updated_at', 'desc')->orderBy('status', 'asc')->where('todo_date', '!=', null)
+                        ->whereHas('user', function (Builder $query) use ($request) {
+                            $query->where('lname', 'like', '%' . $request->user . '%');
+                        })->whereHas('sprint.phase.project', function (Builder $query) use ($request) {
+                            $query->where('title', 'like', '%' . $request->project . '%');
+                        })->get();
+                // }
             } else {
-                $tasks=[];
-                foreach ($user->projects as $project) {
+                $tasks = [];
+
+                    $projects =
+                        $user->projects()->where('title', 'like', '%' . $request->project . '%')
+                        ->get();
+
+                foreach ($projects as $project) {
                     foreach ($project->phases as $phase) {
                         foreach ($phase->sprints as $sprint) {
-                            foreach ($sprint->tasks as $task) {
+                            foreach ($sprint->tasks()->with('user')->whereHas('user',function(Builder $query) use($request){
+                                $query->where('lname','like','%'.$request->user.'%');
+                            } )->get() as $task) {
                                 if ($task->todo_date) {
 
                                     $tasks[] = $task;
-
-
                                 }
                             }
                         }
@@ -106,8 +121,8 @@ class TaskController extends Controller
                 // sort tasks
                 $tasks = collect($tasks);
                 $tasks = $tasks->sortBy([
-                    ['updated_at','desc'],
-                    ['status','asc']
+                    ['updated_at', 'desc'],
+                    ['status', 'asc']
                 ]);
             }
             return response()->json($tasks);
@@ -149,7 +164,7 @@ class TaskController extends Controller
         $user = $users->find(Auth::id());
 
         $inputs = $request->all();
-        if($user && $user->pivot->developer){
+        if ($user && $user->pivot->developer) {
             $inputs['user_id'] = Auth::id();
         }
         // if(!$user->isAdmin()){
@@ -207,7 +222,7 @@ class TaskController extends Controller
     {
         $user = Auth::user();
         if ($task->status == 0) {
-            $user->tasks()->whereNull('done_date')->where('play',1)->update(['play'=>0]);
+            $user->tasks()->whereNull('done_date')->where('play', 1)->update(['play' => 0]);
             $task->status = 1;
             $task->play = 1;
             Time::create([
@@ -235,7 +250,7 @@ class TaskController extends Controller
                 'task_id' => $task->id,
                 'start' => Carbon::now()
             ]);
-            $user->tasks()->whereNull('done_date')->where('play',1)->update(['play'=>0]);
+            $user->tasks()->whereNull('done_date')->where('play', 1)->update(['play' => 0]);
             $task->play = 1;
         } else {
             $time->stop = Carbon::now();
@@ -248,22 +263,22 @@ class TaskController extends Controller
         return response()->json();
     }
 
-    public function accept(Task $task){
-        if($task->indo_date == null && $task->done_date == null && $task->todo_date != null){
-            $task->update(['todo_date'=>null]);
-            return response()->json(['message'=>'تسک مورد نظر لغو تایید  شد.']);
-        }else{
-            $task->update(['todo_date'=>now()]);
-            return response()->json(['message'=>'تسک مورد نظر تایید شد.']);
+    public function accept(Task $task)
+    {
+        if ($task->indo_date == null && $task->done_date == null && $task->todo_date != null) {
+            $task->update(['todo_date' => null]);
+            return response()->json(['message' => 'تسک مورد نظر لغو تایید  شد.']);
+        } else {
+            $task->update(['todo_date' => now()]);
+            return response()->json(['message' => 'تسک مورد نظر تایید شد.']);
         }
-
     }
 
-    public function addComment(Request $request ,Task $task){
+    public function addComment(Request $request, Task $task)
+    {
         $task->comment = $request->comment;
         $task->save();
-        return response()->json(['message'=>'توضیحات پایانی افزوده شد.']);
-
+        return response()->json(['message' => 'توضیحات پایانی افزوده شد.']);
     }
 
     /**
