@@ -246,7 +246,7 @@
 
         $(document).on('keyup', '#user,#project', function() {
             console.log($(this).val())
-            $('#done').empty();
+            $('#todo #indo #done').empty();
             var url = '/tasks/task-board';
             ajaxfunc(url, 'GET', $('#search').serialize()).then(function(res) {
 
