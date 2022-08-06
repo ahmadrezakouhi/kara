@@ -40,7 +40,7 @@ class SprintController extends Controller
         $user = Auth::user();
         if ($request->ajax()) {
             if ($user->isAdmin()) {
-                $sprints = Sprint::select('id','title', 'description', 'start_date', 'end_date', 'phase_id')->with(
+                $sprints = Sprint::select('id','title', 'description', 'start_date', 'end_date', 'phase_id','status')->with(
 
                     ['phase:id,title,project_id', 'phase.project:id,title', 'phase.project.users' => function ($query) {
                         $query->where('admin', '1');
@@ -151,6 +151,35 @@ class SprintController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+
+    public function changeStatus(Request $request , Sprint $sprint){
+
+        switch ($request->status) {
+            case 0:
+                $sprint->status = 0;
+                $sprint->tasks()
+                ->whereNotNull('indo_date')
+                ->whereNull('done_date')
+                ->where('play',1)
+                ->update(['play'=>0]);
+                break;
+            case 1 :
+                $sprint->status = 1;
+                $sprint->tasks()
+                ->whereNotNull('indo_date')
+                ->whereNull('done_date')
+                ->where('play',0)
+                ->update(['play'=>1]);
+                break;
+            case 2 :
+                $sprint->status = 2;
+                break;
+        }
+
+        $sprint->save();
+        return response()->json(['message'=>'وضعیت اسپرینت تغییر پیدا کرد.']);
     }
 
     /**
