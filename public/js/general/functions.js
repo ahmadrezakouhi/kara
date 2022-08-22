@@ -66,7 +66,7 @@ function datatable(table_id, url, columns,removeButtons=true , paginate = true) 
 
         createdRow: function (row, data, dataIndex) {
 
-            $(row).find('button,.dropdown-item').attr("data-id", data['id']);
+            $(row).find('button,.dropdown-item,.status').attr("data-id", data['id']);
 
             if (removeButtons) {
                 if(!isSuperAdmin){

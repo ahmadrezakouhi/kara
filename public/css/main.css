@@ -141,3 +141,8 @@ a{
 	color: #fff;
 	background-color: #a5673f;
 } */
+
+.table td{
+
+    text-align: justify;
+  }

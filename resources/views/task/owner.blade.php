@@ -107,20 +107,25 @@
                                 return 'پایان';
                                 break;
                         }
-                    }
+                    },
+                    responsivePriority: 10001,
                 },
 
                 {
-                    data: 'category.name'
+                    data: 'category.name',
+                    responsivePriority: 10001,
                 },
                 {
-                    data: 'sprint.title'
+                    data: 'sprint.title',
+                    responsivePriority: 10001,
                 },
                 {
-                    data: 'sprint.phase.title'
+                    data: 'sprint.phase.title',
+                    responsivePriority: 10001,
                 },
                 {
-                    data: 'sprint.phase.project.title'
+                    data: 'sprint.phase.project.title',
+                    responsivePriority: 10001,
                 },
                 {
                     responsivePriority: 0,

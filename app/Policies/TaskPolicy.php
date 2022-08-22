@@ -126,7 +126,7 @@ class TaskPolicy
 
     public function changeStatus(User $user, Task $task)
     {
-        return $user->id == $task->user_id;
+        return ($user->id == $task->user_id) && ($task->sprint->status == 1);
     }
 
     public function playPause(User $user, Task $task)
