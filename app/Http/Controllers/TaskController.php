@@ -89,7 +89,7 @@ class TaskController extends Controller
         if ($request->ajax()) {
             $tasks = [];
             if ($user->isAdmin()) {
-            
+
                     $tasks = Task::with('user:id,fname,lname,background_color,text_color', 'sprint:id,title,phase_id', 'sprint.phase:id,title,project_id', 'sprint.phase.project:id,title')->orderBy('updated_at', 'desc')->orderBy('status', 'asc')->where('todo_date', '!=', null)
                         ->whereHas('user', function (Builder $query) use ($request) {
                             $query->where('lname', 'like', '%' . $request->user . '%');

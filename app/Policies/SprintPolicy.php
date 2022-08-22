@@ -112,4 +112,13 @@ class SprintPolicy
     {
         //
     }
+
+
+    public function changeStatus(User $user , Sprint $sprint){
+        $project = $sprint->phase->project;
+        $project_user = $user->projects->find($project->id);
+        return (($project_user && $project_user->pivot->admin) || $user->isAdmin()) ?
+        Response::allow() : Response::deny('مجوز تغییر وضعیت اسپرینت را ندارید.');
+
+    }
 }

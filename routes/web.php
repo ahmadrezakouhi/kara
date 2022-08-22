@@ -200,6 +200,8 @@ Route::prefix('tasks')->middleware('auth')->group(function () {
 
 Route::prefix('sprints')->middleware('auth')->group(function () {
     Route::get('/', [SprintController::class, 'owner'])->name('sprints.owner');
+    Route::post('/{sprint}/change-status',[SprintController::class,'changeStatus'])
+    ->name('sprints.change-status')->can('changeStatus','sprint');
 });
 
 Route::prefix('phases')->middleware('auth')->group(function () {
