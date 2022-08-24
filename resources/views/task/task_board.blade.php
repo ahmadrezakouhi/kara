@@ -247,11 +247,13 @@
         $(document).on('keyup', '#user,#project', function() {
 
 
+
             var url = '/tasks/task-board';
             ajaxfunc(url, 'GET', $('#search').serialize()).then(function(res) {
             $('#todo').empty();
             $('#indo').empty();
             $('#done').empty();
+
                 cards(res);
                 loading(false);
 
